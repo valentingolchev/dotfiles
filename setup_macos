@@ -12,5 +12,7 @@ brew install alacritty
 brew install neovim
 brew install tmux
 
+brew install zoxide
+
 brew install --cask font-hack-nerd-font font-fira-mono-nerd-font font-jetbrains-mono-nerd-font
 

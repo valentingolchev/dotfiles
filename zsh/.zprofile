@@ -37,6 +37,7 @@ alias vi='nvim'
 alias invim='nvim $(fzf -m --preview="bat --color=always {}")'
 
 [[ -s "$HOME/.config/.aliases-git" ]] && source "$HOME/.config/.aliases-git"
+[[ -s "$HOME/.config/.fzf.zsh" ]] && source "$HOME/.config/.fzf.zsh"
 
 # Load work profile if it exists
 [[ -s "$HOME/.work.zprofile" ]] && source "$HOME/.work.zprofile"

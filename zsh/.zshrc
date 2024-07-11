@@ -25,5 +25,8 @@ bindkey "^[[B" history-search-forward
 export PATH="$PATH:$HOME/.tmux/plugins/tmuxifier/bin"
 eval "$(tmuxifier init -)"
 
+# Set up fzf key bindings and fuzzy completion
+eval "$(fzf --zsh)"
+
 eval "$(zoxide init zsh)"
 eval "$(starship init zsh)"

@@ -1,0 +1,77 @@
+#########################################################
+#                                                       #
+#                       Aliases                         #
+#                                                       #
+#########################################################
+
+alias srcbrc='source ~/.bashrc'
+alias srcprofile='source ~/.bash_profile'
+alias srczshrc='source ~/.zshrc'
+alias cd-eba='cd ~/workspace/easybook-admin-mobile'
+alias cd-ebc='cd ~/workspace/easybook-mobile-client'
+
+#############################################
+#                                           #
+#             Project Setup                 #
+#                                           #
+#############################################
+
+alias setup-eslint="export PKG=eslint-config-airbnb; npm info '$PKG@latest' peerDependencies --json | command sed 's/[\{\},]//g ; s/: /@/g' | xargs npm install --save-dev '$PKG@latest'"
+
+#############################################
+#                                           #
+#              Git Commands                 #
+#                                           #
+#############################################
+alias gs='git status'
+alias st='status'
+alias ga='git add'
+alias gb='git branch'
+alias gc='git commit'
+alias gd='git diff'
+alias go='git checkout'
+alias co='checkout'
+alias gk='gitk --all&'
+alias gx='gitx --all'
+alias g='git'
+alias got='git'
+alias get='git'
+alias fetch='git fetch'
+alias pull='git pull'
+alias push='git push'
+alias upload='git push -u origin'
+alias clean='git clean -df'
+alias up='push origin'
+alias down='pull origin'
+alias br='checkout -b'
+alias publish='git push -u origin $(git branch --show-current)'
+alias unpublish='git push origin :$(git branch --show-current)'
+
+alias ghist='g log --pretty --graph --date=short'
+alias gbclean='git branch --merged | grep -v "\*" | xargs -n 1 git branch -d'
+
+#############################################
+#                                           #
+#                React Native               #
+#                                           #
+#############################################
+
+alias rn='react-native'
+alias rn-ra='react-native run-android'
+alias rn-loga='react-native log-android'
+alias rn-pkgr='react-native start --port 8081'
+alias packager-eb='cd-eb && react-native start --port 8081'
+alias run-eb='cd-eb && react-native run-android'
+alias log-eb='cd-eb && react-native log-android'
+
+#############################################
+#                                           #
+#                    NPM                    #
+#                                           #
+#############################################
+
+alias ls-global-pkgs='npm list -g --depth=0'
+alias npm-pkgs='npm list --depth=0'
+alias yarn-pkgs='yarn list --depth=0'
+
+

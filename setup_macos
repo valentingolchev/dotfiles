@@ -1,0 +1,16 @@
+
+
+brew tap 'homebrew/cask'
+brew tap 'homebrew/cask-fonts'
+
+brew install git
+brew install ruby
+brew install stow
+
+brew install starship
+brew install alacritty
+brew install neovim
+brew install tmux
+
+brew install --cask font-hack-nerd-font font-fira-mono-nerd-font font-jetbrains-mono-nerd-font
+

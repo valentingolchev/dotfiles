@@ -20,6 +20,11 @@ alias srczsh='source ~/.zshrc'
 alias srczprofile='source ~/.zprofile'
 alias srczenv='source ~/.zenv'
 
+alias ls="eza --icons=always"
+alias ll="ls -l"
+alias lla="ls -la"
+alias cd="z"
+
 [[ -s "$HOME/.config/.aliases-git" ]] && source "$HOME/.config/.aliases-git"
 
 # Load work profile if it exists

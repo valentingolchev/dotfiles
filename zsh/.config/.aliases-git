@@ -26,6 +26,8 @@ alias down='pull origin'
 alias br='checkout -b'
 alias publish='git push -u origin $(git branch --show-current)'
 alias unpublish='git push origin :$(git branch --show-current)'
+alias amen='gc --amend'
+alias please='push --force-with-lease'
 
 alias ghist='g log --pretty --graph --date=short'
 alias gbclean='git branch --merged | grep -v "\*" | xargs -n 1 git branch -d'

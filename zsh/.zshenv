@@ -1,3 +1,5 @@
+#!/bin/zsh
+
 export PATH="/usr/local/opt/curl/bin:$PATH"
 
 #########################################################
@@ -18,7 +20,4 @@ jdk() {
   export JAVA_HOME=$(/usr/libexec/java_home -v"$version");
   java -version
 }
-
-# default to Java 11
-java11
 

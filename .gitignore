@@ -1,0 +1,4 @@
+# tmux
+tmux/.tmux/plugins/*
+!tmux/.tmux/plugins/tmp
+

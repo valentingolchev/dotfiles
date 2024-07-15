@@ -22,8 +22,7 @@ setopt hist_verify
 bindkey "^[[A" history-search-backward
 bindkey "^[[B" history-search-forward
 
-# Tmuxifier
-export PATH="$HOME/.tmuxifier/bin:$PATH"
+export PATH="$PATH:$HOME/.tmux/plugins/tmuxifier/bin"
 eval "$(tmuxifier init -)"
 
 eval "$(zoxide init zsh)"

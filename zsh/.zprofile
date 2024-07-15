@@ -1,7 +1,8 @@
 #!/bin/zsh
 
-# Don't use MacOS system Ruby
+eval "$(/opt/homebrew/bin/brew shellenv)"
 
+# Don't use MacOS system Ruby
 if [ -d "/opt/homebrew/opt/ruby/bin" ]; then
   export PATH=/opt/homebrew/opt/ruby/bin:$PATH
   export PATH=`gem environment gemdir`/bin:$PATH
@@ -24,9 +25,12 @@ alias srczsh='source ~/.zshrc'
 alias srczprofile='source ~/.zprofile'
 alias srczenv='source ~/.zshenv'
 
-alias ls="eza --icons=always"
+alias edit-dotfiles='nvim ~/git/dotfiles'
+alias edit-dotfiles-work='nvim ~/git/dotfiles-work'
+
+alias ls="eza --icons=always --group-directories-first -w=1"
 alias ll="ls -l"
-alias lla='ll -latr'
+alias lla='ls -l -a'
 alias cd="z"
 
 alias vi='nvim'

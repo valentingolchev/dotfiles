@@ -84,6 +84,15 @@ I hope you enjoy your Neovim journey,
 P.S. You can delete this when you're done too. It's your config now! :)
 --]]
 
+---Utility function which just returns a function requiring the specific plugin module
+---@param module string The configuration module to require (must reside in the "plugin" folder)
+---@return function config-fn A proper configuration function being used with lazy.nvim package manager
+local function plugin_config(module)
+  return function()
+    require('plugins.' .. module)
+  end
+end
+
 -- Set <space> as the leader key
 -- See `:help mapleader`
 --  NOTE: Must happen before plugins are loaded (otherwise wrong leader will be used)
@@ -124,6 +133,7 @@ require('lazy').setup({ import = 'user/plugins' }, {
     notify = true,
   },
   ui = {
+    border = 'single',
     -- If you are using a Nerd Font: set icons to an empty table which will use the
     -- default lazy.nvim defined Nerd Font icons, otherwise define a unicode icons table
     icons = vim.g.have_nerd_font and {} or {

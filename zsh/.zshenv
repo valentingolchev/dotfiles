@@ -21,3 +21,4 @@ jdk() {
   java -version
 }
 
+. "$HOME/.cargo/env"

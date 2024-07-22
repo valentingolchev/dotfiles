@@ -1,6 +1,12 @@
 #!/bin/zsh
 
-eval "$(/opt/homebrew/bin/brew shellenv)"
+if [ -d "/opt/homebrew/bin/brew" ]; then
+  eval "$(/opt/homebrew/bin/brew shellenv)"
+fi
+
+if [ -d "/usr/local/bin/brew" ]; then
+  eval "$(/usr/local/bin/brew shellenv)"
+if
 
 # Don't use MacOS system Ruby
 if [ -d "/opt/homebrew/opt/ruby/bin" ]; then
@@ -32,6 +38,7 @@ alias ls="eza --icons=always --group-directories-first -w=1"
 alias ll="ls -l"
 alias lla='ls -l -a'
 alias cd="z"
+alias ..="cd .."
 
 alias vi='nvim'
 alias invim='nvim $(fzf -m --preview="bat --color=always {}")'

@@ -103,6 +103,7 @@ vim.g.maplocalleader = ' '
 vim.g.have_nerd_font = true
 
 require 'user.options'
+require 'user.config'
 require 'user.keymaps'
 
 -- [[ Install `lazy.nvim` plugin manager ]]

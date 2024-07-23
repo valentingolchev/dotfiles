@@ -43,6 +43,8 @@ alias ..="cd .."
 alias vi='nvim'
 alias invim='nvim $(fzf -m --preview="bat --color=always {}")'
 
+alias reset_dock='~/.config/reset_macos_dock.sh'
+
 [[ -s "$HOME/.config/.aliases-git" ]] && source "$HOME/.config/.aliases-git"
 [[ -s "$HOME/.config/.fzf.zsh" ]] && source "$HOME/.config/.fzf.zsh"
 

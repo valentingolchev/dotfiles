@@ -1,6 +1,11 @@
 #!/bin/zsh
+#
+# Execution order
+# 🚀 .zshenv
+# -- .zprofile
+# -- .zshrc
 
-export PATH="/usr/local/opt/curl/bin:$PATH"
+export PATH="$PATH:/usr/local/opt/curl/bin"
 
 #########################################################
 #                                                       #

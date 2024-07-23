@@ -1,4 +1,9 @@
 #!/bin/zsh
+#
+# Execution order
+# ✅ .zshenv
+# ✅ .zprofile
+# 🚀 .zshrc
 
 # Setup zsh-autosuggestions
 source $(brew --prefix)/share/zsh-autosuggestions/zsh-autosuggestions.zsh

@@ -59,8 +59,8 @@ alias edit-dotfiles='nvim ~/git/dotfiles'
 alias edit-dotfiles-work='nvim ~/git/dotfiles-work'
 
 alias lse='eza --icons=always --group-directories-first -w=1'
-alias ll='ls -l'
-alias lla='ls -l -a'
+alias ll='lse -l'
+alias lla='lse -l -a'
 alias cd='z'
 alias ..='cd ..'
 

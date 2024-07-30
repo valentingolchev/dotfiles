@@ -14,7 +14,9 @@ return {
       'hy',
       'lisp',
     },
-    init = require 'user.plugins.custom.conjure',
+    init = function()
+      require 'user.plugins.custom.conjure'
+    end,
     config = function()
       require('conjure.main').main()
       require('conjure.mapping')['on-filetype']()

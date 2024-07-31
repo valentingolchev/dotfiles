@@ -3,12 +3,13 @@
 format = """
 [](surface0)\
 $os\
-[](bg:lavender fg:surface0)\
+$username\
+[](bg:peach fg:surface0)\
 $directory\
-[](fg:lavender bg:maroon)\
+[](fg:peach bg:green)\
 $git_branch\
 $git_status\
-[](fg:maroon bg:teal)\
+[](fg:green bg:teal)\
 $rust\
 $golang\
 $nodejs\
@@ -16,19 +17,13 @@ $java\
 $kotlin\
 $haskell\
 $python\
+$nix_shell\
 [](fg:teal bg:blue)\
 $docker_context\
 [](fg:blue bg:purple)\
-$nix_shell\
-[ ](purple)\
-$fill\
-[ ](fg:peach)\
-$aws\
-[](fg:green bg:peach)\
-$battery\
-[](fg:purple bg:green)\
 $time\
-[](purple)\
+[ ](fg:purple)\
+$aws\
 $line_break$character"""
 
 palette = 'catppuccin_mocha'
@@ -93,7 +88,7 @@ style_root = "bg:surface0 fg:text"
 format = '[ $user ]($style)'
 
 [directory]
-style = "fg:mantle bg:lavender"
+style = "fg:mantle bg:peach"
 format = "[ $path ]($style)"
 truncation_length = 3
 truncation_symbol = "…/"
@@ -107,17 +102,17 @@ truncation_symbol = "…/"
 
 [git_branch]
 symbol = ""
-style = "fg:base bg:maroon"
+style = "fg:base bg:green"
 format = '[ $symbol $branch ]($style)'
 
 [git_status]
-style = "fg:base bg:maroon"
+style = "fg:base bg:green"
 format = '[($all_status$ahead_behind)]($style)'
 
 [aws]
 symbol = ' '
-style = "fg:mantle bg:peach"
-format = '[ $symbol($profile )(\($region\)) ]($style)'
+style = "fg:peach bg:none"
+format = '[ $symbol($profile)(\($region\)) ]($style)'
 
 [aws.region_aliases]
 eu-west-1 = 'eu1'
@@ -196,12 +191,12 @@ disabled = false
 
 [character]
 disabled = false
-success_symbol = '[](bold fg:green)'
-error_symbol = '[](bold fg:red)'
-vimcmd_symbol = '[](bold fg:creen)'
-vimcmd_replace_one_symbol = '[](bold fg:purple)'
-vimcmd_replace_symbol = '[](bold fg:purple)'
-vimcmd_visual_symbol = '[](bold fg:lavender)'
+# success_symbol = '[](bold fg:green)'
+# error_symbol = '[](bold fg:red)'
+# vimcmd_symbol = '[](bold fg:creen)'
+# vimcmd_replace_one_symbol = '[](bold fg:purple)'
+# vimcmd_replace_symbol = '[](bold fg:purple)'
+# vimcmd_visual_symbol = '[](bold fg:lavender)'
 
 [cmd_duration]
 style = "bg:peach"

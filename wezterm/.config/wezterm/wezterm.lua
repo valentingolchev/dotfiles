@@ -7,7 +7,7 @@ wezterm.on("gui-startup", function()
 	window:gui_window():maximize()
 end)
 
-config.color_scheme = "Catppuccin Mocha" -- or Macchiato, Frappe, Latte
+config.color_scheme = "Catppuccin Latte" -- Moch, Macchiato, Frappe, Latte
 
 config.font = wezterm.font("Hack Nerd Font Mono")
 config.font_size = 16

@@ -1,3 +1,5 @@
+eval "$('/opt/homebrew/bin/brew' shellenv)"
+
 #!/bin/zsh
 #
 # Execution order
@@ -35,4 +37,3 @@ eval "$(fzf --zsh)"
 
 eval "$(zoxide init zsh)"
 eval "$(starship init zsh)"
-

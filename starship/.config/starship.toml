@@ -206,8 +206,8 @@ symbol = ""
 
 [docker_context]
 symbol = " "
-style = "bg:mantle"
-format = '[[ $symbol( $context) ](fg:#83a598 bg:color_bg3)]($style)'
+style = "fg:mantle bg:blue"
+format = '[ $symbol($context) ]($style)'
 
 [time]
 disabled = false

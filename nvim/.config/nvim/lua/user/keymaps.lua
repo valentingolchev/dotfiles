@@ -33,9 +33,26 @@ map('t', '<Esc><Esc>', '<C-\\><C-n>', { desc = 'Exit terminal mode' })
 
 map('n', '<leader>ntt', ':tabnew | term', { desc = 'Open [New] [T]erminal in a new [Tab].' })
 
+map('n', '<leader>st', function()
+  vim.cmd.vnew()
+  vim.cmd.term()
+  vim.cmd.wincmd 'J'
+  vim.api.nvim_win_set_height(0, 10)
+end, { desc = 'Open [S]mall [T]erminal.' })
+
+vim.api.nvim_create_autocmd('TermOpen', {
+  group = vim.api.nvim_create_augroup('custom-term-open', { clear = true }),
+  callback = function()
+    vim.opt.number = false
+    vim.opt.relativenumber = false
+  end,
+})
+
 -- paste in visual mode without replacing register content
 map('x', 'p', [['pgv' . v:register . 'y']], { noremap = true, expr = true })
 
 -- keep selection while shifting
 map('v', '>', '>gv')
 map('v', '<', '<gv')
+
+map('n', '<space><space>x', '<cmd>source %<CR>', { desc = 'Source the current buffer.' })

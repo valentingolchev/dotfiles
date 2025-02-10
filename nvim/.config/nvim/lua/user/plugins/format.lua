@@ -26,12 +26,19 @@ return {
       end,
       formatters_by_ft = {
         lua = { 'stylua' },
+        clojure = { 'cljkondo', 'cljfmt' },
         -- Conform can also run multiple formatters sequentially
         -- python = { "isort", "black" },
         --
         -- You can use a sub-list to tell conform to run *until* a formatter
         -- is found.
         -- javascript = { { "prettierd", "prettier" } },
+      },
+      formatters = {
+        cljkondo = {
+          -- Change where to find the command
+          command = 'opt/homebrew/bin/clj-kondo',
+        },
       },
     },
   },

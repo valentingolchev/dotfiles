@@ -49,7 +49,7 @@ vim.api.nvim_create_autocmd('TermOpen', {
 })
 
 -- paste in visual mode without replacing register content
-map('x', 'p', [['pgv' . v:register . 'y']], { noremap = true, expr = true })
+map('v', 'p', [['pgv' . v:register . 'y']], { noremap = true, expr = true })
 
 -- keep selection while shifting
 map('v', '>', '>gv')

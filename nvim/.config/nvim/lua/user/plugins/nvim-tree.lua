@@ -1,4 +1,5 @@
 return {
+  { 'nvim-tree/nvim-web-devicons' },
   {
     'nvim-tree/nvim-tree.lua',
     config = function()
@@ -45,5 +46,4 @@ return {
       keymap.set('n', '<leader>tr', '<cmd>NvimTreeRefresh<CR>', { desc = 'Refresh file explorer' })
     end,
   },
-  { 'nvim-tree/nvim-web-devicons' },
 }

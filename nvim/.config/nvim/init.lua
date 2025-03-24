@@ -89,7 +89,7 @@ P.S. You can delete this when you're done too. It's your config now! :)
 ---@return function config-fn A proper configuration function being used with lazy.nvim package manager
 local function plugin_config(module)
   return function()
-    require('plugins.' .. module)
+    require('user.plugins.' .. module)
   end
 end
 

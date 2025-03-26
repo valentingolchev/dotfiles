@@ -32,6 +32,28 @@ return {
         return '%2l:%-2v'
       end
 
+      require('mini.splitjoin').setup()
+
+      -- 'g=' - Evaluate text and replace with output
+      -- 'gx' - E[x]change text regions
+      -- 'gm' - [M]ultiply (duplicate) text
+      -- 'gr' - [R]eplace text with register
+      -- 'gs' - [S]ort text
+      require('mini.operators').setup()
+
+      -- Move visual selection in Visual mode. Defaults are Alt (Meta) + hjkl.
+      -- left = '<M-h>',
+      -- right = '<M-l>',
+      -- down = '<M-j>',
+      -- up = '<M-k>',
+      --
+      -- Move current line in Normal mode
+      -- line_left = '<M-h>',
+      -- line_right = '<M-l>',
+      -- line_down = '<M-j>',
+      -- line_up = '<M-k>',
+      require('mini.move').setup()
+
       -- ... and there is more!
       --  Check out: https://github.com/echasnovski/mini.nvim
     end,

@@ -24,6 +24,6 @@ return {
     { 'nvim-tree/nvim-web-devicons', enabled = vim.g.have_nerd_font },
   },
   config = function()
-    require "user.plugins.custom.telescope"
+    require 'user.config.plugins.telescope'
   end,
 }

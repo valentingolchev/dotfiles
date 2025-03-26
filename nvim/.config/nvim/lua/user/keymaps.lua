@@ -23,15 +23,10 @@ map('n', ']d', vim.diagnostic.goto_next, { desc = 'Go to next [D]iagnostic messa
 map('n', '<leader>e', vim.diagnostic.open_float, { desc = 'Show diagnostic [E]rror messages' })
 map('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagnostic [Q]uickfix list' })
 
--- Exit terminal mode in the builtin terminal with a shortcut that is a bit easier
--- for people to discover. Otherwise, you normally need to press <C-\><C-n>, which
--- is not what someone will guess without a bit more experience.
---
--- NOTE: This won't work in all terminal emulators/tmux/etc. Try your own mapping
--- or just use <C-\><C-n> to exit terminal mode
+-- Exit terminal mode in the builtin terminal
 map('t', '<Esc><Esc>', '<C-\\><C-n>', { desc = 'Exit terminal mode' })
 
-map('n', '<leader>ntt', ':tabnew | term', { desc = 'Open [New] [T]erminal in a new [Tab].' })
+map('n', '<leader>ntt', ':tabnew | term<CR>', { desc = 'Open [New] [T]erminal in a new [Tab].' })
 
 map('n', '<leader>st', function()
   vim.cmd.vnew()
@@ -48,11 +43,22 @@ vim.api.nvim_create_autocmd('TermOpen', {
   end,
 })
 
--- paste in visual mode without replacing register content
-map('v', 'p', [['pgv' . v:register . 'y']], { noremap = true, expr = true })
-
 -- keep selection while shifting
 map('v', '>', '>gv')
 map('v', '<', '<gv')
+
+-- paste in visual mode without replacing register content (by default)
+map('x', 'p', 'P', { noremap = true })
+map('x', 'P', 'p', { noremap = true })
+
+-- close all other folds but the current one (using the 'z' mark)
+map('n', 'z<C-f>', "mzzM'zzxzz", { desc = 'focus the current fold' })
+
+local mc_select = [[y/\V\C<C-r>=escape(@", '/')<CR><CR>]]
+
+map('n', 'cn', '*``cgn', { desc = 'mc change word (forward)' })
+map('n', 'cN', '*``cgN', { desc = 'mc change word (backward)' })
+map('x', '<leader>cn', mc_select .. '``cgn', { desc = 'mc change selection (forward)' })
+map('x', '<leader>cN', mc_select .. '``cgN', { desc = 'mc change selection (backward)' })
 
 map('n', '<space><space>x', '<cmd>source %<CR>', { desc = 'Source the current buffer.' })

@@ -30,17 +30,20 @@ require('telescope').setup {
   -- },
   -- pickers = {}
   extensions = {
+    fzf = {},
+    lazygit = {},
     ['ui-select'] = {
       require('telescope.themes').get_dropdown(),
     },
   },
 
-  file_ignore_patterns = { "node%_modules/.*" }
+  file_ignore_patterns = { 'node%_modules/.*' },
 }
 
 -- Enable Telescope extensions if they are installed
-pcall(require('telescope').load_extension, 'fzf')
-pcall(require('telescope').load_extension, 'ui-select')
+pcall(require('telescope').load_extension 'fzf')
+pcall(require('telescope').load_extension 'ui-select')
+pcall(require('telescope').load_extension 'lazygit')
 
 -- See `:help telescope.builtin`
 local builtin = require 'telescope.builtin'
@@ -76,4 +79,11 @@ end, { desc = '[S]earch [/] in Open Files' })
 -- Shortcut for searching your Neovim configuration files
 vim.keymap.set('n', '<leader>sn', function()
   builtin.find_files { cwd = vim.fn.stdpath 'config' }
+end, { desc = '[S]earch [N]eovim files' })
+
+-- Shortcut for searching your Neovim Plugin files
+vim.keymap.set('n', '<leader>sp', function()
+  builtin.find_files {
+    cwd = vim.fs.joinpath(vim.fn.stdpath 'data', 'lazy'),
+  }
 end, { desc = '[S]earch [N]eovim files' })

@@ -64,4 +64,3 @@ map('x', '<leader>cN', mc_select .. '``cgN', { desc = 'mc change selection (back
 map('n', '<space><space>x', '<cmd>source %<CR>', { desc = 'Source the current buffer.' })
 
 map('n', '-', '<cmd>Oil<CR>', { desc = 'Open files explorer' })
--- map('n', '-', '<cmd>lua MiniFiles.open(vim.api.nvim_buf_get_name(0))<CR>', { desc = 'Open files explorer in current file dir' })

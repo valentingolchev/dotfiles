@@ -45,30 +45,6 @@ else
   try_setup_ruby "/usr/local"
 fi
 
-#########################################################
-#                                                       #
-#                       Aliases                         #
-#                                                       #
-#########################################################
-
-alias srczsh='source ~/.zshrc'
-alias srczprofile='source ~/.zprofile'
-alias srczenv='source ~/.zshenv'
-
-alias edit-dotfiles='nvim ~/git/dotfiles'
-alias edit-dotfiles-work='nvim ~/git/dotfiles-work'
-
-alias lse='eza --icons=always --group-directories-first -w=1'
-alias ll='lse -l'
-alias lla='lse -l -a'
-alias cd='z'
-alias ..='cd ..'
-
-alias nv='nvim'
-
-alias reset_dock="~/.config/reset_macos_dock.sh"
-
-[[ -s "$HOME/.config/.aliases-git" ]] && source "$HOME/.config/.aliases-git"
 [[ -s "$HOME/.config/.fzf.zsh" ]] && source "$HOME/.config/.fzf.zsh"
 
 # Load work profile if it exists

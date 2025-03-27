@@ -5,8 +5,6 @@ vim.api.nvim_create_autocmd('LspAttach', {
       vim.keymap.set('n', keys, func, { buffer = event.buf, desc = 'LSP: ' .. desc })
     end
 
-    vim.print('LSP attached to buffer ' .. event.match)
-
     local telescope_builtin = require 'telescope.builtin'
     -- Jump to the definition of the word under your cursor.
     --  This is where a variable was first declared, or where a function is defined, etc.
@@ -100,15 +98,6 @@ require('lspconfig.ui.windows').default_options.border = 'single'
 local capabilities = vim.lsp.protocol.make_client_capabilities()
 capabilities = vim.tbl_deep_extend('force', capabilities, require('cmp_nvim_lsp').default_capabilities())
 
--- Enable the following language servers
---  Feel free to add/remove any LSPs that you want here. They will automatically be installed.
---
---  Add any additional override configuration in the following tables. Available keys are:
---  - cmd (table): Override the default command used to start the server
---  - filetypes (table): Override the default list of associated filetypes for the server
---  - capabilities (table): Override fields in capabilities. Can be used to disable certain LSP features.
---  - settings (table): Override the default settings passed when initializing the server.
---        For example, to see the options for `lua_ls`, you could go to: https://luals.github.io/wiki/settings/
 local servers = {
   lua_ls = {
     settings = {
@@ -123,12 +112,6 @@ local servers = {
   },
 }
 
--- Ensure the servers and tools above are installed
---  To check the current status of installed tools and/or manually install
---  other tools, you can run
---    :Mason
---
---  You can press `g?` for help in this menu.
 require('mason').setup()
 require('mason-lspconfig').setup {
   ensure_installed = vim.list_extend(vim.tbl_keys(servers or {}), {
@@ -141,9 +124,6 @@ require('mason-lspconfig').setup {
       end
 
       local server = servers[server_name] or {}
-      -- This handles overriding only values explicitly passed
-      -- by the server configuration above. Useful when disabling
-      -- certain features of an LSP (for example, turning off formatting for tsserver)
       server.capabilities = vim.tbl_deep_extend('force', {}, capabilities, server.capabilities or {})
       require('lspconfig')[server_name].setup(server)
     end,

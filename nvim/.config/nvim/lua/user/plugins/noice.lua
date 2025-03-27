@@ -11,6 +11,7 @@ return {
     },
     config = function()
       require('noice').setup {}
+      require('notify').setup {}
 
       vim.notify = require 'notify'
     end,

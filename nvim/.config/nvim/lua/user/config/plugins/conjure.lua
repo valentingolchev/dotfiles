@@ -12,7 +12,7 @@ vim.g['conjure#client#clojure#nrepl#connection#auto_repl#enabled'] = false
 -- experimental mapping for now, lets see how (and if) this evolves
 local conjure_prefix = ','
 vim.g['conjure#mapping#prefix'] = conjure_prefix
-vim.g['conjure#mapping#doc_word'] = { '<C-k>' } -- avoid conflict with LSP mapping
+vim.g['conjure#mapping#doc_word'] = { '<M-k>' } -- avoid conflict with LSP mapping
 
 -- add custom prefix labels for which-key
 vim.api.nvim_create_autocmd('FileType', {

@@ -23,6 +23,9 @@ require('lazy').setup {
       'catppuccin/nvim',
       name = 'catppuccin',
       priority = 1000,
+      opts = {
+        integrations = { blink_cmp = true },
+      },
       config = function()
         require('catppuccin').setup {
           flavour = 'mocha', -- mocha, macchiato, frappe, latte

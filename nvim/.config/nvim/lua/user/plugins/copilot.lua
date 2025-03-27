@@ -1,20 +1,11 @@
 return {
-  -- {
-  --   -- https://github.com/zbirenbaum/copilot.lua
-  --   "zbirenbaum/copilot.lua",
-  --   cmd = "Copilot",
-  --   event = "InsertEnter",
-  --   config = function()
-  --     require("copilot").setup({})
-  --   end,
-  -- },
   {
     -- https://github.com/github/copilot.vim
     'github/copilot.vim',
     config = function()
       -- keymaps
       local keymap = vim.keymap
-      keymap.set('i', '<C-Y>', 'copilot#Accept("\\<CR>")', {
+      keymap.set('i', '<C-y>', 'copilot#Accept("\\<CR>")', {
         expr = true,
         replace_keycodes = false,
       })

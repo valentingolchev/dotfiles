@@ -1,9 +1,7 @@
 return {
   {
     'mfussenegger/nvim-jdtls',
-    -- dependencies = 'hrsh7th/cmp-nvim-lsp',
   },
-  { 'nvim-neotest/nvim-nio' },
   {
     'nvim-neotest/neotest',
     dependencies = {
@@ -20,9 +18,6 @@ return {
         },
       }
     end,
-  },
-  {
-    'mfussenegger/nvim-dap',
   },
   {
     'rcarriga/nvim-dap-ui',

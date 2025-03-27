@@ -62,3 +62,6 @@ alias nv='nvim'
 alias reset_dock="~/.config/reset_macos_dock.sh"
 
 [[ -s "$HOME/.config/.aliases-git" ]] && source "$HOME/.config/.aliases-git"
+
+# Load work profile if it exists
+[[ -s "$HOME/.work.zshenv" ]] && source "$HOME/.work.zshenv"

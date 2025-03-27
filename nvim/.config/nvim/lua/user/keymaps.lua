@@ -54,6 +54,18 @@ map('x', 'P', 'p', { noremap = true })
 -- close all other folds but the current one (using the 'z' mark)
 map('n', 'z<C-f>', "mzzM'zzxzz", { desc = 'focus the current fold' })
 
+-- Dismiss Noice Message
+map('n', '<leader>nd', '<cmd>NoiceDismiss<CR>', { desc = 'Dismiss Noice Message' })
+
+-- Open Zoxide telescope extension
+map('n', '<leader>Z', '<cmd>Zi<CR>', { desc = 'Open Zoxide' })
+
+-- Resize with arrows
+map('n', '<C-S-Down>', ':resize +2<CR>', { desc = 'Resize Horizontal Split Down' })
+map('n', '<C-S-Up>', ':resize -2<CR>', { desc = 'Resize Horizontal Split Up' })
+map('n', '<C-Left>', ':vertical resize -2<CR>', { desc = 'Resize Vertical Split Down' })
+map('n', '<C-Right>', ':vertical resize +2<CR>', { desc = 'Resize Vertical Split Up' })
+
 local mc_select = [[y/\V\C<C-r>=escape(@", '/')<CR><CR>]]
 
 map('n', 'cn', '*``cgn', { desc = 'mc change word (forward)' })

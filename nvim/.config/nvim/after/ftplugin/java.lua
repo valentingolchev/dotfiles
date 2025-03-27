@@ -12,7 +12,7 @@ local project_name = vim.fn.fnamemodify(root_dir, ':p:h:t')
 local workspace_dir = home .. '/.local/share/eclipse/' .. project_name
 
 local capabilities = vim.lsp.protocol.make_client_capabilities()
-capabilities = vim.tbl_deep_extend('force', capabilities, require('cmp_nvim_lsp').default_capabilities())
+capabilities = vim.tbl_deep_extend('force', capabilities, require('blink.cmp').get_lsp_capabilities())
 
 require('jdtls').start_or_attach {
   root_dir = root_dir,

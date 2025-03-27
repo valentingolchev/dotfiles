@@ -22,18 +22,19 @@ return {
       require('conjure.main').main()
       require('conjure.mapping')['on-filetype']()
     end,
-    dependencies = { 'PaterJason/cmp-conjure' },
+    -- dependencies = { 'PaterJason/cmp-conjure' },
   },
-  {
-    'PaterJason/cmp-conjure',
-    lazy = true,
-    config = function()
-      local cmp = require 'cmp'
-      local config = cmp.get_config()
-      table.insert(config.sources, { name = 'conjure' })
-      return cmp.setup(config)
-    end,
-  },
+  -- TODO: figure out how to integrate with blink.cmp
+  -- {
+  --   'PaterJason/cmp-conjure',
+  --   lazy = true,
+  --   config = function()
+  --     local cmp = require 'cmp'
+  --     local config = cmp.get_config()
+  --     table.insert(config.sources, { name = 'conjure' })
+  --     return cmp.setup(config)
+  --   end,
+  -- },
   {
     -- parinfer for Neovim
     'gpanders/nvim-parinfer',

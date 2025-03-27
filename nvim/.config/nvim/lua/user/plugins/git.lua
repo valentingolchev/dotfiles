@@ -1,7 +1,8 @@
 return {
   { 'tpope/vim-fugitive' },
   { 'tpope/vim-rhubarb' },
-  { -- Adds git related signs to the gutter, as well as utilities for managing changes
+  {
+    -- https://github.com/lewis6991/gitsigns.nvim
     'lewis6991/gitsigns.nvim',
     opts = {
       signs = {
@@ -63,6 +64,7 @@ return {
       end,
     },
   },
+  -- TODO: Replace Lazygit with -> https://github.com/NeogitOrg/neogit
   {
     'kdheepak/lazygit.nvim',
     cmd = {

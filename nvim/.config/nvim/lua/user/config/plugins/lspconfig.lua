@@ -115,7 +115,7 @@ local servers = {
 require('mason').setup()
 require('mason-lspconfig').setup {
   ensure_installed = vim.list_extend(vim.tbl_keys(servers or {}), {
-    'stylua', -- Used to format Lua code
+    -- 'stylua', -- Used to format Lua code
   }),
   handlers = {
     function(server_name)

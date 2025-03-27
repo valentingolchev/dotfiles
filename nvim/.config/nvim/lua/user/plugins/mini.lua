@@ -1,5 +1,6 @@
 return {
   {
+    -- https://github.com/echasnovski/mini.nvim
     'echasnovski/mini.nvim',
     config = function()
       -- Better Around/Inside textobjects
@@ -21,7 +22,6 @@ return {
       --  You could remove this setup call if you don't like it,
       --  and try some other statusline plugin
       local statusline = require 'mini.statusline'
-      -- set use_icons to true if you have a Nerd Font
       statusline.setup { use_icons = vim.g.have_nerd_font }
 
       -- You can configure sections in the statusline by overriding their
@@ -39,7 +39,12 @@ return {
       -- 'gm' - [M]ultiply (duplicate) text
       -- 'gr' - [R]eplace text with register
       -- 'gs' - [S]ort text
-      require('mini.operators').setup()
+      require('mini.operators').setup {
+        exchange = {
+          prefix = 'gxt',
+          reindent_linewise = true,
+        },
+      }
 
       -- Move visual selection in Visual mode. Defaults are Alt (Meta) + hjkl.
       -- left = '<M-h>',

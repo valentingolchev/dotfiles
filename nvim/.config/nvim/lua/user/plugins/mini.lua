@@ -33,6 +33,7 @@ return {
       end
 
       require('mini.splitjoin').setup()
+      require('mini.pairs').setup()
 
       -- 'g=' - Evaluate text and replace with output
       -- 'gx' - E[x]change text regions

@@ -66,23 +66,26 @@ return {
   },
   -- TODO: Replace Lazygit with -> https://github.com/NeogitOrg/neogit
   {
-    'kdheepak/lazygit.nvim',
-    cmd = {
-      'LazyGit',
-      'LazyGitConfig',
-      'LazyGitCurrentFile',
-      'LazyGitFilter',
-      'LazyGitFilterCurrentFile',
-    },
-    -- optional for floating window border decoration
+    'NeogitOrg/neogit',
     dependencies = {
-      'nvim-telescope/telescope.nvim',
+      -- required
       'nvim-lua/plenary.nvim',
+
+      -- optional
+      'sindrets/diffview.nvim',
+      'nvim-telescope/telescope.nvim',
     },
-    -- setting the keybinding for LazyGit with 'keys' is recommended in
-    -- order to load the plugin when the command is run for the first time
-    keys = {
-      { '<leader>lg', '<cmd>LazyGit<cr>', desc = 'Open lazy git' },
-    },
+    config = function()
+      local neogit = require 'neogit'
+
+      neogit.setup {
+        integrations = {
+          telescope = true,
+          diffview = true,
+        },
+      }
+
+      vim.keymap.set('n', '<localleader>ng', '<cmd>Neogit<cr>', { desc = 'Open [N]eo[G]it status window' })
+    end,
   },
 }

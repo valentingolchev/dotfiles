@@ -33,6 +33,14 @@ require('lazy').setup {
           styles = { -- Handles the styles of general hi groups (see `:h highlight-args`):
             comments = { 'italic' }, -- Change the style of comments
           },
+          integrations = {
+            blink_cmp = true,
+            cmp = false, -- default is 'true'
+            harpoon = true,
+            mason = true,
+            noice = true,
+            which_key = true,
+          },
         }
 
         vim.o.termguicolors = true

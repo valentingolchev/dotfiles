@@ -12,6 +12,9 @@ map({ 'n', 'v' }, '<Space>', '<Nop>')
 map('n', 'k', "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })
 map('n', 'j', "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
 
+map('i', 'jj', '<Esc>', { desc = 'Exit insert mode', noremap = true })
+map('i', 'jk', '<Esc>', { desc = 'Exit insert mode', noremap = true })
+
 -- Set highlight on search, but clear on pressing <Esc> in normal mode
 vim.opt.hlsearch = true
 map('n', '<Esc>', '<cmd>nohlsearch<CR>')

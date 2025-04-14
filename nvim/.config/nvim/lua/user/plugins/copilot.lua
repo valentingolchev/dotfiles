@@ -1,18 +1,42 @@
 return {
   {
-    -- https://github.com/github/copilot.vim
-    'github/copilot.vim',
+    -- https://github.com/zbirenbaum/copilot.lua
+    'zbirenbaum/copilot.lua',
+    lazy = true,
+    cmd = 'Copilot',
+    event = 'InsertEnter',
     config = function()
-      -- keymaps
-      local keymap = vim.keymap
-      keymap.set('i', '<C-y>', 'copilot#Accept("\\<CR>")', {
-        expr = true,
-        replace_keycodes = false,
-      })
-
-      vim.g.copilot_no_tab_map = true
+      require('copilot').setup {
+        opts = {
+          copilot_model = 'gpt-4o-copilot',
+          suggestion = { enabled = false },
+          panel = { enabled = false },
+          filetypes = { ['*'] = true },
+        },
+      }
     end,
   },
+  -- {
+  --   'zbirenbaum/copilot-cmp',
+  --   dependecies = { 'zbirenbaum/copilot.lua' },
+  --   config = function()
+  --     require('copilot_cmp').setup()
+  --   end,
+  -- },
+  -- {
+  --   -- https://github.com/github/copilot.vim
+  --   'github/copilot.vim',
+  --   config = function()
+  --     -- keymaps
+  --     local keymap = vim.keymap
+  --     keymap.set('i', '<C-y>', 'copilot#Accept("\\<CR>")', {
+  --       expr = true,
+  --       replace_keycodes = false,
+  --     })
+  --
+  --     vim.g.copilot_no_tab_map = true
+  --   end,
+  -- },
   -- TODO: enable soon
   -- {
   --   "CopilotC-Nvim/CopilotChat.nvim",

@@ -48,8 +48,8 @@ alias srczsh='source ~/.zshrc'
 alias srczprofile='source ~/.zprofile'
 alias srczenv='source ~/.zshenv'
 
-alias edit-dotfiles='nvim ~/git/dotfiles'
-alias edit-dotfiles-work='nvim ~/git/dotfiles-work'
+alias edit-dotfiles='cd ~/git/dotfiles && nvim .'
+alias edit-dotfiles-work='cd ~/git/dotfiles-work && nvim .'
 
 alias lse='eza --icons=always --group-directories-first -w=1'
 alias ll='lse -l'

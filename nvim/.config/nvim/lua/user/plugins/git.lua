@@ -1,6 +1,4 @@
 return {
-  { 'tpope/vim-fugitive' },
-  { 'tpope/vim-rhubarb' },
   {
     -- https://github.com/lewis6991/gitsigns.nvim
     'lewis6991/gitsigns.nvim',
@@ -42,29 +40,28 @@ return {
         -- visual mode
         map('v', '<leader>hs', function()
           gitsigns.stage_hunk { vim.fn.line '.', vim.fn.line 'v' }
-        end, { desc = 'stage git hunk' })
+        end, { desc = 'Git (un)[s]tage hunk' })
         map('v', '<leader>hr', function()
           gitsigns.reset_hunk { vim.fn.line '.', vim.fn.line 'v' }
-        end, { desc = 'reset git hunk' })
+        end, { desc = 'Git [r]eset hunk' })
         -- normal mode
-        map('n', '<leader>hs', gitsigns.stage_hunk, { desc = 'git [s]tage hunk' })
-        map('n', '<leader>hr', gitsigns.reset_hunk, { desc = 'git [r]eset hunk' })
-        map('n', '<leader>hS', gitsigns.stage_buffer, { desc = 'git [S]tage buffer' })
-        map('n', '<leader>hu', gitsigns.undo_stage_hunk, { desc = 'git [u]ndo stage hunk' })
-        map('n', '<leader>hR', gitsigns.reset_buffer, { desc = 'git [R]eset buffer' })
-        map('n', '<leader>hp', gitsigns.preview_hunk, { desc = 'git [p]review hunk' })
-        map('n', '<leader>hb', gitsigns.blame_line, { desc = 'git [b]lame line' })
-        map('n', '<leader>hd', gitsigns.diffthis, { desc = 'git [d]iff against index' })
+        map('n', '<leader>hs', gitsigns.stage_hunk, { desc = 'Git (un)[s]tage hunk' })
+        map('n', '<leader>hr', gitsigns.reset_hunk, { desc = 'Git [r]eset hunk' })
+        map('n', '<leader>hS', gitsigns.stage_buffer, { desc = 'Git [S]tage buffer' })
+        map('n', '<leader>hR', gitsigns.reset_buffer, { desc = 'Git [R]eset buffer' })
+        map('n', '<leader>hp', gitsigns.preview_hunk, { desc = 'Git [p]review hunk' })
+        map('n', '<leader>hpi', gitsigns.preview_hunk_inline, { desc = 'Git [p]review hunk inline' })
+        map('n', '<leader>hb', gitsigns.blame_line, { desc = 'Git [b]lame line' })
+        map('n', '<leader>tb', gitsigns.toggle_current_line_blame, { desc = '[T]oggle git [b]lame line' })
+        map('n', '<leader>hd', gitsigns.diffthis, { desc = 'Git [d]iff against index' })
         map('n', '<leader>hD', function()
           gitsigns.diffthis '@'
-        end, { desc = 'git [D]iff against last commit' })
+        end, { desc = 'Git [D]iff against last commit' })
         -- Toggles
-        map('n', '<leader>tb', gitsigns.toggle_current_line_blame, { desc = '[T]oggle git show [b]lame line' })
-        map('n', '<leader>tD', gitsigns.toggle_deleted, { desc = '[T]oggle git show [D]eleted' })
       end,
     },
   },
-  -- TODO: Replace Lazygit with -> https://github.com/NeogitOrg/neogit
+  -- https://github.com/NeogitOrg/neogit
   {
     'NeogitOrg/neogit',
     dependencies = {

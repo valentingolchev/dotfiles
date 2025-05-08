@@ -20,29 +20,41 @@ return {
       local suggestion = require 'copilot.suggestion'
 
       keymap.set('n', '<leader>ctt', suggestion.toggle_auto_trigger, {
-        desc = '[C]opilot [T]oggle auto [t]rigger',
+        desc = '[C]opilot suggestion [t]oggle auto [t]rigger',
         expr = true,
         replace_keycodes = false,
       })
 
       keymap.set({ 'n', 'i' }, '<C-y>', suggestion.accept, {
-        desc = 'Copilot accept suggestion',
+        desc = 'Copilot suggestion accept',
         expr = true,
         replace_keycodes = false,
       })
     end,
   },
-  -- TODO: enable soon
-  -- {
-  --   "CopilotC-Nvim/CopilotChat.nvim",
-  --   dependencies = {
-  --     { "github/copilot.vim" }, -- or zbirenbaum/copilot.lua
-  --     { "nvim-lua/plenary.nvim", branch = "master" }, -- for curl, log and async functions
-  --   },
-  --   build = "make tiktoken", -- Only on MacOS or Linux
-  --   opts = {
-  --     -- See Configuration section for options
-  --   },
-  --   -- See Commands section for default commands if you want to lazy load on them
-  -- },
+  {
+    'CopilotC-Nvim/CopilotChat.nvim',
+    dependencies = {
+      { 'zbirenbaum/copilot.lua' },
+      { 'nvim-lua/plenary.nvim', branch = 'master' },
+    },
+    build = 'make tiktoken',
+    opts = {
+      -- See Configuration section for options
+    },
+    -- See Commands section for default commands if you want to lazy load on them
+    config = function()
+      local chat = require 'CopilotChat'
+
+      -- example config: https://github.com/deathbeam/dotfiles/blob/master/nvim/.config/nvim/lua/config/copilot.lua
+      -- setup --
+      chat.setup {
+        -- See Configuration section for options
+      }
+
+      -- keymaps --
+      vim.keymap.set('n', '<leader>occ', '<cmd>:CopilotChatOpen<CR>', { desc = '[Open] [c]opilot [c]hat window' })
+      vim.keymap.set({ 'n', 'v' }, '<leader>pcc', '<cmd>:CopilotChatPrompts<CR>', { desc = 'Choose [p]rompts for [c]opilot [c]hat' })
+    end,
+  },
 }

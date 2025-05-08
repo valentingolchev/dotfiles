@@ -32,8 +32,22 @@ return {
         return '%2l:%-2v'
       end
 
-      require('mini.splitjoin').setup()
       require('mini.pairs').setup()
+
+      require('mini.splitjoin').setup {
+        detect = {
+          separator = '[,; ]',
+        },
+        -- join = {
+        --   hook_post = {
+        --     add_trailing_separator = function(positions)
+        --       require 'notify' 'add_trailing_separator'
+        --       require 'notify'(positions)
+        --       return positions
+        --     end,
+        --   },
+        -- },
+      }
 
       -- 'g=' - Evaluate text and replace with output
       -- 'gx' - E[x]change text regions

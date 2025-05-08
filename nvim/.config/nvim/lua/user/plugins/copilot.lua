@@ -9,34 +9,29 @@ return {
       require('copilot').setup {
         opts = {
           copilot_model = 'gpt-4o-copilot',
-          suggestion = { enabled = false },
+          suggestion = { enabled = true },
           panel = { enabled = false },
           filetypes = { ['*'] = true },
         },
       }
+
+      -- keymaps
+      local keymap = vim.keymap
+      local suggestion = require 'copilot.suggestion'
+
+      keymap.set('n', '<leader>ctt', suggestion.toggle_auto_trigger, {
+        desc = '[C]opilot [T]oggle auto [t]rigger',
+        expr = true,
+        replace_keycodes = false,
+      })
+
+      keymap.set({ 'n', 'i' }, '<C-y>', suggestion.accept, {
+        desc = 'Copilot accept suggestion',
+        expr = true,
+        replace_keycodes = false,
+      })
     end,
   },
-  -- {
-  --   'zbirenbaum/copilot-cmp',
-  --   dependecies = { 'zbirenbaum/copilot.lua' },
-  --   config = function()
-  --     require('copilot_cmp').setup()
-  --   end,
-  -- },
-  -- {
-  --   -- https://github.com/github/copilot.vim
-  --   'github/copilot.vim',
-  --   config = function()
-  --     -- keymaps
-  --     local keymap = vim.keymap
-  --     keymap.set('i', '<C-y>', 'copilot#Accept("\\<CR>")', {
-  --       expr = true,
-  --       replace_keycodes = false,
-  --     })
-  --
-  --     vim.g.copilot_no_tab_map = true
-  --   end,
-  -- },
   -- TODO: enable soon
   -- {
   --   "CopilotC-Nvim/CopilotChat.nvim",

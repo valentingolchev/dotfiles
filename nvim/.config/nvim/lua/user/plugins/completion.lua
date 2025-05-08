@@ -3,7 +3,6 @@ return {
     'saghen/blink.cmp',
     dependencies = {
       'rafamadriz/friendly-snippets',
-      'fang2hou/blink-copilot',
     },
     version = '1.*',
     ---@module 'blink.cmp'
@@ -26,14 +25,12 @@ return {
         nerd_font_variant = 'mono',
       },
       sources = {
-        default = { 'copilot', 'lsp', 'buffer', 'snippets', 'path' },
+        default = { 'lsp', 'buffer', 'snippets', 'path' },
+        per_filetype = {
+          sql = { 'dadbod', 'buffer', 'skippets' },
+        },
         providers = {
-          copilot = {
-            name = 'copilot',
-            module = 'blink-copilot',
-            score_offset = 100,
-            async = true,
-          },
+          dadbod = { name = 'Dadbod', module = 'vim_dadbod_completion.blink' },
         },
       },
       completion = {

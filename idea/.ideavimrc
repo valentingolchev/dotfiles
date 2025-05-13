@@ -1,0 +1,6 @@
+Plug 'tpope/vim-commentary'
+Plug 'machakann/vim-highlightedyank'
+
+set which-key
+set mini-ai
+set functiontextobj

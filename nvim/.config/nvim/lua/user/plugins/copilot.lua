@@ -53,8 +53,21 @@ return {
       }
 
       -- keymaps --
-      vim.keymap.set('n', '<leader>occ', '<cmd>:CopilotChatOpen<CR>', { desc = '[Open] [c]opilot [c]hat window' })
-      vim.keymap.set({ 'n', 'v' }, '<leader>pcc', '<cmd>:CopilotChatPrompts<CR>', { desc = 'Choose [p]rompts for [c]opilot [c]hat' })
+      -- vim.keymap.set('n', '<leader>occ', '<cmd>:CopilotChatOpen<CR>', { desc = '[Open] [c]opilot [c]hat window' })
+      -- vim.keymap.set({ 'n', 'v' }, '<leader>pcc', '<cmd>:CopilotChatPrompts<CR>', { desc = 'Choose [p]rompts for [c]opilot [c]hat' })
+      vim.keymap.set({ 'n' }, '<leader>aa', chat.toggle, { desc = '[A]I Toggle' })
+      vim.keymap.set({ 'v' }, '<leader>aa', chat.open, { desc = '[A]I Open' })
+      vim.keymap.set({ 'n' }, '<leader>ax', chat.reset, { desc = '[A]I [R]eset' })
+      vim.keymap.set({ 'n' }, '<leader>as', chat.stop, { desc = '[A]I [S]top' })
+      vim.keymap.set({ 'n' }, '<leader>am', chat.select_model, { desc = '[A]I [M]odels' })
+      vim.keymap.set({ 'n', 'v' }, '<leader>ap', chat.select_prompt, { desc = '[A]I [P]rompts' })
+      vim.keymap.set({ 'n', 'v' }, '<leader>aq', function()
+        vim.ui.input({ prompt = 'AI Question> ' }, function(input)
+          if input ~= '' then
+            chat.ask(input)
+          end
+        end)
+      end, { desc = 'AI Question' })
     end,
   },
 }

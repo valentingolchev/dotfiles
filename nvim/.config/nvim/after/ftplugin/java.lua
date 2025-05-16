@@ -14,6 +14,8 @@ local workspace_dir = home .. '/.local/share/eclipse/' .. project_name
 local capabilities = vim.lsp.protocol.make_client_capabilities()
 capabilities = vim.tbl_deep_extend('force', capabilities, require('blink.cmp').get_lsp_capabilities())
 
+require 'notify'('JDTL root dir: ' .. root_dir)
+
 require('jdtls').start_or_attach {
   root_dir = root_dir,
   capabilities = capabilities,

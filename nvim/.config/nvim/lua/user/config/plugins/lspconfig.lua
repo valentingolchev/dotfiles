@@ -93,6 +93,7 @@ require('mason-lspconfig').setup {
   handlers = {
     function(server_name)
       if 'jdtls' == server_name then
+        require 'notify'('Skipping lsp-config setup for language server: ' .. server_name)
         return
       end
 

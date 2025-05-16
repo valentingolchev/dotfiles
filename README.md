@@ -14,7 +14,7 @@ setup_macos
 
 ## Usage
 
-In oorder to symlink a specific package to $HOME you need to run the following command:
+In order to symlink a specific package to $HOME you need to run the following command:
 
 ```bash
 stow <package> -v -t ~

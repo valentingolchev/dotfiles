@@ -1,3 +1,5 @@
+export LANG=en_US.UTF-8
+
 eval "$('/opt/homebrew/bin/brew' shellenv)"
 
 #!/bin/zsh
@@ -37,3 +39,6 @@ eval "$(fzf --zsh)"
 
 eval "$(zoxide init zsh)"
 eval "$(starship init zsh)"
+
+[[ -s "$HOME/.work.zshrc" ]] && source "$HOME/.work.zshrc"
+

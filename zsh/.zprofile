@@ -18,6 +18,8 @@ function try_load_brew() {
   if [ -f "$brew_path" ]; then
     # echo "✅ Homebrew setup successfully"
     eval "$($brew_path shellenv)"
+
+    export PATH=$PATH:${1}/bin
   else
     echo "❌ Homebrew setup failed"
     # Debugging: list what is actually in $1/bin to see if brew is there

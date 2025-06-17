@@ -32,6 +32,8 @@ xnoremap P p
 
 " ------------------ General ------------------
 nnoremap <leader>r :action IdeaVim.ReloadVimRc.reload<CR>
+nnoremap <leader>rp :action ExternalSystem.RefreshAllProjects<CR>
+nnoremap <leader>cd :action CompileDirty<CR>
 
 nnoremap <leader>f :action ShowNavBar<CR>
 nnoremap <leader>s :action FileStructurePopup<CR>
@@ -62,17 +64,32 @@ nnoremap <leader>sf :action GotoFile<cr>
 " ------------------ Code ------------------
 nnoremap = :action ReformatCode<CR>
 vnoremap = :action ReformatCode<CR>
+
 nnoremap <leader>oi :action OptimizeImports<CR>
 vnoremap <leader>oi :action OptimizeImports<CR>
 
-nnoremap <leader>rn :action RenameElement<CR>
-nnoremap <leader>im :action Inline<CR>
-nnoremap <leader>iv :action IntroduceVariable<CR>
-nnoremap <leader>ic :action IntroduceConstant<CR>
-nnoremap <leader>ip :action IntroduceParameter<CR>
-nnoremap <leader>ifp :action IntroduceFunctionalParameter<CR>
-nnoremap <leader>em :action ExtractMethod<CR>
+nnoremap <leader>fu :action FindUsages<CR>
+vnoremap <leader>fu :action FindUsages<CR>
 
+nnoremap <leader>rn :action RenameElement<CR>
+vnoremap <leader>rn :action RenameElement<CR>
+
+nnoremap <leader>im :action Inline<CR>
+vnoremap <leader>im :action Inline<CR>
+
+nnoremap <leader>iv :action IntroduceVariable<CR>
+vnoremap <leader>iv :action IntroduceVariable<CR>
+
+nnoremap <leader>ic :action IntroduceConstant<CR>
+vnoremap <leader>ic :action IntroduceConstant<CR>
+
+nnoremap <leader>ip :action IntroduceParameter<CR>
+vnoremap <leader>ip :action IntroduceParameter<CR>
+
+nnoremap <leader>ifp :action IntroduceFunctionalParameter<CR>
+vnoremap <leader>ifp :action IntroduceFunctionalParameter<CR>
+
+nnoremap <leader>em :action ExtractMethod<CR>
 
 nnoremap <leader>nc :action NewClass<CR>
 nnoremap <leader>nd :action NewDir<CR>
@@ -80,4 +97,6 @@ nnoremap <leader>nd :action NewDir<CR>
 nnoremap <leader>rct :action RunClass<CR>
 nnoremap <leader>rrft :action RerunFailedTests<CR>
 
+" ----------------- Java --------------------
+nnoremap <leader>eg :action Gradle.ExecuteTask<CR>
 

@@ -7,10 +7,10 @@
 
 if [[ $(uname -m) == 'arm64' ]]; then
   export IS_ARM=true
-  # echo "🚀 Running on ARM64"
+  echo "🚀 Running on ARM64"
 else
   export IS_ARM=false
-  # echo "🚀 Running on Intel"
+  echo "🚀 Running on Intel"
 fi
 
 function try_load_brew() {

@@ -5,6 +5,9 @@
 # -- .zprofile
 # -- .zshrc
 
+# Greeting Message
+fastfetch
+
 export LANG=en_US.UTF-8
 export PATH="$PATH:/usr/local/opt/curl/bin"
 export VISUAL=vim
@@ -26,12 +29,10 @@ if [[ $(is_macos) == true ]]; then
   export IS_MACOS=true
   export IS_LINUX=false
   export ZSH_OS_CONFIG_PATH="$HOME/.config/zsh/macos"
-  echo "🚀 Running on MacOS"
 else
   export IS_MACOS=false
   export IS_LINUX=true
   export ZSH_OS_CONFIG_PATH="$HOME/.config/zsh/linux"
-  echo "🚀 Running on Linux"
 fi
 
 #########################################################

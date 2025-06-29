@@ -12,10 +12,9 @@ brew install zoxide
 
 brew install starship
 brew install font-hack-nerd-font font-fira-mono-nerd-font font-jetbrains-mono-nerd-font
-brew install zsh-autosuggestions
-brew install zsh-syntax-highlighting
+brew install fastfetch
 
-brew install alacritty
+brew install kitty
 
 brew install neovim
 brew install tmux

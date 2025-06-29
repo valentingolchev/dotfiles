@@ -9,6 +9,8 @@ export LANG=en_US.UTF-8
 
 export PATH="$PATH:/usr/local/opt/curl/bin"
 
+export VISUAL=nvim
+export EDITOR="$VISUAL"
 #########################################################
 #                                                       #
 #                         XDG                           #

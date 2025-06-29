@@ -5,6 +5,10 @@
 # ✅ .zprofile
 # 🚀 .zshrc
 
+# Setup ZSH plugins
+source $ZSH_PLUGINS_PATH/zsh-autosuggestions/zsh-autosuggestions.zsh
+source $ZSH_PLUGINS_PATH/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+
 # setup NVM
 export NVM_DIR="$HOME/.nvm"
 [ -s "/usr/local/opt/nvm/nvm.sh" ] && . "/usr/local/opt/nvm/nvm.sh"  # This loads nvm

@@ -5,12 +5,6 @@
 # ✅ .zprofile
 # 🚀 .zshrc
 
-# Setup zsh-autosuggestions
-source $(brew --prefix)/share/zsh-autosuggestions/zsh-autosuggestions.zsh
-
-# Setup zsh-syntax-highlighting
-source $(brew --prefix)/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-
 # setup NVM
 export NVM_DIR="$HOME/.nvm"
 [ -s "/usr/local/opt/nvm/nvm.sh" ] && . "/usr/local/opt/nvm/nvm.sh"  # This loads nvm
@@ -27,7 +21,7 @@ setopt hist_verify
 bindkey "^[[A" history-search-backward
 bindkey "^[[B" history-search-forward
 
-export PATH="$PATH:$HOME/.tmux/plugins/tmuxifier/bin"
+export PATH="$PATH:$TMUX_CONFIG_PATH/plugins/tmuxifier/bin"
 eval "$(tmuxifier init -)"
 
 # Set up fzf key bindings and fuzzy completion
@@ -36,5 +30,8 @@ eval "$(fzf --zsh)"
 eval "$(zoxide init zsh)"
 eval "$(starship init zsh)"
 
+[[ -s "$ZSH_OS_CONFIG_PATH/.zshrc" ]] && source "$ZSH_OS_CONFIG_PATH/.zshrc"
+[[ -s "$ZSH_WORK_CONFIG_PATH/.zshrc" ]] && source "$ZSH_WORK_CONFIG_PATH/.zshrc"
+# NOTE: Deprecated
 [[ -s "$HOME/.work.zshrc" ]] && source "$HOME/.work.zshrc"
 

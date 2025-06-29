@@ -6,11 +6,33 @@
 # -- .zshrc
 
 export LANG=en_US.UTF-8
-
 export PATH="$PATH:/usr/local/opt/curl/bin"
-
 export VISUAL=nvim
 export EDITOR="$VISUAL"
+
+# Config Paths
+export ZSH_CONFIG_PATH="$HOME/.config/zsh"
+export ZSH_ALIASES_CONFIG_PATH="$HOME/.config/zsh/aliases"
+export ZSH_WORK_CONFIG_PATH="$HOME/.config/zsh/work"
+
+export TMUX_CONFIG_PATH="$HOME/.config/tmux"
+
+# OS specific config setup
+source "$ZSH_CONFIG_PATH/helper_fns.sh"
+# loaded from helper_fns.sh
+set_machine_env
+if [[ $(is_macos) == true ]]; then
+  export IS_MACOS=true
+  export IS_LINUX=false
+  export ZSH_OS_CONFIG_PATH="$HOME/.config/zsh/macos"
+  echo "🚀 Running on MacOS"
+else
+  export IS_MACOS=false
+  export IS_LINUX=true
+  export ZSH_OS_CONFIG_PATH="$HOME/.config/zsh/linux"
+  echo "🚀 Running on Linux"
+fi
+
 #########################################################
 #                                                       #
 #                         XDG                           #
@@ -24,23 +46,10 @@ XDG_CACHE_HOME=$HOME/.cache
 
 #########################################################
 #                                                       #
-#                         JAVA                          #
-#                                                       #
-#########################################################
-
-jdk() {
-  version=$1 # e.g 1.8, 11, 12, 17, 21
-  export JAVA_HOME=$(/usr/libexec/java_home -v"$version");
-  java -version
-}
-
-#########################################################
-#                                                       #
 #                         RUST                          #
 #                                                       #
 #########################################################
-. "$HOME/.cargo/env"
-
+[[ -s "$HOME/.cargo/env" ]] && . "$HOME/.cargo/env"
 
 #########################################################
 #                                                       #
@@ -63,9 +72,8 @@ alias ..='cd ..'
 
 alias nv='nvim'
 
-alias reset_dock="~/.config/reset_macos_dock.sh"
-
-[[ -s "$HOME/.config/.aliases-git" ]] && source "$HOME/.config/.aliases-git"
-
+[[ -s "$ZSH_ALIASES_CONFIG_PATH/git.zsh" ]] && source "$ZSH_ALIASES_CONFIG_PATH/git.zsh"
+[[ -s "$ZSH_OS_CONFIG_PATH/.zshenv" ]] && source "$ZSH_OS_CONFIG_PATH/.zshenv"
 # Load work profile if it exists
 [[ -s "$HOME/.work.zshenv" ]] && source "$HOME/.work.zshenv"
+[[ -s "$ZSH_WORK_CONFIG_PATH/.zshenv" ]] && source "$ZSH_WORK_CONFIG_PATH/.zshenv"

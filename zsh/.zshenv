@@ -7,7 +7,7 @@
 
 export LANG=en_US.UTF-8
 export PATH="$PATH:/usr/local/opt/curl/bin"
-export VISUAL=nvim
+export VISUAL=vim
 export EDITOR="$VISUAL"
 
 # Config Paths

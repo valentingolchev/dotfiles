@@ -9,8 +9,13 @@ end)
 
 config.color_scheme = "Catppuccin Mocha" -- Mocha, Macchiato, Frappe, Latte
 
-config.font = wezterm.font("Hack Nerd Font Mono")
-config.font_size = 16
+config.font_dirs = { "fonts" }
+config.font = wezterm.font_with_fallback {
+	"Hack",
+	"Hack Nerd Font Mono",
+	"JetBrains Mono",
+}
+config.font_size = 12
 
 config.enable_tab_bar = false
 

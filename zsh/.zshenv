@@ -74,6 +74,8 @@ alias ..='cd ..'
 
 alias nv='nvim'
 
+[[ $IS_LINUX == true ]] && alias wezterm='flatpak run org.wezfurlong.wezterm'
+
 [[ -s "$ZSH_ALIASES_CONFIG_PATH/git.zsh" ]] && source "$ZSH_ALIASES_CONFIG_PATH/git.zsh"
 [[ -s "$ZSH_OS_CONFIG_PATH/.zshenv" ]] && source "$ZSH_OS_CONFIG_PATH/.zshenv"
 # Load work profile if it exists

@@ -9,5 +9,3 @@
 
 [[ -s "$ZSH_OS_CONFIG_PATH/.zprofile" ]] && source "$ZSH_OS_CONFIG_PATH/.zprofile"
 [[ -s "$ZSH_WORK_CONFIG_PATH/.zprofile" ]] && source "$ZSH_WORK_CONFIG_PATH/.zprofile"
-# :NOTE Deprecated
-[[ -s "$HOME/.work.zprofile" ]] && source "$HOME/.work.zprofile"

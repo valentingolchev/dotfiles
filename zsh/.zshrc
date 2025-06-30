@@ -36,6 +36,4 @@ eval "$(starship init zsh)"
 
 [[ -s "$ZSH_OS_CONFIG_PATH/.zshrc" ]] && source "$ZSH_OS_CONFIG_PATH/.zshrc"
 [[ -s "$ZSH_WORK_CONFIG_PATH/.zshrc" ]] && source "$ZSH_WORK_CONFIG_PATH/.zshrc"
-# NOTE: Deprecated
-[[ -s "$HOME/.work.zshrc" ]] && source "$HOME/.work.zshrc"
 

@@ -2,6 +2,10 @@ local wezterm = require("wezterm")
 local config = wezterm.config_builder()
 local mux = wezterm.mux
 
+local is_linux = function()
+	return wezterm.target_triple:find("linux") ~= nil
+end
+
 wezterm.on("gui-startup", function()
 	local tab, pane, window = mux.spawn_window({})
 	window:gui_window():maximize()
@@ -10,12 +14,11 @@ end)
 config.color_scheme = "Catppuccin Mocha" -- Mocha, Macchiato, Frappe, Latte
 
 config.font_dirs = { "fonts" }
-config.font = wezterm.font_with_fallback {
-	"Hack",
-	"Hack Nerd Font Mono",
+config.font = wezterm.font_with_fallback({
+	is_linux() and "Hack" or "Hack Nerd Font Mono",
 	"JetBrains Mono",
-}
-config.font_size = 12
+})
+config.font_size = 16
 
 config.enable_tab_bar = false
 

@@ -5,9 +5,6 @@
 # -- .zprofile
 # -- .zshrc
 
-# Greeting Message
-fastfetch
-
 export LANG=en_US.UTF-8
 export PATH="$PATH:/usr/local/opt/curl/bin"
 export VISUAL=vim

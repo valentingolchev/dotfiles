@@ -13,7 +13,7 @@ export EDITOR="$VISUAL"
 # Config Paths
 export ZSH_CONFIG_PATH="$HOME/.config/zsh"
 export ZSH_ALIASES_CONFIG_PATH="$HOME/.config/zsh/aliases"
-export ZSH_WORK_CONFIG_PATH="$HOME/.config/zsh/work"
+export ZSH_WORK_CONFIG_PATH="$HOME/.config/zsh_work"
 export ZSH_PLUGINS_PATH="$HOME/.config/zsh/plugins"
 
 export TMUX_CONFIG_PATH="$HOME/.config/tmux"

@@ -18,7 +18,7 @@ config.font = wezterm.font_with_fallback({
 	is_linux() and "Hack" or "Hack Nerd Font Mono",
 	"JetBrains Mono",
 })
-config.font_size = 16
+config.font_size = 15
 
 config.enable_tab_bar = false
 

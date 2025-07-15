@@ -12,7 +12,6 @@ export EDITOR="$VISUAL"
 
 # Config Paths
 export ZSH_CONFIG_PATH="$HOME/.config/zsh"
-export ZSH_ALIASES_CONFIG_PATH="$HOME/.config/zsh/aliases"
 export ZSH_WORK_CONFIG_PATH="$HOME/.config/zsh_work"
 export ZSH_PLUGINS_PATH="$HOME/.config/zsh/plugins"
 
@@ -71,9 +70,7 @@ alias ..='cd ..'
 
 alias nv='nvim'
 
-[[ $IS_LINUX == true ]] && alias wezterm='flatpak run org.wezfurlong.wezterm'
-
-[[ -s "$ZSH_ALIASES_CONFIG_PATH/git.zsh" ]] && source "$ZSH_ALIASES_CONFIG_PATH/git.zsh"
+[[ -s "$ZSH_OS_CONFIG_PATH/aliases/git.zsh" ]] && source "$ZSH_OS_CONFIG_PATH/aliases/git.zsh"
 
 [[ -s "$ZSH_OS_CONFIG_PATH/.zshenv" ]] && source "$ZSH_OS_CONFIG_PATH/.zshenv"
 [[ -s "$ZSH_WORK_CONFIG_PATH/.zshenv" ]] && source "$ZSH_WORK_CONFIG_PATH/.zshenv"

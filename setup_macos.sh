@@ -1,3 +1,5 @@
+#!/bin/sh
+
 brew tap 'homebrew/cask'
 
 brew install git

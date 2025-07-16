@@ -11,12 +11,13 @@ brew install fzf
 brew install fd
 brew install eza
 brew install zoxide
+brew install lazydocker
 
 brew install starship
 brew install font-hack-nerd-font font-fira-mono-nerd-font font-jetbrains-mono-nerd-font
 brew install fastfetch
 
-brew install kitty
+brew install alacritty
 
 brew install neovim
 brew install tmux

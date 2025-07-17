@@ -70,7 +70,7 @@ alias ..='cd ..'
 
 alias nv='nvim'
 
-[[ -s "$ZSH_OS_CONFIG_PATH/aliases/git.zsh" ]] && source "$ZSH_OS_CONFIG_PATH/aliases/git.zsh"
+[[ -s "$ZSH_CONFIG_PATH/aliases/git.zsh" ]] && source "$ZSH_CONFIG_PATH/aliases/git.zsh"
 
 [[ -s "$ZSH_OS_CONFIG_PATH/.zshenv" ]] && source "$ZSH_OS_CONFIG_PATH/.zshenv"
 [[ -s "$ZSH_WORK_CONFIG_PATH/.zshenv" ]] && source "$ZSH_WORK_CONFIG_PATH/.zshenv"

@@ -27,13 +27,9 @@ bindkey "^[[B" history-search-forward
 
 # Set up fzf key bindings and fuzzy completion
 eval "$(fzf --zsh)"
-
 eval "$(zoxide init zsh)"
-eval "$(starship init zsh)"
-# source "$ZSH_CONFIG_PATH/prompt"
 
 [[ -s "$ZSH_OS_CONFIG_PATH/.zshrc" ]] && source "$ZSH_OS_CONFIG_PATH/.zshrc"
 [[ -s "$ZSH_WORK_CONFIG_PATH/.zshrc" ]] && source "$ZSH_WORK_CONFIG_PATH/.zshrc"
 
-# Greeting Message
-fastfetch
+[[ -s "$ZSH_CONFIG_PATH/prompt" ]] && source "$ZSH_CONFIG_PATH/prompt"

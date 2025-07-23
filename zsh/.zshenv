@@ -14,6 +14,7 @@ export EDITOR="$VISUAL"
 export ZSH_CONFIG_PATH="$HOME/.config/zsh"
 export ZSH_WORK_CONFIG_PATH="$HOME/.config/zsh_work"
 export ZSH_PLUGINS_PATH="$HOME/.config/zsh/plugins"
+export SH_SHARED_CONFIG_PATH="$HOME/.local/share/vgo/shell"
 
 export TMUX_CONFIG_PATH="$HOME/.config/tmux"
 
@@ -37,10 +38,10 @@ fi
 #                                                       #
 #########################################################
 
-XDG_CONFIG_HOME=$HOME/.config
-XDG_DATA_HOME=$HOME/.local/share
-XDG_STATE_HOME=$HOME/.local/state
-XDG_CACHE_HOME=$HOME/.cache
+export XDG_CONFIG_HOME=$HOME/.config
+export XDG_DATA_HOME=$HOME/.local/share
+export XDG_STATE_HOME=$HOME/.local/state
+export XDG_CACHE_HOME=$HOME/.cache
 
 #########################################################
 #                                                       #
@@ -49,28 +50,7 @@ XDG_CACHE_HOME=$HOME/.cache
 #########################################################
 [[ -s "$HOME/.cargo/env" ]] && . "$HOME/.cargo/env"
 
-#########################################################
-#                                                       #
-#                       Aliases                         #
-#                                                       #
-#########################################################
-
-alias srczsh='source ~/.zshrc'
-alias srczprofile='source ~/.zprofile'
-alias srczenv='source ~/.zshenv'
-
-alias edit-dotfiles='cd ~/git/dotfiles && nvim .'
-alias edit-dotfiles-work='cd ~/git/dotfiles-work && nvim .'
-
-alias lse='eza --icons=always --group-directories-first -w=1'
-alias ll='lse -l'
-alias lla='lse -l -a'
-alias cd='z'
-alias ..='cd ..'
-
-alias nv='nvim'
-
-[[ -s "$ZSH_CONFIG_PATH/aliases/git.zsh" ]] && source "$ZSH_CONFIG_PATH/aliases/git.zsh"
+[[ -s "$SH_SHARED_CONFIG_PATH/aliases" ]] && source "$SH_SHARED_CONFIG_PATH/aliases"
 
 [[ -s "$ZSH_OS_CONFIG_PATH/.zshenv" ]] && source "$ZSH_OS_CONFIG_PATH/.zshenv"
 [[ -s "$ZSH_WORK_CONFIG_PATH/.zshenv" ]] && source "$ZSH_WORK_CONFIG_PATH/.zshenv"

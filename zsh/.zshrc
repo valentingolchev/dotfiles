@@ -25,14 +25,12 @@ setopt hist_verify
 bindkey "^[[A" history-search-backward
 bindkey "^[[B" history-search-forward
 
-export PATH="$PATH:$TMUX_CONFIG_PATH/plugins/tmuxifier/bin"
-eval "$(tmuxifier init -)"
-
 # Set up fzf key bindings and fuzzy completion
 eval "$(fzf --zsh)"
 
 eval "$(zoxide init zsh)"
 eval "$(starship init zsh)"
+# source "$ZSH_CONFIG_PATH/prompt"
 
 [[ -s "$ZSH_OS_CONFIG_PATH/.zshrc" ]] && source "$ZSH_OS_CONFIG_PATH/.zshrc"
 [[ -s "$ZSH_WORK_CONFIG_PATH/.zshrc" ]] && source "$ZSH_WORK_CONFIG_PATH/.zshrc"

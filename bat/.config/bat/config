@@ -1,5 +1,5 @@
 # https://github.com/catppuccin/bat
---theme="Catppuccin Mocha"
+--theme="Catppuccin Frappe"
 
 # Show line numbers, Git modifications and file header (but no grid)
 --style="numbers,changes,header"

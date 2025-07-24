@@ -8,48 +8,60 @@
 [[ $- == *i* ]] || return
 
 # Prompt delimiter
-: ${FISH_PROMPT_DELIM:=$'\uf0a9'}
+: ${MY_PROMPT_DELIM:=$'\uf0a9'}
 
 # Colors (set these as you like)
-: ${FISH_COLOR_HOST_REMOTE:=magenta}
-: ${FISH_COLOR_CWD:=blue}
-: ${FISH_COLOR_VENV:=green}
-: ${FISH_COLOR_JOBS:=yellow}
-: ${FISH_COLOR_STATUS:=red}
-: ${FISH_COLOR_CMD_DURATION:=cyan}
-: ${FISH_COLOR_ERROR:=red}
-: ${FISH_COLOR_PROMPT_DELIM:=white}
-: ${FISH_COLOR_GIT:=magenta}
+: ${MY_COLOR_HOST_REMOTE:=magenta}
+: ${MY_COLOR_CWD:=blue}
+: ${MY_COLOR_VENV:=green}
+: ${MY_COLOR_JOBS:=yellow}
+: ${MY_COLOR_STATUS:=red}
+: ${MY_COLOR_CMD_DURATION:=cyan}
+: ${MY_COLOR_ERROR:=red}
+: ${MY_COLOR_PROMPT_DELIM:=white}
+: ${MY_COLOR_GIT:=magenta}
 
 # Hostname for SSH
 if [[ -n $SSH_TTY ]]; then
-  PROMPT_HOST="%F{$FISH_COLOR_HOST_REMOTE}%m%f:"
+  PROMPT_HOST="%F{$MY_COLOR_HOST_REMOTE}%m%f:"
 else
   PROMPT_HOST=""
 fi
 
+function __prompt_update_pwd() {
+    # Set __prompt_pwd with color and replace $HOME with ~
+    local pwd="${PWD/#$HOME/~}"
+    PROMPT_PWD="%F{$MY_COLOR_CWD}$pwd%f"
+
+    # Reset the location of the Git directory so that it can be rediscovered
+    unset __prompt_git_dir
+
+    # If current directory contains a .jj directory then skip Git discovery
+    if [[ -d "$PWD/.jj" ]]; then
+        __prompt_git_dir=""
+    fi
+}
+
 # Python venv or nix-shell
 function __prompt_venv() {
   if [[ -n $VIRTUAL_ENV ]]; then
-    PROMPT_VENV="%F{$FISH_COLOR_VENV}$(basename $VIRTUAL_ENV) %f"
+    PROMPT_VENV="%F{$MY_COLOR_VENV}$(basename $VIRTUAL_ENV) %f"
   elif [[ -n $IN_NIX_SHELL ]]; then
-    PROMPT_VENV="%F{$FISH_COLOR_VENV}nix-shell %f"
+    PROMPT_VENV="%F{$MY_COLOR_VENV}nix-shell %f"
   else
     PROMPT_VENV=""
   fi
 }
 
-# Job summary
 function __prompt_update_jobs() {
   local njobs=$(jobs -p | wc -l | tr -d ' ')
   if [[ $njobs -eq 0 ]]; then
     PROMPT_JOBS=""
   else
-    PROMPT_JOBS="%F{$FISH_COLOR_JOBS}[$njobs] %f"
+    PROMPT_JOBS="%F{$MY_COLOR_JOBS}[$njobs] %f"
   fi
 }
 
-# Command duration
 function __prompt_cmd_duration() {
   if [[ $CMD_DURATION -gt 1000 ]]; then
     local secs=$((CMD_DURATION/1000 % 60))
@@ -59,23 +71,21 @@ function __prompt_cmd_duration() {
     (( hours > 0 )) && dur+="${hours}h"
     (( mins > 0 )) && dur+="${mins}m"
     (( secs > 0 )) && dur+="${secs}s"
-    PROMPT_CMD_DURATION="%F{$FISH_COLOR_CMD_DURATION}${dur} %f"
+    PROMPT_CMD_DURATION="%F{$MY_COLOR_CMD_DURATION}${dur} %f"
   else
     PROMPT_CMD_DURATION=""
   fi
 }
 
-# Exit status
 function __prompt_exit_status() {
   local last_status=$?
   if [[ $last_status -eq 0 ]]; then
     PROMPT_STATUS=""
   else
-    PROMPT_STATUS="%F{$FISH_COLOR_STATUS}[$last_status]%f"
+    PROMPT_STATUS="%F{$MY_COLOR_STATUS}[$last_status]%f"
   fi
 }
 
-# Git info
 function __prompt_git() {
   if [[ -z "$PROMPT_GIT_DIR" && -d .git ]]; then
     PROMPT_GIT_DIR="$PWD/.git"
@@ -87,7 +97,7 @@ function __prompt_git() {
   local branch action dirty upstream
   branch=$(git symbolic-ref --short HEAD 2>/dev/null || git rev-parse --short HEAD 2>/dev/null)
   if [[ -n $branch ]]; then
-    branch=" $branch"
+    branch="$branch"
     git diff --quiet 2>/dev/null || dirty="*"
     # Upstream status
     local count
@@ -98,7 +108,7 @@ function __prompt_git() {
       *"	0") upstream="%F{cyan}⇣ %f" ;;
       *) upstream="%F{cyan}⇡⇣ %f" ;;
     esac
-    PROMPT_GIT="%F{$FISH_COLOR_GIT}${branch}${dirty} ${action}${upstream}%f"
+    PROMPT_GIT="%F{$MY_COLOR_GIT}${branch}${dirty} ${action}${upstream}%f"
   else
     PROMPT_GIT=""
   fi
@@ -107,6 +117,7 @@ function __prompt_git() {
 # Main prompt function
 function precmd() {
   print -Pn "\e]0;%~\a"
+  __prompt_update_pwd
   __prompt_venv
   __prompt_update_jobs
   __prompt_cmd_duration
@@ -119,4 +130,4 @@ add-zsh-hook precmd precmd
 
 setopt prompt_subst
 
-PROMPT='${PROMPT_VENV}${PROMPT_HOST}${PROMPT_GIT}${PROMPT_JOBS}${PROMPT_CMD_DURATION}${PROMPT_STATUS}%F{$FISH_COLOR_PROMPT_DELIM}${FISH_PROMPT_DELIM}%f '
+PROMPT='${PROMPT_VENV}${PROMPT_HOST}${PROMPT_PWD} ${PROMPT_GIT}${PROMPT_JOBS}${PROMPT_CMD_DURATION}${PROMPT_STATUS}%F{$MY_COLOR_PROMPT_DELIM}${MY_PROMPT_DELIM}%f '

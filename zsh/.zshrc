@@ -32,4 +32,4 @@ eval "$(zoxide init zsh)"
 [[ -s "$ZSH_OS_CONFIG_PATH/.zshrc" ]] && source "$ZSH_OS_CONFIG_PATH/.zshrc"
 [[ -s "$ZSH_WORK_CONFIG_PATH/.zshrc" ]] && source "$ZSH_WORK_CONFIG_PATH/.zshrc"
 
-[[ -s "$ZSH_CONFIG_PATH/prompt" ]] && source "$ZSH_CONFIG_PATH/prompt"
+[[ -s "$ZSH_CONFIG_PATH/prompt.zsh" ]] && source "$ZSH_CONFIG_PATH/prompt.zsh"

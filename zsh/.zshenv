@@ -50,7 +50,7 @@ export XDG_CACHE_HOME=$HOME/.cache
 #########################################################
 [[ -s "$HOME/.cargo/env" ]] && . "$HOME/.cargo/env"
 
-[[ -s "$ZSH_CONFIG_PATH/aliases" ]] && source "$ZSH_CONFIG_PATH/aliases"
+[[ -s "$ZSH_CONFIG_PATH/aliases.zsh" ]] && source "$ZSH_CONFIG_PATH/aliases.zsh"
 
 [[ -s "$ZSH_OS_CONFIG_PATH/.zshenv" ]] && source "$ZSH_OS_CONFIG_PATH/.zshenv"
 [[ -s "$ZSH_WORK_CONFIG_PATH/.zshenv" ]] && source "$ZSH_WORK_CONFIG_PATH/.zshenv"

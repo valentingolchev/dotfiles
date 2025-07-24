@@ -15,7 +15,7 @@ return {
       { 'folke/neodev.nvim', opts = {} },
     },
     config = function()
-      require 'user.config.plugins.lspconfig'
+      require 'user.plugins.config.lspconfig'
     end,
   },
 }

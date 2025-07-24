@@ -10,9 +10,9 @@ vim.opt.termguicolors = true
 
 require 'user.options'
 require 'user.config'
-require 'user.config.lazy'
+require 'user.lazy'
 
-require 'plugin.floaterm'
+require 'user.plugins.custom.floaterm'
 
 -- Keymaps should be loaded it the end
 -- to make sure the correct <leader> and <localleader> are set

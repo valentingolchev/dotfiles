@@ -117,6 +117,7 @@ function __prompt_git() {
 # Main prompt function
 function precmd() {
   print -Pn "\e]0;%~\a"
+
   __prompt_update_pwd
   __prompt_venv
   __prompt_update_jobs
@@ -131,4 +132,5 @@ add-zsh-hook precmd precmd
 setopt prompt_subst
 
 NEWLINE=$'\n'
+
 PROMPT='${PROMPT_VENV}${PROMPT_HOST}${PROMPT_PWD} ${PROMPT_GIT}${PROMPT_JOBS}${PROMPT_CMD_DURATION}${PROMPT_STATUS}${NEWLINE}%F{$MY_COLOR_PROMPT_DELIM}${MY_PROMPT_DELIM}%f '

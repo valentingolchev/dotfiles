@@ -32,7 +32,7 @@ return {
     },
     lazy = true,
     init = function()
-      require 'user.config.plugins.conjure'
+      require 'user.plugins.config.conjure'
     end,
     config = function()
       require('conjure.main').main()

@@ -1,9 +1,4 @@
-# tmux
-!tmux/.config/tmux/plugins
-
-tmux/.config/tmux/plugins/*
-
-!tmux/.config/tmux/plugins/tmp
-!tmux/.config/tmux/plugins/tmuxifier
-!tmux/.config/tmux/plugins/catppuccin
-
+# clojure
+**/.clj-kondo/
+**/.cpcache/
+**/.cache/

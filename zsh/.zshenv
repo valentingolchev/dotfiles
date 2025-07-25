@@ -4,7 +4,6 @@
 # 🚀 .zshenv
 # -- .zprofile
 # -- .zshrc
-
 export LANG=en_US.UTF-8
 export PATH="$PATH:/usr/local/opt/curl/bin"
 export VISUAL=vim
@@ -14,7 +13,6 @@ export EDITOR="$VISUAL"
 export ZSH_CONFIG_PATH="$HOME/.config/zsh"
 export ZSH_WORK_CONFIG_PATH="$HOME/.config/zsh_work"
 export ZSH_PLUGINS_PATH="$HOME/.config/zsh/plugins"
-export SH_SHARED_CONFIG_PATH="$HOME/.local/share/vgo/shell"
 
 export TMUX_CONFIG_PATH="$HOME/.config/tmux"
 

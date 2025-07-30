@@ -33,7 +33,7 @@ def main():
 def handle_result(args, result, target_window_id, boss):
     direction = args[1]
     key_mapping = args[2]
-    vim_id = args[3] if len(args) > 3 else "n?vim"
+    vim_id = args[3] if len(args) > 3 else "nvim"
 
     window = boss.window_id_map.get(target_window_id)
 

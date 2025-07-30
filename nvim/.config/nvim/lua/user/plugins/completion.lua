@@ -27,7 +27,7 @@ return {
       sources = {
         default = { 'lsp', 'buffer', 'snippets', 'path' },
         per_filetype = {
-          sql = { 'dadbod', 'buffer', 'skippets' },
+          sql = { 'dadbod', 'buffer' },
         },
         providers = {
           dadbod = { name = 'Dadbod', module = 'vim_dadbod_completion.blink' },

@@ -16,7 +16,7 @@ if not (vim.uv or vim.loop).fs_stat(lazypath) then
 end
 vim.opt.runtimepath:prepend(lazypath)
 
-local colorscheme = require 'user.themes.catppuccin'
+local colorscheme = require 'user.themes.kanagawa'
 
 -- Setup lazy.nvim
 require('lazy').setup {

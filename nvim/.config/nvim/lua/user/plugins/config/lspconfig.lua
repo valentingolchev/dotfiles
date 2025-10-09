@@ -83,13 +83,26 @@ local servers = {
       },
     },
   },
+  fennel_ls = {},
+  clojure_lsp = {},
+  jdtls = {},
+  pylsp = {},
+  bashls = {},
+  docker_language_server = {},
+  jsonls = {},
+  yamlls = {},
+  terraformls = {},
+  -- ◍ elixir-ls elixirls
+  -- ◍ stylua
+  -- ◍ clj-kondo
+  -- ◍ cljfmt
+  -- ◍ java-debug-adapter
+  -- ◍ java-test
 }
 
 require('mason').setup()
 require('mason-lspconfig').setup {
-  ensure_installed = vim.list_extend(vim.tbl_keys(servers or {}), {
-    -- 'stylua', -- Used to format Lua code
-  }),
+  ensure_installed = vim.list_extend(vim.tbl_keys(servers or {}), {}),
   handlers = {
     function(server_name)
       if 'jdtls' == server_name then

@@ -59,15 +59,12 @@ def fzf_select(prompt: str, choices: List[str]) -> str:
     if not choices:
         return None
 
-    env = os.environ.copy()
-
     fzf = subprocess.Popen(
         ["fzf", f"--prompt={prompt}"],
         stdin=subprocess.PIPE,
         stdout=subprocess.PIPE,
         stderr=None,  # Let stderr go to terminal
-        text=True,
-        env=env
+        text=True
     )
     stdout, _ = fzf.communicate("\n".join(choices))
     if fzf.returncode == 0 and stdout.strip():

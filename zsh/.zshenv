@@ -8,6 +8,7 @@ export LANG=en_US.UTF-8
 export PATH="$PATH:/usr/local/opt/curl/bin"
 export VISUAL=vim
 export EDITOR="$VISUAL"
+export TERMINAL=kitty
 
 # Config Paths
 export ZSH_CONFIG_PATH="$HOME/.config/zsh"

@@ -27,16 +27,16 @@ detect_linux_distro() {
 DISTRO="$(detect_linux_distro)"
 case "$DISTRO" in
   arch)
-    if command -v yay >/dev/null 2>&1; then
-      PKG_MANAGER="yay"
-      UPDATE=(yay -Syu --noconfirm)
-      INSTALL=(yay -S --noconfirm)
+    if command -v paru >/dev/null 2>&1; then
+      PKG_MANAGER="paru"
+      UPDATE=(paru -Syu --noconfirm)
+      INSTALL=(paru -S --noconfirm)
     elif command -v pacman >/dev/null 2>&1; then
       PKG_MANAGER="pacman"
       UPDATE=(sudo pacman -Syu --noconfirm)
       INSTALL=(sudo pacman -S --noconfirm)
     else
-      echo "Arch setup requires yay or pacman." >&2
+      echo "Arch setup requires paru or pacman." >&2
       exit 1
     fi
     ;;
@@ -68,7 +68,7 @@ if $USE_TUI && ! command -v whiptail >/dev/null 2>&1; then
   "${UPDATE[@]}"
   case "$PKG_MANAGER" in
     apt) "${INSTALL[@]}" whiptail ;;
-    pacman|yay) "${INSTALL[@]}" libnewt ;;
+    pacman|paru) "${INSTALL[@]}" libnewt ;;
   esac
 fi
 

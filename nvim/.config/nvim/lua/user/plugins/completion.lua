@@ -34,12 +34,13 @@ return {
         },
       },
       completion = {
+        accept = { auto_brackets = { enabled = false } },
         menu = {
           border = 'single',
           draw = {
             columns = {
               { 'kind_icon', 'kind' },
-              { 'label', 'label_description', gap = 1 },
+              { 'label',     'label_description', gap = 1 },
             },
           },
         },

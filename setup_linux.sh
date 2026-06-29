@@ -1,7 +1,7 @@
 #!/bin/bash
 set -e
 
-SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
+SCRIPT_DIR=$(cd "$(dirname "$0")" && pwd)
 source "$SCRIPT_DIR/scripts/setup_common.sh"
 
 detect_linux_distro() {
@@ -88,6 +88,11 @@ if [ "$DISTRO" = "ubuntu" ]; then
   FD_PKG="fd-find"
 fi
 
+if [ "$DISTRO" = "ubuntu" ]; then
+  echo "Installing 'build-essential' ..."
+  sudo apt update && sudo apt install build-essential
+fi
+
 PACKAGES=(git stow)
 STOW_DIRS=()
 
@@ -141,7 +146,7 @@ for dir in "${SELECTED_DIRS[@]}"; do
       STOW_DIRS+=("$dir")
       ;;
     zsh)
-      add_packages zsh zoxide eza "$FD_PKG" starship mise
+      add_packages zsh zoxide eza "$FD_PKG" # starship mise
       STOW_DIRS+=("$dir")
       ;;
   esac
@@ -163,4 +168,4 @@ if $DRY_RUN; then
   "$SCRIPT_DIR/symlink_all.sh" --dry-run --verbose "$VERBOSE" --dirs "$SELECTED_DIRS_STR"
 else
   "$SCRIPT_DIR/symlink_all.sh" --verbose "$VERBOSE" --dirs "$SELECTED_DIRS_STR"
-fi
+f

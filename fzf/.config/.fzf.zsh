@@ -17,7 +17,23 @@ catppuccin_frappe=" \
 --color=selected-bg:#51576D \
 --color=border:#414559,label:#C6D0F5"
 
-export FZF_DEFAULT_OPTS=$catppuccin_frappe
+# https://github.com/rebelot/kanagawa.nvim (Lotus = light, Wave = dark)
+kanagawa_lotus=" \
+--color=bg+:#e7dba0,bg:#f2ecbc,spinner:#cc6d00,hl:#c84053 \
+--color=fg:#545464,header:#c84053,info:#624c83,pointer:#cc6d00 \
+--color=marker:#cc6d00,fg+:#43436c,prompt:#624c83,hl+:#d7474b \
+--color=selected-bg:#e5ddb0 \
+--color=border:#a09cac,label:#545464 \
+--multi"
+kanagawa_wave=" \
+--color=bg+:#2a2a37,bg:#1f1f28,spinner:#ff9e3b,hl:#c34043 \
+--color=fg:#dcd7ba,header:#c34043,info:#957fb8,pointer:#ff9e3b \
+--color=marker:#ff9e3b,fg+:#dcd7ba,prompt:#957fb8,hl+:#e82424 \
+--color=selected-bg:#363646 \
+--color=border:#54546d,label:#dcd7ba \
+--multi"
+
+export FZF_DEFAULT_OPTS=$kanagawa_lotus
 
 show_file_or_dir_preview="if [ -d {} ]; then eza --tree --color=always {} | head -200; else bat -n --color=always --line-range :500 {}; fi"
 export FZF_CTRL_T_OPTS="--preview '$show_file_or_dir_preview'"

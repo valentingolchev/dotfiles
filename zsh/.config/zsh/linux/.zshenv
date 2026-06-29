@@ -6,4 +6,4 @@
 # -- .zprofile
 # -- .zshrc
 
-alias wezterm='flatpak run org.wezfurlong.wezterm'
+export PATH="$HOME/.local/bin:$PATH"

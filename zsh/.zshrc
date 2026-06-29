@@ -25,10 +25,9 @@ setopt hist_verify
 bindkey "^[[A" history-search-backward
 bindkey "^[[B" history-search-forward
 
-# Set up fzf key bindings and fuzzy completion
-eval "$(fzf --zsh)"
-eval "$(zoxide init zsh)"
-eval "$(mise activate zsh)"
+[[ "$(which fzf)" != *"not found"* ]] && eval "$(fzf --zsh)"
+[[ "$(which zoxide)" != *"not found"* ]] && eval "$(zoxide init zsh)"
+[[ "$(which mise)" != *"not found"* ]] && eval "$(mise activate zsh)"
 
 [[ -s "$ZSH_OS_CONFIG_PATH/.zshrc" ]] && source "$ZSH_OS_CONFIG_PATH/.zshrc"
 [[ -s "$ZSH_WORK_CONFIG_PATH/.zshrc" ]] && source "$ZSH_WORK_CONFIG_PATH/.zshrc"

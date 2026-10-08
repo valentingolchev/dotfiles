@@ -5,6 +5,9 @@
 # ✅ .zprofile
 # 🚀 .zshrc
 
+fpath=(~/.zfunc $fpath)
+autoload -Uz compinit && compinit
+
 # Setup ZSH plugins
 source $ZSH_PLUGINS_PATH/zsh-autosuggestions/zsh-autosuggestions.zsh
 source $ZSH_PLUGINS_PATH/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
@@ -26,9 +29,9 @@ bindkey "^[[A" history-search-backward
 bindkey "^[[B" history-search-forward
 
 # Set up fzf key bindings and fuzzy completion
-eval "$(fzf --zsh)"
-eval "$(zoxide init zsh)"
-eval "$(mise activate zsh)"
+[[ -x "$(command -v fzf)" ]] && eval "$(fzf --zsh)"
+[[ -x "$(command -v zoxide)" ]] && eval "$(zoxide init zsh)"
+[[ -x "$(command -v mise)" ]] && eval "$(mise activate zsh)"
 
 [[ -s "$ZSH_OS_CONFIG_PATH/.zshrc" ]] && source "$ZSH_OS_CONFIG_PATH/.zshrc"
 [[ -s "$ZSH_WORK_CONFIG_PATH/.zshrc" ]] && source "$ZSH_WORK_CONFIG_PATH/.zshrc"

@@ -8,6 +8,8 @@ vim.g.maplocalleader = ','
 vim.g.have_nerd_font = true
 vim.opt.termguicolors = true
 
+vim.g.sleuth_lua_heuristics = false
+
 require 'user.options'
 require 'user.config'
 require 'user.lazy'

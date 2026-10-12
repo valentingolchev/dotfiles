@@ -18,6 +18,9 @@ detect_linux_distro() {
     ubuntu)
       echo "ubuntu"
       ;;
+    fedora)
+      echo "fedora"
+      ;;
     *)
       echo ""
       ;;
@@ -50,6 +53,16 @@ case "$DISTRO" in
       exit 1
     fi
     ;;
+  fedora)
+    if command -v dnf >/dev/null 2>&1; then
+      PKG_MANAGER="dnf"
+      UPDATE=(sudo dnf update -y)
+      INSTALL=(sudo dnf install -y --skip-unavailable)
+    else
+      echo "Fedora setup requires dnf." >&2
+      exit 1
+    fi
+    ;;
   *)
     echo "Unsupported Linux distro. This setup currently supports Arch and Ubuntu only." >&2
     exit 1
@@ -69,6 +82,7 @@ if $USE_TUI && ! command -v whiptail >/dev/null 2>&1; then
   case "$PKG_MANAGER" in
     apt) "${INSTALL[@]}" whiptail ;;
     pacman|paru) "${INSTALL[@]}" libnewt ;;
+    dnf) "${INSTALL[@]}" newt ;;
   esac
 fi
 

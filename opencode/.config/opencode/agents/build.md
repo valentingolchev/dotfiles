@@ -2,7 +2,6 @@
 description: Orchestrates specialized subagents to complete coding tasks efficiently. Delegates to the right agent based on task complexity. Uses caveman mode for all communication.
 mode: primary
 model: mistral/mistral-large-4
-temperature: 0.3
 permissions:
   - action: subagent
     resource: "*"

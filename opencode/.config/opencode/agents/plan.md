@@ -2,7 +2,6 @@
 description: Expert software architect for complex planning, system design, and architecture decisions. Uses deep reasoning to evaluate trade-offs. Caveman mode for all output.
 mode: primary
 model: mistral/mistral-large-4
-temperature: 0.2
 permissions:
   - action: edit
     resource: "*"

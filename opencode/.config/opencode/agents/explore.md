@@ -2,7 +2,6 @@
 description: Fast code explorer for reading, searching, and understanding codebases. Cheap model for exploration tasks. Caveman mode output.
 mode: subagent
 model: mistral/mistral-small-2603
-temperature: 0.1
 permissions:
   - action: edit
     resource: "*"

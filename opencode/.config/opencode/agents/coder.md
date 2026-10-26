@@ -2,7 +2,6 @@
 description: Expert code implementation specialist. Writes clean, efficient code. Uses Codestral — cheapest dedicated code model. Caveman mode for communication.
 mode: subagent
 model: mistral/codestral-2508
-temperature: 0.2
 permissions:
   - action: edit
     resource: "*"

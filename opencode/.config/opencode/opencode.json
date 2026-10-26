@@ -1,7 +1,46 @@
 {
   "$schema": "https://opencode.ai/config.json",
+  "model": "mistral/mistral-large-4",
+  "default_agent": "build",
+  "instructions": [
+    "~/.claude/skills/caveman/SKILL.md"
+  ],
   "permissions": [
     { "action": "skill", "resource": "*", "effect": "deny" },
     { "action": "skill", "resource": "caveman", "effect": "allow" }
-  ]
+  ],
+  "providers": {
+    "mistral": {
+      "models": {
+        "mistral-large-4": {
+          "settings": {
+            "reasoningEffort": "high"
+          },
+          "variants": [
+            {
+              "id": "high",
+              "name": "High reasoning",
+              "settings": {
+                "reasoningEffort": "high"
+              }
+            },
+            {
+              "id": "medium",
+              "name": "Medium reasoning",
+              "settings": {
+                "reasoningEffort": "medium"
+              }
+            },
+            {
+              "id": "low",
+              "name": "Low reasoning",
+              "settings": {
+                "reasoningEffort": "low"
+              }
+            }
+          ]
+        }
+      }
+    }
+  }
 }

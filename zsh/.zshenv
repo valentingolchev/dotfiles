@@ -6,6 +6,7 @@
 # -- .zshrc
 export LANG=en_US.UTF-8
 export PATH="$PATH:/usr/local/opt/curl/bin"
+export PATH="$PATH:$HOME/.local/bin"
 export VISUAL=vim
 export EDITOR="$VISUAL"
 export TERMINAL=kitty

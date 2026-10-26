@@ -37,3 +37,8 @@ bindkey "^[[B" history-search-forward
 [[ -s "$ZSH_WORK_CONFIG_PATH/.zshrc" ]] && source "$ZSH_WORK_CONFIG_PATH/.zshrc"
 
 [[ -s "$ZSH_CONFIG_PATH/prompt.zsh" ]] && source "$ZSH_CONFIG_PATH/prompt.zsh"
+
+# opencode
+export PATH=/home/valgo/.opencode/bin:$PATH
+
+. "$HOME/.local/share/../bin/env"

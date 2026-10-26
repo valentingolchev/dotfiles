@@ -5,3 +5,10 @@
 
 # kitty
 listen-channel.conf
+
+# fonts
+**/.uuid
+
+# neovim
+nvim.log
+**/nvim.log

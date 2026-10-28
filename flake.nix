@@ -22,38 +22,37 @@
 
   outputs = { self, nixpkgs, home-manager, ... }:
     let
-      # Supported systems
-      systems = [ "x86_64-linux" "aarch64-linux" "x86_64-darwin" "aarch64-darwin" ];
-      forAllSystems = f: nixpkgs.lib.genAttrs systems (system: f system);
+      # Detect current system
+      system = builtins.currentSystem;
+
+      # Import nixpkgs with config
+      pkgs = import nixpkgs {
+        inherit system;
+        config = {
+          allowUnfree = true;
+        };
+      };
 
       # Helper to create home-manager configuration
-      mkHome = system: username:
+      mkHome = username:
         home-manager.lib.homeManagerConfiguration {
-          pkgs = import nixpkgs {
-            inherit system;
-            config = {
-              allowUnfree = true;
-            };
-          };
+          inherit pkgs;
           extraSpecialArgs = { inherit username; };
           modules = [ ./home.nix ];
         };
     in
     {
+      # homeConfigurations must be a FLAT attribute set
+      # Keys are hostnames, values are home-manager configurations
       # Usage: home-manager switch --flake .#default
-      # Or for specific hosts: home-manager switch --flake .#username@hostname
-      homeConfigurations = forAllSystems (system:
-        let
-          pkgs = nixpkgs.legacyPackages.${system};
-        in
-        {
-          # Default: uses current user (fallback)
-          default = mkHome system (builtins.getEnv "USER");
+      #        home-manager switch --flake .#valgo@desktop
+      homeConfigurations = {
+        # Default: uses current user and system
+        default = mkHome (builtins.getEnv "USER");
 
-          # Example host-specific configs (uncomment and customize):
-          # "valgo@desktop" = mkHome "x86_64-linux" "valgo";
-          # "valgo@macbook" = mkHome "aarch64-darwin" "valgo";
-        }
-      );
+        # Host-specific configs (uncomment and customize):
+        # "valgo@desktop" = mkHome "valgo";
+        # "valgo@macbook" = mkHome "valgo";
+      };
     };
 }

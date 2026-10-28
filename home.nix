@@ -129,35 +129,9 @@
     "$HOME/go/bin"
   ];
 
-  # Program configurations
-  programs.bat = {
-    enable = true;
-    config = {
-      theme = "Catppuccin Mocha";
-    };
-  };
-
-  programs.fzf = {
-    enable = true;
-    enableZshIntegration = true;
-  };
-
-  programs.zoxide = {
-    enable = true;
-    enableZshIntegration = true;
-  };
-
-  programs.eza = {
-    enable = true;
-    enableZshIntegration = true;
-    git = true;
-    icons = "auto";
-  };
-
-  programs.direnv = {
-    enable = true;
-    nix-direnv.enable = true;
-  };
+  # Note: Program configs (bat, fzf, zoxide, eza, direnv) are managed by stow
+  # in their respective dotfile directories. Do NOT add programs.* configs
+  # here that would conflict with stow-managed files.
 
   # Home Manager state version (update when upgrading home-manager)
   home.stateVersion = "25.05";

@@ -1,0 +1,15 @@
+[Desktop Entry]
+Name=Foot
+Comment=Fast, lightweight and minimalistic Wayland terminal emulator
+Exec=foot
+Icon=foot
+Type=Application
+Categories=System;TerminalEmulator;
+Keywords=terminal;shell;prompt;command;commandline;
+StartupNotify=true
+StartupWMClass=foot
+Actions=NewWindow;
+
+[Desktop Action NewWindow]
+Name=New Window
+Exec=foot

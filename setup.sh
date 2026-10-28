@@ -72,22 +72,16 @@ step3_install_packages() {
     exit 1
   fi
 
-  # Detect hostname for flake config
-  local host="valgo@$(hostname -s)"
-  log_info "Using host config: $host"
-
   if command -v home-manager >/dev/null 2>&1; then
-    log_info "Running: home-manager switch --flake .#$host"
-    if ! home-manager switch --flake ".#$host"; then
+    log_info "Running: home-manager switch --impure --flake .#default"
+    if ! home-manager switch --impure --flake .#default; then
       log_err "home-manager switch failed"
-      log_err "Make sure '$host' is defined in flake.nix homeConfigurations"
       exit 1
     fi
   else
     log_info "Bootstrapping home-manager and applying config..."
-    if ! nix run github:nix-community/home-manager -- switch --flake ".#$host"; then
+    if ! nix run github:nix-community/home-manager -- switch --impure --flake .#default; then
       log_err "home-manager bootstrap failed"
-      log_err "Make sure '$host' is defined in flake.nix homeConfigurations"
       exit 1
     fi
   fi

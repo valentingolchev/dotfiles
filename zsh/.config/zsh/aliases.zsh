@@ -63,11 +63,10 @@ alias gbclean='git branch --merged | grep -v "\*" | xargs -n 1 git branch -d'
 #                                           #
 #############################################
 export DOTFILES=~/git/dotfiles
-export DOTHOST="valgo@$(hostname -s)"
-alias hm='home-manager switch --flake $DOTFILES#$DOTHOST'
+alias hm='home-manager switch --impure --flake $DOTFILES#default'
 alias hmg='home-manager generations'
 alias hmr='home-manager switch --rollback'
-alias hmn='nix run github:nix-community/home-manager -- switch --flake $DOTFILES#$DOTHOST'
+alias hmn='nix run github:nix-community/home-manager -- switch --impure --flake $DOTFILES#default'
 alias nixconf='cd $DOTFILES && nvim home.nix flake.nix'
 alias nixconflict='$DOTFILES/scripts/check-package-conflicts.sh'
 alias dfcd='cd $DOTFILES'

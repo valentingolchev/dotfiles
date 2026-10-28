@@ -146,6 +146,7 @@ step4_stow_dotfiles() {
   log_info "Stowing: ${stow_dirs[*]}"
 
   # Backup conflicts by renaming with .backup-YYYYMMDD postfix
+  # For directories, only back up clashing files inside, not the entire folder
   local backup_suffix=".backup-$(date +%Y%m%d)"
   local has_conflicts=false
 
@@ -162,7 +163,25 @@ step4_stow_dotfiles() {
           /*) ;;
           *) target="$HOME/$target" ;;
         esac
-        if [ -e "$target" ] || [ -L "$target" ]; then
+
+        if [ -d "$target" ] && [ ! -L "$target" ]; then
+          # It's a directory - only back up clashing files inside, not the entire folder
+          # Find corresponding dotfiles directory
+          local rel_path="${target#"$HOME"/}"
+          local dotfiles_dir="$SCRIPT_DIR/$dir/$rel_path"
+          if [ -d "$dotfiles_dir" ]; then
+            # Check each file in dotfiles dir for conflicts in target
+            while IFS= read -r -d '' dotfile; do
+              local rel_file="${dotfile#"$dotfiles_dir"/}"
+              local target_file="$target/$rel_file"
+              if [ -e "$target_file" ] && [ ! -L "$target_file" ]; then
+                mv "$target_file" "${target_file}${backup_suffix}"
+                log_info "  Backed up: $target_file → ${target_file}${backup_suffix}"
+              fi
+            done < <(find "$dotfiles_dir" -type f -print0)
+          fi
+        elif [ -e "$target" ] || [ -L "$target" ]; then
+          # It's a file or symlink - back it up
           mv "$target" "${target}${backup_suffix}"
           log_info "  Backed up: $target → ${target}${backup_suffix}"
         fi

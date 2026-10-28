@@ -30,8 +30,8 @@
   # Git configuration
   programs.git = {
     enable = true;
-    userName = "valgo";
-    userEmail = "valgo@example.com";  # TODO: update with your email
+    userName = "Valentin Golchev";
+    userEmail = "v.golchev@gmail.com";
     aliases = {
       co = "checkout";
       br = "branch";

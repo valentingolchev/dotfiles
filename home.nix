@@ -102,6 +102,9 @@
     nerd-fonts.hack
     nerd-fonts.fira-mono
     nerd-fonts.jetbrains-mono
+
+    # macOS tools
+    ruby
   ];
 
   # Session variables
@@ -112,6 +115,7 @@
 
   # Session PATH
   home.sessionPath = [
+    "$HOME/.nix-profile/bin"
     "$HOME/.local/bin"
     "$HOME/.cargo/bin"
     "$HOME/go/bin"

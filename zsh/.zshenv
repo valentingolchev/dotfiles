@@ -5,6 +5,8 @@
 # -- .zprofile
 # -- .zshrc
 export LANG=en_US.UTF-8
+# Nix profile (home-manager packages) - must be first
+export PATH="$HOME/.nix-profile/bin:$PATH"
 export PATH="$PATH:/usr/local/opt/curl/bin"
 export PATH="$PATH:$HOME/.local/bin"
 export VISUAL=vim
@@ -15,8 +17,6 @@ export TERMINAL=kitty
 export ZSH_CONFIG_PATH="$HOME/.config/zsh"
 export ZSH_WORK_CONFIG_PATH="$HOME/.config/zsh_work"
 export ZSH_PLUGINS_PATH="$HOME/.config/zsh/plugins"
-
-export TMUX_CONFIG_PATH="$HOME/.config/tmux"
 
 # OS specific config setup
 source "$ZSH_CONFIG_PATH/helper_fns.sh"

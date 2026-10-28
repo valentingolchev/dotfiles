@@ -19,13 +19,19 @@
       experimental-features = [ "nix-command" "flakes" ];
       auto-optimise-store = true;
       warn-dirty = false;
+      flake-registry = "${pkgs.nix}/share/nix/flake-registry.json";
     };
     gc = {
-      automatic = true;
-      dates = "weekly";
-      options = "--delete-older-than 30d";
+      automatic = false;  # Disabled to avoid conflicts with manual/system GC
     };
   };
+
+  # Manage nix.conf via home-manager
+  home.file.".config/nix/nix.conf".text = ''
+    experimental-features = nix-command flakes
+    auto-optimise-store = true
+    warn-dirty = false
+  '';
 
   # Git configuration
   programs.git = {
@@ -62,7 +68,6 @@
     fzf
     ripgrep
     zoxide
-    starship
     fastfetch
 
     # Shell
@@ -120,6 +125,43 @@
   home.sessionVariables = {
     EDITOR = "nvim";
     VISUAL = "nvim";
+  };
+
+  # Session PATH
+  home.sessionPath = [
+    "$HOME/.local/bin"
+    "$HOME/.cargo/bin"
+    "$HOME/go/bin"
+  ];
+
+  # Program configurations
+  programs.bat = {
+    enable = true;
+    config = {
+      theme = "Catppuccin Mocha";
+    };
+  };
+
+  programs.fzf = {
+    enable = true;
+    enableZshIntegration = true;
+  };
+
+  programs.zoxide = {
+    enable = true;
+    enableZshIntegration = true;
+  };
+
+  programs.eza = {
+    enable = true;
+    enableZshIntegration = true;
+    git = true;
+    icons = "auto";
+  };
+
+  programs.direnv = {
+    enable = true;
+    nix-direnv.enable = true;
   };
 
   # Home Manager state version (update when upgrading home-manager)

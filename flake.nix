@@ -20,7 +20,7 @@
     };
   };
 
-  outputs = { self, nixpkgs, home-manager, ... }:
+  outputs = { nixpkgs, home-manager, ... }:
     let
       # Detect current system
       system = builtins.currentSystem;
@@ -53,6 +53,23 @@
         # Host-specific configs (uncomment and customize):
         # "valgo@desktop" = mkHome "valgo";
         # "valgo@macbook" = mkHome "valgo";
+      };
+
+      # Packages output for nix build
+      packages.${system} = {
+        default = pkgs.hello;
+        home-manager = home-manager.packages.${system}.default;
+      };
+
+      # Dev shells for development
+      devShells.${system}.default = pkgs.mkShell {
+        name = "dotfiles-dev";
+        packages = with pkgs; [
+          nixpkgs-fmt
+          statix
+          deadnix
+          shellcheck
+        ];
       };
     };
 }

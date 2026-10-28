@@ -22,11 +22,8 @@
 
   outputs = { nixpkgs, home-manager, ... }:
     let
-      # Detect current system
-      system = builtins.currentSystem;
-
-      # Import nixpkgs with config
-      pkgs = import nixpkgs {
+      # Helper to create pkgs for a system
+      mkPkgs = system: import nixpkgs {
         inherit system;
         config = {
           allowUnfree = true;
@@ -34,7 +31,10 @@
       };
 
       # Helper to create home-manager configuration
-      mkHome = username:
+      mkHome = system: username:
+        let
+          pkgs = mkPkgs system;
+        in
         home-manager.lib.homeManagerConfiguration {
           inherit pkgs;
           extraSpecialArgs = { inherit username; };
@@ -43,33 +43,37 @@
     in
     {
       # homeConfigurations must be a FLAT attribute set
-      # Keys are hostnames, values are home-manager configurations
-      # Usage: home-manager switch --flake .#default
-      #        home-manager switch --flake .#valgo@desktop
+      # Keys are "username@hostname", values are home-manager configurations
+      # Usage: home-manager switch --flake .#valgo@desktop
       homeConfigurations = {
-        # Default: uses current user and system
-        default = mkHome (builtins.getEnv "USER");
-
-        # Host-specific configs (uncomment and customize):
-        # "valgo@desktop" = mkHome "valgo";
-        # "valgo@macbook" = mkHome "valgo";
+        # TODO: Update these with your actual hostnames
+        "valgo@desktop" = mkHome "x86_64-linux" "valgo";
+        "valgo@laptop" = mkHome "x86_64-linux" "valgo";
+        "valgo@macbook" = mkHome "aarch64-darwin" "valgo";
       };
 
       # Packages output for nix build
-      packages.${system} = {
-        default = pkgs.hello;
+      packages = nixpkgs.lib.genAttrs [ "x86_64-linux" "aarch64-linux" "x86_64-darwin" "aarch64-darwin" ] (system: {
+        default = (mkPkgs system).hello;
         home-manager = home-manager.packages.${system}.default;
-      };
+      });
 
       # Dev shells for development
-      devShells.${system}.default = pkgs.mkShell {
-        name = "dotfiles-dev";
-        packages = with pkgs; [
-          nixpkgs-fmt
-          statix
-          deadnix
-          shellcheck
-        ];
-      };
+      devShells = nixpkgs.lib.genAttrs [ "x86_64-linux" "aarch64-linux" "x86_64-darwin" "aarch64-darwin" ] (system:
+        let
+          pkgs = mkPkgs system;
+        in
+        {
+          default = pkgs.mkShell {
+            name = "dotfiles-dev";
+            packages = with pkgs; [
+              nixpkgs-fmt
+              statix
+              deadnix
+              shellcheck
+            ];
+          };
+        }
+      );
     };
 }

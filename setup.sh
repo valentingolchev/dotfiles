@@ -145,7 +145,8 @@ step4_stow_dotfiles() {
 
   log_info "Stowing: ${stow_dirs[*]}"
 
-  # Backup conflicts by renaming with .backup postfix
+  # Backup conflicts by renaming with .backup-YYYYMMDD postfix
+  local backup_suffix=".backup-$(date +%Y%m%d)"
   local has_conflicts=false
 
   for dir in "${stow_dirs[@]}"; do
@@ -156,15 +157,15 @@ step4_stow_dotfiles() {
       while IFS= read -r target; do
         [ -z "$target" ] && continue
         if [ -e "$target" ] || [ -L "$target" ]; then
-          mv "$target" "${target}.backup"
-          log_info "  Backed up: $target → ${target}.backup"
+          mv "$target" "${target}${backup_suffix}"
+          log_info "  Backed up: $target → ${target}${backup_suffix}"
         fi
       done <<< "$conflicts"
     fi
   done
 
   if [ "$has_conflicts" = true ]; then
-    log_ok "Conflicts backed up with .backup postfix"
+    log_ok "Conflicts backed up with ${backup_suffix} postfix"
   fi
 
   # Stow all directories

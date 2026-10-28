@@ -5,7 +5,13 @@
 # ✅ .zprofile
 # 🚀 .zshrc
 
-fpath=(~/.zfunc $fpath)
+# Fix zsh completions for Nix-installed zsh
+if command -v zsh >/dev/null 2>&1; then
+  ZSH_DIR=$(dirname $(dirname $(readlink -f $(which zsh))))
+  fpath=($ZSH_DIR/share/zsh/site-functions $fpath)
+  fpath=($ZSH_DIR/share/zsh/*/functions $fpath)
+fi
+
 autoload -Uz compinit && compinit
 
 # Setup ZSH plugins
@@ -31,7 +37,10 @@ bindkey "^[[B" history-search-forward
 # Set up fzf key bindings and fuzzy completion
 [[ -x "$(command -v fzf)" ]] && eval "$(fzf --zsh)"
 [[ -x "$(command -v zoxide)" ]] && eval "$(zoxide init zsh)"
-[[ -x "$(command -v mise)" ]] && eval "$(mise activate zsh)"
+# mise: only activate if mise is in PATH and working
+if command -v mise >/dev/null 2>&1 && mise --version >/dev/null 2>&1; then
+  eval "$(mise activate zsh)"
+fi
 
 [[ -s "$ZSH_OS_CONFIG_PATH/.zshrc" ]] && source "$ZSH_OS_CONFIG_PATH/.zshrc"
 [[ -s "$ZSH_WORK_CONFIG_PATH/.zshrc" ]] && source "$ZSH_WORK_CONFIG_PATH/.zshrc"

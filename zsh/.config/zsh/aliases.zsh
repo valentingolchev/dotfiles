@@ -70,4 +70,7 @@ alias hmn='nix run github:nix-community/home-manager -- switch --impure --flake 
 alias nixconf='cd $DOTFILES && nvim home.nix flake.nix'
 alias nixconflict='$DOTFILES/scripts/check-package-conflicts.sh'
 alias dfcd='cd $DOTFILES'
+alias hm-clean='home-manager expire-generations "-1 days" && nix-collect-garbage -d'
+alias hm-nuke='home-manager expire-generations "-1 seconds" && sudo nix-collect-garbage -d && sudo nix-store --optimize'
+alias hm-size='du -sh ~/.nix-profile /nix/store 2>/dev/null'
 

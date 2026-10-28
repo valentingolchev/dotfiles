@@ -73,11 +73,11 @@ step3_install_packages() {
   fi
 
   if command -v home-manager >/dev/null 2>&1; then
-    log_info "Running: home-manager switch --flake ."
-    home-manager switch --flake .
+    log_info "Running: home-manager switch --flake .#default"
+    home-manager switch --flake .#default
   else
     log_info "Bootstrapping home-manager and applying config..."
-    nix run github:nix-community/home-manager -- switch --flake .
+    nix run github:nix-community/home-manager -- switch --flake .#default
   fi
 
   log_ok "Packages installed"

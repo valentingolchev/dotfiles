@@ -5,8 +5,48 @@
   home.username = username;
   home.homeDirectory = if pkgs.stdenv.isDarwin then "/Users/${username}" else "/home/${username}";
 
+  # Disable release check warning
+  home.enableNixpkgsReleaseCheck = false;
+
   # Let Home Manager install and manage itself
   programs.home-manager.enable = true;
+
+  # Nix configuration
+  nix = {
+    enable = true;
+    package = pkgs.nix;
+    settings = {
+      experimental-features = [ "nix-command" "flakes" ];
+      auto-optimise-store = true;
+      warn-dirty = false;
+    };
+    gc = {
+      automatic = true;
+      dates = "weekly";
+      options = "--delete-older-than 30d";
+    };
+  };
+
+  # Git configuration
+  programs.git = {
+    enable = true;
+    userName = "valgo";
+    userEmail = "valgo@example.com";  # TODO: update with your email
+    aliases = {
+      co = "checkout";
+      br = "branch";
+      st = "status";
+      ci = "commit";
+      unstage = "restore --staged";
+      last = "log -1 HEAD";
+      visual = "!gitk";
+    };
+    extraConfig = {
+      init.defaultBranch = "main";
+      pull.rebase = true;
+      core.editor = "nvim";
+    };
+  };
 
   # Packages managed by home-manager (replaces setup_linux.sh / setup_macos.sh package installation)
   home.packages = with pkgs; [
@@ -22,6 +62,7 @@
     fzf
     ripgrep
     zoxide
+    starship
     fastfetch
 
     # Shell
@@ -81,7 +122,6 @@
     VISUAL = "nvim";
   };
 
-  # This value determines the Home Manager release that your
-  # configuration is compatible with. Don't change this unless you know what you're doing.
-  home.stateVersion = "24.05";
+  # Home Manager state version (update when upgrading home-manager)
+  home.stateVersion = "25.05";
 }

@@ -20,7 +20,7 @@ log_err()  { echo -e "${RED}✗${NC} $1" >&2; }
 # Step 1: Install Nix
 # ============================================================================
 step1_install_nix() {
-  log_info "Step 1/4: Nix"
+  log_info "Step 1/5: Nix"
 
   if command -v nix >/dev/null 2>&1 || [ -d /nix ]; then
     log_ok "Nix already installed"
@@ -50,7 +50,7 @@ step1_install_nix() {
 # Step 2: Install home-manager
 # ============================================================================
 step2_install_home_manager() {
-  log_info "Step 2/4: home-manager"
+  log_info "Step 2/5: home-manager"
 
   if command -v home-manager >/dev/null 2>&1; then
     log_ok "home-manager already installed ($(home-manager --version))"
@@ -65,7 +65,7 @@ step2_install_home_manager() {
 # Step 3: Install packages via home-manager
 # ============================================================================
 step3_install_packages() {
-  log_info "Step 3/4: Packages (home-manager)"
+  log_info "Step 3/5: Packages (home-manager)"
 
   if [ ! -f flake.nix ]; then
     log_err "flake.nix not found in $SCRIPT_DIR"
@@ -90,10 +90,43 @@ step3_install_packages() {
 }
 
 # ============================================================================
+# Step 3.5: Fix shell symlink (Nix zsh → /usr/bin/zsh)
+# ============================================================================
+step3b_fix_shell() {
+  log_info "Step 4/5: Fix shell symlink"
+
+  # Only on Linux
+  if [ "$(uname -s)" != "Linux" ]; then
+    return 0
+  fi
+
+  # Check if zsh is installed via Nix
+  if ! command -v zsh >/dev/null 2>&1; then
+    log_info "zsh not installed, skipping shell fix"
+    return 0
+  fi
+
+  local nix_zsh
+  nix_zsh=$(readlink -f "$(which zsh)")
+
+  # If /usr/bin/zsh doesn't exist, create symlink
+  if [ ! -e /usr/bin/zsh ]; then
+    log_info "Creating symlink: /usr/bin/zsh → $nix_zsh"
+    sudo ln -sf "$nix_zsh" /usr/bin/zsh
+    log_ok "Shell symlink created"
+  # If /usr/bin/zsh exists and is not our symlink, warn
+  elif [ "$(readlink -f /usr/bin/zsh 2>/dev/null)" != "$nix_zsh" ]; then
+    log_info "/usr/bin/zsh exists (system zsh), leaving as-is"
+  else
+    log_ok "/usr/bin/zsh already points to Nix zsh"
+  fi
+}
+
+# ============================================================================
 # Step 4: Stow dotfiles based on installed packages
 # ============================================================================
 step4_stow_dotfiles() {
-  log_info "Step 4/4: Stow dotfiles"
+  log_info "Step 5/5: Stow dotfiles"
 
   local stow_dirs=()
 
@@ -218,6 +251,9 @@ main() {
   step3_install_packages
   echo ""
 
+  step3b_fix_shell
+  echo ""
+
   step4_stow_dotfiles
   echo ""
 
@@ -229,11 +265,12 @@ if [ "${1:-}" = "--help" ] || [ "${1:-}" = "-h" ]; then
   cat <<'EOF'
 Usage: ./setup.sh
 
-Sets up dotfiles in 4 steps (each step checks if needed):
+Sets up dotfiles in 5 steps (each step checks if needed):
   1. Install Nix (if not installed)
   2. Check home-manager (bootstrapped in step 3 if needed)
   3. Install packages via home-manager (home.nix)
-  4. Stow dotfiles based on installed packages
+  4. Fix shell symlink (Nix zsh → /usr/bin/zsh)
+  5. Stow dotfiles based on installed packages
 
 After first run, re-running is safe (idempotent).
 

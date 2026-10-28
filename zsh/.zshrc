@@ -10,10 +10,13 @@ if command -v zsh >/dev/null 2>&1; then
   ZSH_DIR=$(dirname $(dirname $(readlink -f $(which zsh))))
   fpath=($ZSH_DIR/share/zsh/site-functions $fpath)
   fpath=($ZSH_DIR/share/zsh/*/functions $fpath)
-  export ZSH_COMPDUMP=$HOME/.zcompdump
-fi
 
-autoload -Uz compinit && compinit -i 2>/dev/null || true -i 2>/dev/null || true
+  # Set compdump location
+  export ZSH_COMPDUMP=$HOME/.zcompdump
+
+  # Run compinit, ignore errors if it fails
+  autoload -Uz compinit && compinit 2>/dev/null || true
+fi
 
 # Setup ZSH plugins
 source $ZSH_PLUGINS_PATH/zsh-autosuggestions/zsh-autosuggestions.zsh

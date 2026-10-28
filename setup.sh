@@ -104,10 +104,10 @@ step4_stow_dotfiles() {
     if command -v "$pkg" >/dev/null 2>&1; then
       if [ -d "$dir" ]; then
         stow_dirs+=("$dir")
-        echo "  ${GREEN}✓${NC} $dir (found: $pkg)"
+        echo -e "  ${GREEN}✓${NC} $dir (found: $pkg)"
       fi
     else
-      echo "  ${YELLOW}·${NC} $dir (skipped: $pkg not found)"
+      echo -e "  ${YELLOW}·${NC} $dir (skipped: $pkg not found)"
     fi
   }
 
@@ -125,16 +125,16 @@ step4_stow_dotfiles() {
   # Fonts (check for fontconfig)
   if command -v fc-list >/dev/null 2>&1 && [ -d "fonts" ]; then
     stow_dirs+=("fonts")
-    echo "  ${GREEN}✓${NC} fonts (found: fontconfig)"
+    echo -e "  ${GREEN}✓${NC} fonts (found: fontconfig)"
   else
-    echo "  ${YELLOW}·${NC} fonts (skipped: fontconfig not found)"
+    echo -e "  ${YELLOW}·${NC} fonts (skipped: fontconfig not found)"
   fi
 
   # Always stow (no package check needed)
   for dir in claude opencode bin idea; do
     if [ -d "$dir" ]; then
       stow_dirs+=("$dir")
-      echo "  ${GREEN}✓${NC} $dir"
+      echo -e "  ${GREEN}✓${NC} $dir"
     fi
   done
 
@@ -151,11 +151,17 @@ step4_stow_dotfiles() {
 
   for dir in "${stow_dirs[@]}"; do
     local conflicts
-    conflicts=$(stow --no-folding -n -t "$HOME" "$dir" 2>&1 | awk '/^\s*existing target/ { print $NF }' || true)
+    # Match stow's conflict format: "  * existing target is not owned by stow: <path>"
+    conflicts=$(stow --no-folding -n -t "$HOME" "$dir" 2>&1 | awk '/existing target is not owned by stow:/ { print $NF }' || true)
     if [ -n "$conflicts" ]; then
       has_conflicts=true
       while IFS= read -r target; do
         [ -z "$target" ] && continue
+        # Make absolute path if relative
+        case "$target" in
+          /*) ;;
+          *) target="$HOME/$target" ;;
+        esac
         if [ -e "$target" ] || [ -L "$target" ]; then
           mv "$target" "${target}${backup_suffix}"
           log_info "  Backed up: $target → ${target}${backup_suffix}"

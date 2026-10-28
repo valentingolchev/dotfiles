@@ -70,14 +70,13 @@ return {
 
       -- optional
       'sindrets/diffview.nvim',
-      'nvim-telescope/telescope.nvim',
     },
     config = function()
       local neogit = require 'neogit'
 
       neogit.setup {
         integrations = {
-          telescope = true,
+          snacks = true,
           diffview = true,
         },
       }

@@ -57,10 +57,10 @@ map('x', 'P', 'p', { noremap = true })
 -- close all other folds but the current one (using the 'z' mark)
 map('n', 'z<C-f>', "mzzM'zzxzz", { desc = 'focus the current fold' })
 
--- Dismiss Noice Message
-map('n', '<leader>nd', '<cmd>NoiceDismiss<CR>', { desc = 'Dismiss Noice Message' })
+-- Dismiss Notification
+map('n', '<leader>nd', function() Snacks.notifier.hide() end, { desc = 'Dismiss Notification' })
 
--- Open Zoxide telescope extension
+-- Open Zoxide
 map('n', '<leader>Z', '<cmd>Zi<CR>', { desc = 'Open Zoxide' })
 
 -- Resize with arrows

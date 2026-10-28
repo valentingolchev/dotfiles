@@ -36,18 +36,12 @@ declare -a PACKAGES=(
   "neovim|nvim|neovim"
   "kitty|kitty|kitty"
   "mise|mise|mise"
-  "fontconfig|fc-list|fontconfig"
-  "gcc|gcc|gcc"
-  "gnumake|make|make"
-  "unzip|unzip|unzip"
   "wl-clipboard|wl-copy|wl-clipboard"
+  "foot|foot|foot"
   "btop|btop|btop"
-  "man-db|man|man-db"
   "tldr|tldr|tldr"
   "whois|whois|whois"
-  "ruby|ruby|ruby"
-  # macOS nerd-fonts (no command, skip)
-  # "nerd-fonts.hack||nerd-fonts-hack"
+  # Removed system packages: fontconfig, gcc, gnumake, unzip, man-db, ruby
 )
 
 # ============================================================================
@@ -137,6 +131,22 @@ is_manual_installed() {
   [[ "$path" == "/snap/"* ]]
 }
 
+# Check if command is a mise shim
+is_mise_installed() {
+  local cmd="$1"
+  local path
+  path=$(command -v "$cmd" 2>/dev/null || true)
+  [ -z "$path" ] && return 1
+  # mise shims are in ~/.local/share/mise/shims/
+  [[ "$path" == *"/.local/share/mise/shims/"* ]]
+}
+
+# Get mise uninstall command (remove shim)
+get_mise_uninstall_cmd() {
+  local cmd="$1"
+  echo "rm ~/.local/share/mise/shims/$cmd"
+}
+
 # Get uninstall command for system package
 get_uninstall_cmd() {
   local pkg="$1"
@@ -180,6 +190,7 @@ check_package() {
   local sys_status="not installed"
   local brew_status="not installed"
   local manual_status="not installed"
+  local mise_status="not installed"
   local nix_path=""
   local cmd_path=""
 
@@ -190,6 +201,8 @@ check_package() {
     if is_nix_installed "$cmd"; then
       nix_status="installed"
       nix_path=$(get_nix_path "$cmd")
+    elif is_mise_installed "$cmd"; then
+      mise_status="installed"
     elif is_brew_installed "$sys_pkg"; then
       brew_status="installed"
     elif is_system_installed "$sys_pkg"; then
@@ -220,6 +233,7 @@ check_package() {
   [ "$sys_status" != "not installed" ] && count=$((count + 1))
   [ "$brew_status" != "not installed" ] && count=$((count + 1))
   [ "$manual_status" != "not installed" ] && count=$((count + 1))
+  [ "$mise_status" != "not installed" ] && count=$((count + 1))
 
   if [ $count -eq 0 ]; then
     status_text="not installed"
@@ -228,6 +242,9 @@ check_package() {
     if [ "$nix_status" != "not installed" ]; then
       status_text="Nix only"
       status_color="$GREEN"
+    elif [ "$mise_status" != "not installed" ]; then
+      status_text="mise only"
+      status_color="$CYAN"
     elif [ "$sys_status" != "not installed" ]; then
       status_text="system only"
       status_color="$YELLOW"
@@ -256,6 +273,12 @@ check_package() {
   # Print details for conflicts or non-Nix installations
   if [ "$nix_status" != "not installed" ]; then
     echo "      ${CYAN}Nix:${NC}      $nix_path"
+  fi
+  if [ "$mise_status" != "not installed" ]; then
+    echo "      ${CYAN}mise:${NC}     $cmd_path"
+    if [ "$nix_status" != "not installed" ]; then
+      echo "      ${RED}→ Disable:${NC} $(get_mise_uninstall_cmd "$cmd")"
+    fi
   fi
   if [ "$sys_status" != "not installed" ]; then
     echo "      ${YELLOW}System:${NC}   $sys_status"
@@ -291,9 +314,11 @@ main() {
   echo "System package manager: $(get_system_pkgmgr)"
   echo "Homebrew: $(command -v brew >/dev/null 2>&1 && echo "yes" || echo "no")"
   echo "Nix: $(command -v nix >/dev/null 2>&1 && echo "yes" || echo "no")"
+  echo "mise: $(command -v mise >/dev/null 2>&1 && echo "yes ($(mise --version 2>/dev/null))" || echo "no")"
   echo ""
   echo "Legend:"
   echo "  ${GREEN}Nix only${NC}       = OK (managed by home-manager)"
+  echo "  ${CYAN}mise only${NC}      = managed by mise (version manager)"
   echo "  ${YELLOW}system only${NC}    = installed via system package manager"
   echo "  ${YELLOW}homebrew only${NC}  = installed via Homebrew"
   echo "  ${YELLOW}manual only${NC}    = installed manually"

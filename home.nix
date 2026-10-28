@@ -11,7 +11,7 @@
   # Let Home Manager install and manage itself
   programs.home-manager.enable = true;
 
-  # Nix configuration
+  # Nix configuration (managed by home-manager, no home.file needed)
   nix = {
     enable = true;
     package = pkgs.nix;
@@ -26,28 +26,23 @@
     };
   };
 
-  # Manage nix.conf via home-manager
-  home.file.".config/nix/nix.conf".text = ''
-    experimental-features = nix-command flakes
-    auto-optimise-store = true
-    warn-dirty = false
-  '';
-
-  # Git configuration
+  # Git configuration (new home-manager API: settings.*)
   programs.git = {
     enable = true;
-    userName = "Valentin Golchev";
-    userEmail = "v.golchev@gmail.com";
-    aliases = {
-      co = "checkout";
-      br = "branch";
-      st = "status";
-      ci = "commit";
-      unstage = "restore --staged";
-      last = "log -1 HEAD";
-      visual = "!gitk";
-    };
-    extraConfig = {
+    settings = {
+      user = {
+        name = "Valentin Golchev";
+        email = "v.golchev@gmail.com";
+      };
+      alias = {
+        co = "checkout";
+        br = "branch";
+        st = "status";
+        ci = "commit";
+        unstage = "restore --staged";
+        last = "log -1 HEAD";
+        visual = "!gitk";
+      };
       init.defaultBranch = "main";
       pull.rebase = true;
       core.editor = "nvim";

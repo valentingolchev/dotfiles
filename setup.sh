@@ -145,8 +145,7 @@ step4_stow_dotfiles() {
 
   log_info "Stowing: ${stow_dirs[*]}"
 
-  # Backup conflicts automatically before stowing
-  local backup_root="$HOME/.dotfiles-backup/$(date +%Y%m%d%H%M%S)"
+  # Backup conflicts by renaming with .backup postfix
   local has_conflicts=false
 
   for dir in "${stow_dirs[@]}"; do
@@ -154,22 +153,18 @@ step4_stow_dotfiles() {
     conflicts=$(stow -n -t "$HOME" "$dir" 2>&1 | awk '/^\s*existing target/ { print $NF }' || true)
     if [ -n "$conflicts" ]; then
       has_conflicts=true
-      log_info "Backing up conflicts in $dir to $backup_root"
-      mkdir -p "$backup_root"
       while IFS= read -r target; do
         [ -z "$target" ] && continue
         if [ -e "$target" ] || [ -L "$target" ]; then
-          local rel_path="${target#"$HOME"/}"
-          mkdir -p "$backup_root/$(dirname "$rel_path")"
-          mv "$target" "$backup_root/$rel_path"
-          log_info "  Backed up: $target"
+          mv "$target" "${target}.backup"
+          log_info "  Backed up: $target → ${target}.backup"
         fi
       done <<< "$conflicts"
     fi
   done
 
   if [ "$has_conflicts" = true ]; then
-    log_ok "Conflicts backed up to $backup_root"
+    log_ok "Conflicts backed up with .backup postfix"
   fi
 
   # Stow all directories

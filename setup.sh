@@ -151,7 +151,7 @@ step4_stow_dotfiles() {
 
   for dir in "${stow_dirs[@]}"; do
     local conflicts
-    conflicts=$(stow -n -t "$HOME" "$dir" 2>&1 | awk '/^\s*existing target/ { print $NF }' || true)
+    conflicts=$(stow --no-folding -n -t "$HOME" "$dir" 2>&1 | awk '/^\s*existing target/ { print $NF }' || true)
     if [ -n "$conflicts" ]; then
       has_conflicts=true
       while IFS= read -r target; do
@@ -168,8 +168,8 @@ step4_stow_dotfiles() {
     log_ok "Conflicts backed up with ${backup_suffix} postfix"
   fi
 
-  # Stow all directories
-  if ! stow -t "$HOME" "${stow_dirs[@]}"; then
+  # Stow all directories (--no-folding: only symlink files, not directories)
+  if ! stow --no-folding -t "$HOME" "${stow_dirs[@]}"; then
     log_err "Stow failed"
     return 1
   fi

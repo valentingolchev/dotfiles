@@ -5,8 +5,15 @@
 # -- .zprofile
 # -- .zshrc
 export LANG=en_US.UTF-8
-# Nix profile (home-manager packages) - must be first
+
+# Nix (multi-user installer) - loaded in every shell
+if [ -e /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh ]; then
+  . /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh
+fi
+
+# Nix profile (home-manager packages) - must be in every shell
 export PATH="$HOME/.nix-profile/bin:$PATH"
+
 export PATH="$PATH:/usr/local/opt/curl/bin"
 export PATH="$PATH:$HOME/.local/bin"
 export VISUAL=vim

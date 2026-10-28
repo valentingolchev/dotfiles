@@ -79,14 +79,6 @@
   ]
   # Linux-specific packages
   ++ lib.optionals pkgs.stdenv.isLinux [
-    # Fonts
-    fontconfig
-
-    # Build tools (replaces Arch base-devel)
-    gcc
-    gnumake
-    unzip
-
     # Wayland tools
     wl-clipboard
     foot
@@ -95,7 +87,6 @@
     btop
 
     # Documentation
-    man-db
     tldr
     whois
 
@@ -111,9 +102,6 @@
     nerd-fonts.hack
     nerd-fonts.fira-mono
     nerd-fonts.jetbrains-mono
-
-    # macOS tools
-    ruby
   ];
 
   # Session variables

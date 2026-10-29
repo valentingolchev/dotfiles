@@ -67,15 +67,24 @@
 
     # Shell
     zsh
+    direnv
 
     # Editor
     neovim
+    tree-sitter # CLI required by nvim-treesitter to build parsers (erlang/elixir/zsh)
 
     # Terminal
     kitty
 
     # Version manager
     mise
+
+    # Kubernetes
+    k9s
+
+    # Diagram rendering (nvim mermaid via mmdc)
+    mermaid-cli
+    chromium # mmdc/puppeteer browser (path pinned in nvim mermaid-puppeteer.json)
   ]
   # Linux-specific packages
   ++ lib.optionals pkgs.stdenv.isLinux [

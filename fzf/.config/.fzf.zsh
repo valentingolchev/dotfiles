@@ -1,39 +1,6 @@
 # --- Theme ---
-# https://github.com/catppuccin/fzf
-catppuccin_latte=" \
---color=bg+:#ccd0da,bg:#eff1f5,spinner:#dc8a78,hl:#d20f39 \
---color=fg:#4c4f69,header:#d20f39,info:#8839ef,pointer:#dc8a78 \
---color=marker:#dc8a78,fg+:#4c4f69,prompt:#8839ef,hl+:#d20f39 \
---multi"
-catppuccin_mocha=" \
---color=bg+:#313244,bg:#1e1e2e,spinner:#f5e0dc,hl:#f38ba8 \
---color=fg:#cdd6f4,header:#f38ba8,info:#cba6f7,pointer:#f5e0dc \
---color=marker:#f5e0dc,fg+:#cdd6f4,prompt:#cba6f7,hl+:#f38ba8 \
---multi"
-catppuccin_frappe=" \
---color=bg+:#414559,bg:#303446,spinner:#F2D5CF,hl:#E78284 \
---color=fg:#C6D0F5,header:#E78284,info:#CA9EE6,pointer:#F2D5CF \
---color=marker:#BABBF1,fg+:#C6D0F5,prompt:#CA9EE6,hl+:#E78284 \
---color=selected-bg:#51576D \
---color=border:#414559,label:#C6D0F5"
-
-# https://github.com/rebelot/kanagawa.nvim (Lotus = light, Wave = dark)
-kanagawa_lotus=" \
---color=bg+:#e7dba0,bg:#f2ecbc,spinner:#cc6d00,hl:#c84053 \
---color=fg:#545464,header:#c84053,info:#624c83,pointer:#cc6d00 \
---color=marker:#cc6d00,fg+:#43436c,prompt:#624c83,hl+:#d7474b \
---color=selected-bg:#e5ddb0 \
---color=border:#a09cac,label:#545464 \
---multi"
-kanagawa_wave=" \
---color=bg+:#2a2a37,bg:#1f1f28,spinner:#ff9e3b,hl:#c34043 \
---color=fg:#dcd7ba,header:#c34043,info:#957fb8,pointer:#ff9e3b \
---color=marker:#ff9e3b,fg+:#dcd7ba,prompt:#957fb8,hl+:#e82424 \
---color=selected-bg:#363646 \
---color=border:#54546d,label:#dcd7ba \
---multi"
-
-export FZF_DEFAULT_OPTS=$kanagawa_lotus
+# --color=16 follows the terminal's live 16-color palette (kitty palette)
+export FZF_DEFAULT_OPTS="--color=16 --multi"
 
 show_file_or_dir_preview="if [ -d {} ]; then eza --tree --color=always {} | head -200; else bat -n --color=always --line-range :500 {}; fi"
 export FZF_CTRL_T_OPTS="--preview '$show_file_or_dir_preview'"
@@ -53,4 +20,3 @@ _fzf_comprun() {
     *)            fzf --preview "bat -n --color=always --line-range :500 {}" "$@" ;;
   esac
 }
-

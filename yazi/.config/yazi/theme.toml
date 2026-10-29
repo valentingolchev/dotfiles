@@ -1,0 +1,5 @@
+[flavor]
+# yazi picks dark/light flavor via OSC 11 at startup + CSI 2031 live (v26.8.15+)
+# flavors use named ANSI colors -> inherit terminal palette (kitty palette)
+dark = "everforest-dark"
+light = "everforest-light"

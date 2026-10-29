@@ -1,6 +1,6 @@
 ---
 name: caveman
-description: Ultra-compressed communication mode. Auto-load when user requests terse/brief output: "caveman", "be brief", "less tokens", "short answer", "terse", "compress", or any request for token efficiency. Cuts token usage ~75% while keeping full technical accuracy. Intensity levels: lite, full (default), ultra, wenyan-lite, wenyan-full, wenyan-ultra. Load immediately when user asks for brevity — do not ask for confirmation.
+description: Ultra-compressed communication mode. Auto-load when user requests terse/brief output: "caveman", "be brief", "less tokens", "short answer", "terse", "compress", or any request for token efficiency. Cuts token usage ~75% while keeping full technical accuracy. Intensity levels: lite, full (default), ultra. Load immediately when user asks for brevity — do not ask for confirmation.
 ---
 
 ## Persistence — CRITICAL
@@ -30,9 +30,6 @@ Yes: "Bug in auth middleware. Token expiry check use `<` not `<=`. Fix:"
 | **lite** | No filler/hedging. Keep articles + full sentences. Professional but tight |
 | **full** | Drop articles, fragments OK, short synonyms. Classic caveman (DEFAULT) |
 | **ultra** | Abbreviate (DB/auth/config/req/res/fn/impl), strip conjunctions, arrows for causality (X → Y), one word when one word enough |
-| **wenyan-lite** | Semi-classical Chinese. Drop filler/hedging but keep grammar structure |
-| **wenyan-full** | Maximum classical terseness. Fully 文言文. 80-90% character reduction |
-| **wenyan-ultra** | Extreme abbreviation while keeping classical Chinese feel |
 
 ## Examples
 

@@ -1,0 +1,4 @@
+{
+  "args": ["--no-sandbox"],
+  "executablePath": "/home/valgo/.nix-profile/bin/chromium"
+}

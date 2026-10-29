@@ -86,12 +86,22 @@ local servers = {
   clojure_lsp = {},
   jdtls = {},
   pylsp = {},
-  bashls = {},
+  bashls = {
+    -- bashIde = {
+    --   shellcheckPath = vim.fn.exepath("shellcheck") or "",
+    --   enableDiagnostics = false,
+    -- }
+  },
   docker_language_server = {},
   jsonls = {},
   yamlls = {},
   terraformls = {},
-  -- ◍ elixir-ls elixirls
+  elp = {},
+  dexter = {},
+  -- expert = {},
+  -- elixirls = {},
+  -- protols = {},
+  -- clangd = { filetypes = { 'c', 'cpp', 'objc', 'objcpp' } },
   -- ◍ stylua
   -- ◍ clj-kondo
   -- ◍ cljfmt

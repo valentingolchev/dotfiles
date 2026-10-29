@@ -18,7 +18,7 @@
 : ${MY_COLOR_STATUS:=red}
 : ${MY_COLOR_CMD_DURATION:=cyan}
 : ${MY_COLOR_ERROR:=red}
-: ${MY_COLOR_PROMPT_DELIM:=white}
+: ${MY_COLOR_PROMPT_DELIM:=green}
 : ${MY_COLOR_GIT:=magenta}
 
 # Hostname for SSH

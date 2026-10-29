@@ -14,6 +14,7 @@ map('n', 'j', "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
 
 map('i', 'jj', '<Esc>', { desc = 'Exit insert mode', noremap = true })
 map('i', 'jk', '<Esc>', { desc = 'Exit insert mode', noremap = true })
+map('v', 'jk', '<Esc>', { desc = 'Exit visual mode', noremap = true })
 
 -- Set highlight on search, but clear on pressing <Esc> in normal mode
 vim.opt.hlsearch = true
@@ -29,14 +30,10 @@ map('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagnostic [Q]ui
 -- Exit terminal mode in the builtin terminal
 map('t', '<Esc><Esc>', '<C-\\><C-n>', { desc = 'Exit terminal mode' })
 
-map('n', '<leader>ntt', ':tabnew | term<CR>', { desc = 'Open [New] [T]erminal in a new [Tab].' })
-
-map('n', '<leader>st', function()
-  vim.cmd.vnew()
-  vim.cmd.term()
-  vim.cmd.wincmd 'J'
-  vim.api.nvim_win_set_height(0, 15)
-end, { desc = 'Open [S]mall [T]erminal.' })
+map('n', '<leader>ntt', '<cmd>tabnew | term<CR>', { desc = 'Open [New] [T]erminal in a new [Tab].' })
+map('n', '<leader>st', '<cmd>Floaterminal<CR>', { desc = 'Open [S]mall Floating [T]erminal.' })
+map({ 'n', 'v' }, '<D-,>', '<cmd>Floaterminal<CR>', { desc = 'Open [S]mall Floating [T]erminal.' })
+map('t', '<D-,>', '<C-\\><C-n><cmd>Floaterminal<CR>', { desc = 'Open [S]mall Floating [T]erminal.' })
 
 vim.api.nvim_create_autocmd('TermOpen', {
   group = vim.api.nvim_create_augroup('custom-term-open', { clear = true }),
@@ -61,7 +58,7 @@ map('n', 'z<C-f>', "mzzM'zzxzz", { desc = 'focus the current fold' })
 map('n', '<leader>nd', function() Snacks.notifier.hide() end, { desc = 'Dismiss Notification' })
 
 -- Open Zoxide
-map('n', '<leader>Z', '<cmd>Zi<CR>', { desc = 'Open Zoxide' })
+-- map('n', '<leader>Z', '<cmd>Zi<CR>', { desc = 'Open Zoxide' })
 
 -- Resize with arrows
 map('n', '<C-S-Down>', ':resize +2<CR>', { desc = 'Resize Horizontal Split Down' })

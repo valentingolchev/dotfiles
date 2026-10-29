@@ -25,21 +25,23 @@ return {
         nerd_font_variant = 'mono',
       },
       sources = {
-        default = { 'lsp', 'buffer', 'snippets', 'path' },
+        default = { 'lsp', 'buffer', 'snippets', 'path', 'lazydev' },
         per_filetype = {
           sql = { 'dadbod', 'buffer' },
         },
         providers = {
           dadbod = { name = 'Dadbod', module = 'vim_dadbod_completion.blink' },
+          lazydev = { name = 'LazyDev', module = 'lazydev.integrations.blink', score_offset = 100 },
         },
       },
       completion = {
+        accept = { auto_brackets = { enabled = false } },
         menu = {
           border = 'single',
           draw = {
             columns = {
               { 'kind_icon', 'kind' },
-              { 'label', 'label_description', gap = 1 },
+              { 'label',     'label_description', gap = 1 },
             },
           },
         },

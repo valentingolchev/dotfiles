@@ -3,16 +3,16 @@ return {
   'neanias/everforest-nvim',
   priority = 1000,
   config = function()
-    local everforest = require("everforest")
+    local everforest = require 'everforest'
     everforest.setup {
-      background = "soft",
+      background = 'normal',
       transparent_background_level = 0,
       italics = true,
       disable_italic_comments = false,
-      inlay_hints_background = "dimmed",
+      inlay_hints_background = 'dimmed',
       on_highlights = function(hl, palette)
-        hl["@string.special.symbol.ruby"] = { link = "@field" }
-        hl["DiagnosticUnderlineWarn"] = { undercurl = true, sp = palette.yellow }
+        hl['@string.special.symbol.ruby'] = { link = '@field' }
+        hl['DiagnosticUnderlineWarn'] = { undercurl = true, sp = palette.yellow }
       end,
     }
 

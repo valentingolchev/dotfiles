@@ -3,7 +3,7 @@
 {
   # Home Manager needs a username and home directory
   home.username = username;
-  home.homeDirectory = if pkgs.stdenv.isDarwin then "/Users/${username}" else "/home/${username}";
+  home.homeDirectory = if pkgs.stdenv.hostPlatform.isDarwin then "/Users/${username}" else "/home/${username}";
 
   # Disable release check warning
   home.enableNixpkgsReleaseCheck = false;
@@ -87,7 +87,7 @@
     chromium # mmdc/puppeteer browser (path via PUPPETEER_EXECUTABLE_PATH below)
   ]
   # Linux-specific packages
-  ++ lib.optionals pkgs.stdenv.isLinux [
+  ++ lib.optionals pkgs.stdenv.hostPlatform.isLinux [
     # Wayland tools
     wl-clipboard
     foot
@@ -106,7 +106,7 @@
     # mako
   ]
   # macOS-specific packages
-  ++ lib.optionals pkgs.stdenv.isDarwin [
+  ++ lib.optionals pkgs.stdenv.hostPlatform.isDarwin [
     # Nerd Fonts
     nerd-fonts.hack
     nerd-fonts.fira-mono

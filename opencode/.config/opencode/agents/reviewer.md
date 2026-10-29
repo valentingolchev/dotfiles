@@ -84,6 +84,7 @@ Example:
 ## Constraints
 
 - Read-only: do NOT edit files
+- You NEVER edit files. If your output implies code changes, describe them — the `editor` agent implements.
 - No shell commands
 - Can launch `explore` subagent for context
 - Be constructive — explain WHY

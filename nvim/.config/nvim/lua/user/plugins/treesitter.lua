@@ -7,8 +7,9 @@ return {
     config = function()
       local ensure_installed = { 'bash', 'c', 'diff', 'html', 'lua', 'luadoc', 'markdown', 'vim', 'vimdoc', 'elixir',
         'erlang', 'zsh' }
-      -- highlight disabled here: bash grammar highlight was flaky, keep vim regex highlighting instead
-      local highlight_disabled = { bash = true }
+      -- highlight disabled here: bash grammar highlight was flaky, keep vim regex highlighting instead;
+      -- erlang: vim regex as base, elp semantic tokens layered on top
+      local highlight_disabled = { bash = true, erlang = true }
       -- indent disabled here: ruby needs vim's regex-based indent, treesitter indent is still experimental
       local indent_disabled = { ruby = true }
 

@@ -21,12 +21,15 @@ return {
         local disable_filetypes = { c = true, cpp = true }
         return {
           timeout_ms = 500,
-          lsp_fallback = not disable_filetypes[vim.bo[bufnr].filetype],
+          lsp_fallback = false, --not disable_filetypes[vim.bo[bufnr].filetype],
         }
       end,
       formatters_by_ft = {
         lua = { 'stylua' },
         clojure = { 'cljkondo', 'cljfmt' },
+        erlang = { 'erlfmt' },
+        elixir = { 'mix' },
+
         -- Conform can also run multiple formatters sequentially
         -- python = { "isort", "black" },
         --
@@ -35,9 +38,23 @@ return {
         -- javascript = { { "prettierd", "prettier" } },
       },
       formatters = {
+        mix = {
+          -- Umbrellas keep their only .formatter.exs at the repo root, while
+          -- the builtin looks for the nearest mix.exs (an app dir). Checked in
+          -- two steps: one list would stop at whichever marker is found first.
+          cwd = function(self, ctx)
+            local util = require('conform.util')
+            return util.root_file { '.formatter.exs' }(self, ctx)
+              or util.root_file { 'mix.exs' }(self, ctx)
+          end,
+          require_cwd = true,
+        },
         cljkondo = {
           -- Change where to find the command
           command = 'opt/homebrew/bin/clj-kondo',
+        },
+        erlfmt = {
+          command = 'erlfmt',
         },
       },
     },

@@ -62,8 +62,7 @@ vim.api.nvim_create_autocmd('LspAttach', {
 })
 
 -- update diagnostics in insert mode too
-vim.lsp.handlers['textDocument/publishDiagnostics'] = vim.lsp.with(vim.lsp.diagnostic.on_publish_diagnostics,
-  { update_in_insert = true })
+vim.lsp.handlers['textDocument/publishDiagnostics'] = vim.lsp.with(vim.lsp.diagnostic.on_publish_diagnostics, { update_in_insert = true })
 -- window border for hover float
 vim.lsp.handlers['textDocument/hover'] = vim.lsp.with(vim.lsp.handlers.hover, { border = 'rounded' })
 -- window border for the LSP info float
@@ -99,7 +98,11 @@ local servers = {
   yamlls = {},
   terraformls = {},
   elp = {},
-  elixirls = {},
+  dexter = {},
+  -- expert = {},
+  -- elixirls = {},
+  -- protols = {},
+  -- clangd = { filetypes = { 'c', 'cpp', 'objc', 'objcpp' } },
   -- ◍ stylua
   -- ◍ clj-kondo
   -- ◍ cljfmt
@@ -113,7 +116,7 @@ require('mason-lspconfig').setup {
   handlers = {
     function(server_name)
       if 'jdtls' == server_name then
-        require 'notify' ('Skipping lsp-config setup for language server: ' .. server_name)
+        require 'notify'('Skipping lsp-config setup for language server: ' .. server_name)
         return
       end
 

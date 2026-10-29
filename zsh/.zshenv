@@ -14,6 +14,9 @@ fi
 # Nix profile (home-manager packages) - must be in every shell
 export PATH="$HOME/.nix-profile/bin:$PATH"
 
+# mmdc (mermaid-cli) renders via puppeteer — point it at the home-manager chromium (from home.nix)
+[[ -x "$HOME/.nix-profile/bin/chromium" ]] && export PUPPETEER_EXECUTABLE_PATH="$HOME/.nix-profile/bin/chromium"
+
 export PATH="$PATH:/usr/local/opt/curl/bin"
 export PATH="$PATH:$HOME/.local/bin"
 export VISUAL=vim

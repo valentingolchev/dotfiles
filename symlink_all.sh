@@ -42,7 +42,7 @@ backup_conflicts() {
   local dir="$1"
   local conflicts
 
-  conflicts=$(stow -n -t "$HOME" "$dir" 2>&1 | awk '/^\s*existing target/ { print $NF }')
+  conflicts=$(stow -n --no-folding -t "$HOME" "$dir" 2>&1 | awk '/^\s*existing target/ { print $NF }')
   if [ -z "$conflicts" ]; then
     return 0
   fi
@@ -90,9 +90,9 @@ if [ ${#DIRS[@]} -eq 0 ]; then
   DIRS=("${DEFAULT_DIRS[@]}")
 fi
 
-stow_args=("-t" "$HOME")
+stow_args=("--no-folding" "-t" "$HOME")
 if $DRY_RUN; then
-  stow_args=("-n" "-t" "$HOME")
+  stow_args=("-n" "--no-folding" "-t" "$HOME")
 fi
 
 log "Stowing dirs: ${DIRS[*]}"

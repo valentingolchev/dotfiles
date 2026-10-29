@@ -84,7 +84,7 @@
 
     # Diagram rendering (nvim mermaid via mmdc)
     mermaid-cli
-    chromium # mmdc/puppeteer browser (path pinned in nvim mermaid-puppeteer.json)
+    chromium # mmdc/puppeteer browser (path via PUPPETEER_EXECUTABLE_PATH below)
   ]
   # Linux-specific packages
   ++ lib.optionals pkgs.stdenv.isLinux [
@@ -120,6 +120,8 @@
   home.sessionVariables = {
     EDITOR = "nvim";
     VISUAL = "nvim";
+    # mmdc/mermaid rendering: puppeteer resolves this per device (no hardcoded path in dotfiles)
+    PUPPETEER_EXECUTABLE_PATH = "${pkgs.chromium}/bin/chromium";
   };
 
   # Session PATH

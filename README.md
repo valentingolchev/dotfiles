@@ -167,7 +167,13 @@ Ubuntu: `sudo apt-get install podman uidmap`).
 
 ## Theming
 - Switcher: `tinty` (gallery: `tinty gallery`; browse: `tinty list`). Scheme slugs per mode live in home.nix darkman hooks + theme-sync-macos.
-- switching: darkman hooks dark/light-mode.d/50-theme run `tinty apply <slug>` + foot USR1/USR2 (Linux); macOS launchd poll theme-sync-macos does same. Slugs: dark=base16-kanagawa-dragon, light=base16-kanagawa (edit in home.nix hooks + theme-sync-macos). Manual: `darkmanctl toggle` / `tinty apply ...` / `tinty cycle`. State: `tinty current`.
+- switching: darkman hooks dark/light-mode.d/50-theme exec `theme-hook <mode> <default-slug>` (Linux); macOS launchd poll theme-sync-macos execs the same hook. Both apply via `tinty apply <slug>` + foot USR1/USR2. HM defaults: dark=base16-kanagawa-dragon, light=base16-kanagawa (baked into home.nix hooks + theme-sync-macos). Manual: `darkmanctl toggle` / `tinty apply ...` / `tinty cycle`. State: `tinty current`.
+
+### Theme defaults & overrides
+- home.nix darkman hooks bake HM defaults into `~/.local/bin/theme-hook` calls (`theme-hook dark base16-kanagawa-dragon`, `theme-hook light base16-kanagawa`); theme-sync-macos passes the same defaults on macOS.
+- `theme-defaults base16-x base16-y` writes an override to `~/.local/state/theme-switcher/override` (not in repo, survives `home-manager switch`). At hook runtime the override wins over the baked default.
+- `theme-defaults --from-current` — capture `tinty current` (+variant) as the slug for the current mode.
+- `theme-defaults --clear` — remove override, revert to HM defaults. `theme-defaults` (no args) — show effective defaults.
 - foot: static [colors-dark]/[colors-light] sections in foot.ini; darkman hooks / theme-sync-macos send USR1/USR2 (live); NOT tinty-managed (foot can't hot-reload).
 - tinty items (config.toml): kitty (include + USR1), hyprland (`~/.cache/theme-switcher/hypr-colors.conf` + hyprctl reload).
 - k9s: skin tinty.yaml written by tinty hook from local clone of derailed/k9s skins/ (base16-*/base24-* symlinks, e.g. base16-kanagawa-dragon.yaml); ui.reactive=true hot-reloads

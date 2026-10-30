@@ -139,18 +139,16 @@
     "dark-mode.d/50-theme" = {
       text = ''
         #!/bin/sh
-        # dark scheme: base16-kanagawa-dragon (change slugs here + light hook + theme-sync-macos)
-        tinty apply base16-kanagawa-dragon
-        pkill -USR1 -x foot 2>/dev/null || true
+        # dark default: base16-kanagawa-dragon (override via theme-defaults wins at runtime)
+        exec "$HOME/.local/bin/theme-hook" dark base16-kanagawa-dragon
       '';
       executable = true;
     };
     "light-mode.d/50-theme" = {
       text = ''
         #!/bin/sh
-        # light scheme: base16-kanagawa
-        tinty apply base16-kanagawa
-        pkill -USR2 -x foot 2>/dev/null || true
+        # light default: base16-kanagawa (override via theme-defaults wins at runtime)
+        exec "$HOME/.local/bin/theme-hook" light base16-kanagawa
       '';
       executable = true;
     };

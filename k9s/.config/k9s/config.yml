@@ -1,0 +1,6 @@
+k9s:
+  ui:
+    skin: tinty
+    reactive: true   # tinty hook writes this skin; reactive=true hot-reloads
+
+# extend as needed

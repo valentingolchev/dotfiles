@@ -13,6 +13,7 @@ vim.g.sleuth_lua_heuristics = false
 require 'user.options'
 require 'user.config'
 require 'user.lazy'
+require 'user.tinty_sync'
 
 require 'user.plugins.custom.floaterm'
 

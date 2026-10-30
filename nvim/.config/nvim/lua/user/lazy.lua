@@ -16,14 +16,15 @@ if not (vim.uv or vim.loop).fs_stat(lazypath) then
 end
 vim.opt.runtimepath:prepend(lazypath)
 
-local colorscheme = require 'user.themes.everforest'
-
 -- Setup lazy.nvim
 require('lazy').setup {
   spec = {
-    colorscheme,
-    -- Keep kanagawa installed (everforest stays the active colorscheme;
-    -- themes/kanagawa.lua is kept for on-demand use via :colorscheme kanagawa)
+    -- tinted-nvim follows tinty's current scheme (mode=file + watch=true are
+    -- defaults — it watches the current_scheme file tinty writes);
+    -- base16-kanagawa-dragon is the fallback when no scheme is set.
+    { "tinted-theming/tinted-nvim", lazy = false, priority = 1000, opts = { default_scheme = "base16-kanagawa-dragon", selector = { enabled = true } } },
+    -- Keep kanagawa installed (tinted-nvim drives the active colorscheme;
+    -- kanagawa kept for manual `:colorscheme kanagawa` (no auto-setup; themes/ file removed, tinty owns colorschemes))
     'rebelot/kanagawa.nvim',
     { import = 'user.plugins' },
   },

@@ -2,7 +2,7 @@
 set -e
 
 SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
-DEFAULT_DIRS=(bat bin claude eza fastfetch fonts fzf hyperland idea k9s kitty llm_sandbox nvim opencode ripgrep zsh)
+DEFAULT_DIRS=(bat bin btop claude eza fastfetch fonts fzf foot hypr k9s kitty llm_sandbox nvim opencode ripgrep tinty yazi zsh)
 DRY_RUN=false
 VERBOSE=false
 DIRS=()

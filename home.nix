@@ -76,6 +76,9 @@
     # Terminal
     kitty
 
+    # Theming
+    tinty
+
     # Version manager
     mise
 
@@ -88,6 +91,7 @@
   ]
   # Linux-specific packages
   ++ lib.optionals pkgs.stdenv.hostPlatform.isLinux [
+    darkman
     # Wayland tools
     wl-clipboard
     foot
@@ -105,7 +109,7 @@
     # wofi
     # mako
   ]
-  # macOS-specific packages
+
   ++ lib.optionals pkgs.stdenv.hostPlatform.isDarwin [
     # Nerd Fonts
     nerd-fonts.hack
@@ -115,6 +119,71 @@
     # macOS tools
     ruby
   ];
+
+  # Darkman: dark/light scheduler on Linux only (drives tinty directly via
+  # dark-mode.d/light-mode.d/50-theme hooks + GTK/Qt via XDG portal).
+  # macOS: launchd agent theme-sync-macos polls appearance -> tinty + foot signal.
+  # geoclue needed for sunrise/sunset: NixOS system config
+  # services.geoclue2.enable = true; other distros: distro geoclue2 package.
+  # Fallback: usegeoclue = false + lat/lng. Manual toggle: darkmanctl toggle.
+  xdg.configFile = lib.mkIf pkgs.stdenv.hostPlatform.isLinux {
+    "darkman/config.ini".text = ''
+      [General]
+      usegeoclue = true
+      portal = true
+      dbusserver = true
+    '';
+  };
+
+  xdg.dataFile = lib.mkIf pkgs.stdenv.hostPlatform.isLinux {
+    "dark-mode.d/50-theme" = {
+      text = ''
+        #!/bin/sh
+        # dark scheme: base16-kanagawa-dragon (change slugs here + light hook + theme-sync-macos)
+        tinty apply base16-kanagawa-dragon
+        pkill -USR1 -x foot 2>/dev/null || true
+      '';
+      executable = true;
+    };
+    "light-mode.d/50-theme" = {
+      text = ''
+        #!/bin/sh
+        # light scheme: base16-kanagawa
+        tinty apply base16-kanagawa
+        pkill -USR2 -x foot 2>/dev/null || true
+      '';
+      executable = true;
+    };
+  };
+
+  launchd.agents = lib.mkIf pkgs.stdenv.hostPlatform.isDarwin {
+    theme-sync = {
+      enable = true;
+      config = {
+        Label = "com.valgo.theme-sync";
+        ProgramArguments = [ "/bin/sh" "-c" "$HOME/.local/bin/theme-sync-macos" ];
+        EnvironmentVariables = {
+          PATH = ''$HOME/.nix-profile/bin:$HOME/.local/bin:/usr/bin:/bin:/usr/sbin:/sbin'';
+        };
+        StartInterval = 60;
+        RunAtLoad = true;
+      };
+    };
+  };
+
+  systemd.user.services.darkman = lib.mkIf pkgs.stdenv.hostPlatform.isLinux {
+    Unit = {
+      Description = "Darkman dark/light scheduler";
+    };
+    Service = {
+      ExecStart = "${pkgs.darkman}/bin/darkman run";
+      Environment = "PATH=%h/.nix-profile/bin:%h/.local/bin:/usr/bin:/bin";
+      Restart = "on-failure";
+    };
+    Install = {
+      WantedBy = [ "default.target" ];
+    };
+  };
 
   # Session variables
   home.sessionVariables = {

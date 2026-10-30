@@ -153,7 +153,12 @@ step4_stow_dotfiles() {
   check_pkg "fzf" "fzf"
   check_pkg "rg" "ripgrep"        # ripgrep command is 'rg'
   check_pkg "fastfetch" "fastfetch"
-  check_pkg "hyprland" "hyperland"  # dir is 'hyperland', cmd is 'hyprland'
+  check_pkg "hyprland" "hypr"  # dir is 'hypr', cmd is 'hyprland'
+  check_pkg "tinty" "tinty"
+  check_pkg "yazi" "yazi"
+  check_pkg "btop" "btop"
+  check_pkg "k9s" "k9s"
+  check_pkg "eza" "eza"
 
   # Fonts (check for fontconfig)
   if command -v fc-list >/dev/null 2>&1 && [ -d "fonts" ]; then

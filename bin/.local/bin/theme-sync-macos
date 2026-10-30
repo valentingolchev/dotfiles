@@ -1,0 +1,18 @@
+#!/bin/sh
+# theme-sync-macos — launchd (StartInterval=60): sync tinty+foot to macOS appearance.
+# Slugs must match home.nix darkman hooks.
+LOCK="${TMPDIR:-/tmp}/theme-sync-macos.lock"
+[ -f "$LOCK" ] && exit 0
+trap 'rm -f "$LOCK"' EXIT
+touch "$LOCK"
+
+os=dark
+defaults read -g AppleInterfaceStyle 2>/dev/null | grep -q Dark || os=light
+cur=$(tinty current variant 2>/dev/null)
+[ "$os" = "$cur" ] && exit 0
+
+if [ "$os" = dark ]; then
+    tinty apply base16-kanagawa-dragon && pkill -USR1 -x foot 2>/dev/null || true
+else
+    tinty apply base16-kanagawa && pkill -USR2 -x foot 2>/dev/null || true
+fi

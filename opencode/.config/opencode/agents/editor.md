@@ -1,7 +1,7 @@
 ---
 description: File-editing specialist — ALL edits (code, configs, dotfiles, scripts, docs, tests) via cheapest capable model (Codestral). No architecture, no research. Caveman mode for communication.
 mode: subagent
-model: mistral/codestral-2508
+model: mistral/zai-glm-5-3-flash
 permissions:
   - action: edit
     resource: "*"

@@ -1,0 +1,55 @@
+{
+  "$schema": "https://opencode.ai/config.json",
+  "model": "mistral/mistral-large-4",
+  "default_agent": "lead",
+  "instructions": [
+    "~/.claude/skills/caveman/SKILL.md"
+  ],
+  "permissions": [
+    { "action": "skill", "resource": "*", "effect": "deny" },
+    { "action": "skill", "resource": "caveman", "effect": "allow" },
+    { "action": "skill", "resource": "exact-coding", "effect": "allow" },
+    { "action": "skill", "resource": "exact-coding-isolated-refactor", "effect": "allow" },
+    { "action": "skill", "resource": "predictive-tdd", "effect": "allow" },
+    { "action": "skill", "resource": "test-list", "effect": "allow" },
+    { "action": "skill", "resource": "red", "effect": "allow" },
+    { "action": "skill", "resource": "green", "effect": "allow" },
+    { "action": "skill", "resource": "refactor", "effect": "allow" },
+    { "action": "skill", "resource": "end-refactor", "effect": "allow" },
+    { "action": "skill", "resource": "example-mapping", "effect": "allow" }
+  ],
+  "providers": {
+    "mistral": {
+      "models": {
+        "mistral-large-4": {
+          "settings": {
+            "reasoningEffort": "high"
+          },
+          "variants": [
+            {
+              "id": "high",
+              "name": "High reasoning",
+              "settings": {
+                "reasoningEffort": "high"
+              }
+            },
+            {
+              "id": "medium",
+              "name": "Medium reasoning",
+              "settings": {
+                "reasoningEffort": "medium"
+              }
+            },
+            {
+              "id": "low",
+              "name": "Low reasoning",
+              "settings": {
+                "reasoningEffort": "low"
+              }
+            }
+          ]
+        }
+      }
+    }
+  }
+}

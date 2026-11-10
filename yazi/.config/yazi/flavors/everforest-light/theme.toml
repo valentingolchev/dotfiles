@@ -1,0 +1,18 @@
+# everforest-light flavor — named ANSI colors only, inherits terminal palette live
+[mgr]
+cwd = { fg = "green", bold = true }
+hovered = { fg = "white", bg = "green" }
+preview_hovered = { underline = true }
+border_style = { fg = "gray" }
+find_keyword = { fg = "yellow", bold = true }
+[status]
+mode_normal = { fg = "white", bg = "green" }
+mode_select = { fg = "white", bg = "blue" }
+[filetype]
+rules = [
+  { url = "*/", fg = "blue" },
+  { mime = "**/image/*", fg = "yellow" },
+  { mime = "**/{audio,video}/*", fg = "magenta" },
+  { mime = "application/{zip,rar,7z*,tar,gzip,xz,zstd,bzip*,lzma,compress,archive,cpio,ar,xar}", fg = "red" },
+  { url = "*", is = "exec", fg = "green" },
+]

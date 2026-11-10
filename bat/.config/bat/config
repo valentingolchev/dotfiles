@@ -1,0 +1,5 @@
+# bat: auto dark/light detect per run via OSC 11; override with --theme-dark/--theme-light
+--theme=auto
+
+# Show line numbers, Git modifications and file header (but no grid)
+--style="numbers,changes,header"

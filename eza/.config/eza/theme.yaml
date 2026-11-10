@@ -1,0 +1,104 @@
+colourful: true
+
+# ANSI palette names -> follows terminal palette (kitty) live; hex would pin colors
+
+filekinds:
+  normal: { foreground: Default }
+  directory: { foreground: LightRed }
+  symlink: { foreground: DarkGray }
+  pipe: { foreground: DarkGray }
+  block_device: { foreground: Red }
+  char_device: { foreground: Yellow }
+  socket: { foreground: Black }
+  special: { foreground: Purple }
+  executable: { foreground: Green }
+  mount_point: { foreground: DarkGray }
+
+perms:
+  user_read: { foreground: DarkGray }
+  user_write: { foreground: DarkGray }
+  user_execute_file: { foreground: Green }
+  user_execute_other: { foreground: Green }
+  group_read: { foreground: DarkGray }
+  group_write: { foreground: DarkGray }
+  group_execute: { foreground: Green }
+  other_read: { foreground: DarkGray }
+  other_write: { foreground: DarkGray }
+  other_execute: { foreground: Green }
+  special_user_file: { foreground: Purple }
+  special_other: { foreground: DarkGray }
+  attribute: { foreground: DarkGray }
+
+size:
+  major: { foreground: DarkGray }
+  minor: { foreground: LightRed }
+  number_byte: { foreground: DarkGray }
+  number_kilo: { foreground: DarkGray }
+  number_mega: { foreground: Cyan }
+  number_giga: { foreground: Purple }
+  number_huge: { foreground: Purple }
+  unit_byte: { foreground: DarkGray }
+  unit_kilo: { foreground: Cyan }
+  unit_mega: { foreground: Purple }
+  unit_giga: { foreground: Purple }
+  unit_huge: { foreground: LightRed }
+
+users:
+  user_you: { foreground: Yellow }
+  user_root: { foreground: Red }
+  user_other: { foreground: Purple }
+  group_yours: { foreground: DarkGray }
+  group_other: { foreground: DarkGray }
+  group_root: { foreground: Red }
+
+links:
+  normal: { foreground: LightRed }
+  multi_link_file: { foreground: Cyan }
+
+git:
+  new: { foreground: Green }
+  modified: { foreground: Yellow }
+  deleted: { foreground: Red }
+  renamed: { foreground: Cyan }
+  typechange: { foreground: Purple }
+  ignored: { foreground: DarkGray }
+  conflicted: { foreground: Red }
+
+git_repo:
+  branch_main: { foreground: DarkGray }
+  branch_other: { foreground: Purple }
+  git_clean: { foreground: Green }
+  git_dirty: { foreground: Red }
+
+security_context:
+  colon: { foreground: DarkGray }
+  user: { foreground: LightRed }
+  role: { foreground: Purple }
+  typ: { foreground: DarkGray }
+  range: { foreground: Purple }
+
+file_type:
+  image: { foreground: Yellow }
+  video: { foreground: Red }
+  music: { foreground: LightRed }
+  lossless: { foreground: DarkGray }
+  crypto: { foreground: Black }
+  document: { foreground: DarkGray }
+  compressed: { foreground: Purple }
+  temp: { foreground: Red }
+  compiled: { foreground: Cyan }
+  build: { foreground: DarkGray }
+  source: { foreground: Green }
+
+punctuation: { foreground: DarkGray }
+date: { foreground: Cyan }
+inode: { foreground: DarkGray }
+blocks: { foreground: DarkGray }
+header: { foreground: DarkGray }
+octal: { foreground: LightRed }
+flags: { foreground: Purple }
+
+symlink_path: { foreground: LightRed }
+control_char: { foreground: Cyan }
+broken_symlink: { foreground: Red }
+broken_path_overlay: { foreground: DarkGray }

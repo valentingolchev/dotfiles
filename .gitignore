@@ -1,0 +1,17 @@
+# clojure
+**/.clj-kondo/
+**/.cpcache/
+**/.cache/
+
+# kitty
+listen-channel.conf
+
+# fonts
+**/.uuid
+
+# neovim
+nvim.log
+**/nvim.log
+
+# tinty runtime files
+k9s/.config/k9s/skins/tinty.yaml

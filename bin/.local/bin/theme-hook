@@ -1,0 +1,18 @@
+#!/bin/sh
+# theme-hook dark|light <default-slug> — apply theme for mode.
+# Override file (${XDG_STATE_HOME:-~/.local/state}/theme-switcher/override) wins over
+# the home-manager-baked default slug, so `home-manager switch` never reverts custom themes.
+# Writes nothing itself; override managed by theme-defaults.
+mode="$1"; default_slug="$2"
+OV="${XDG_STATE_HOME:-$HOME/.local/state}/theme-switcher/override"
+slug="$default_slug"
+if [ -f "$OV" ]; then
+    . "$OV"   # sets DARK_THEME / LIGHT_THEME
+    if [ "$mode" = dark ] && [ -n "$DARK_THEME" ]; then slug="$DARK_THEME"
+    elif [ "$mode" = light ] && [ -n "$LIGHT_THEME" ]; then slug="$LIGHT_THEME"; fi
+fi
+[ -n "$slug" ] || { echo "theme-hook: no slug (no default, no override)" >&2; exit 1; }
+tinty apply "$slug" || exit 1
+if [ "$mode" = dark ]; then pkill -USR1 -x foot 2>/dev/null || true
+else pkill -USR2 -x foot 2>/dev/null || true; fi
+echo "$mode -> $slug"

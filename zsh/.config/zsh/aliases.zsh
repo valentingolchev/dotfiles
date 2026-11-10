@@ -1,0 +1,76 @@
+#!/bin/sh
+
+#########################################################
+#                                                       #
+#                       Aliases                         #
+#                                                       #
+#########################################################
+
+alias srczsh='source ~/.zshrc'
+alias srczprofile='source ~/.zprofile'
+alias srczenv='source ~/.zshenv'
+
+alias srcbrc='source ~/.bashrc'
+alias srcbashprofile='source ~/.bash_profile'
+alias srcbashenv='source ~/.bash_env'
+
+alias lse='eza --icons=always --group-directories-first -w=1'
+alias ll='lse -l'
+alias lla='lse -l -a'
+alias ..='cd ..'
+alias ...='cd ../..'
+alias ....='cd ../../..'
+
+alias n='nvim'
+alias vim='nvim'
+
+#############################################
+#                                           #
+#              Git Commands                 #
+#                                           #
+#############################################
+alias gs='git status'
+alias ga='git add'
+alias gb='git branch'
+alias gc='git commit'
+alias gd='git diff'
+alias gco='git checkout'
+alias co='checkout'
+alias gk='gitk --all&'
+alias gx='gitx --all'
+alias g='git'
+alias got='git'
+alias get='git'
+alias fetch='git fetch'
+alias pull='git pull'
+alias push='git push'
+alias upload='git push -u origin'
+alias gclean='git clean -df'
+alias up='push origin'
+alias down='pull origin'
+alias br='checkout -b'
+alias publish='git push -u origin $(git branch --show-current)'
+alias unpublish='git push origin :$(git branch --show-current)'
+alias amen='gc --amend'
+alias please='push --force-with-lease'
+
+alias ghist='g log --pretty --graph --date=short'
+alias gbclean='git branch --merged | grep -v "\*" | xargs -n 1 git branch -d'
+
+#############################################
+#                                           #
+#           Nix / Home-Manager              #
+#                                           #
+#############################################
+export DOTFILES=~/git/dotfiles
+alias hm='home-manager switch --impure --flake $DOTFILES#default'
+alias hmg='home-manager generations'
+alias hmr='home-manager switch --rollback'
+alias hmn='nix run github:nix-community/home-manager -- switch --impure --flake $DOTFILES#default'
+alias nixconf='cd $DOTFILES && nvim home.nix flake.nix'
+alias nixconflict='$DOTFILES/scripts/check-package-conflicts.sh'
+alias dfcd='cd $DOTFILES'
+alias hm-clean='home-manager expire-generations "-1 days" && nix-collect-garbage -d'
+alias hm-nuke='home-manager expire-generations "-1 seconds" && sudo nix-collect-garbage -d && sudo nix-store --optimize'
+alias hm-size='du -sh ~/.nix-profile /nix/store 2>/dev/null'
+

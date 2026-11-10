@@ -1,0 +1,27 @@
+#!/bin/sh
+# theme-defaults [--clear] [slug] [dark-slug light-slug]
+#   (no args)      show effective defaults (override if set, else HM defaults)
+#   --clear        remove override -> home-manager defaults apply
+#   <slug>         set override for current mode (tinty current variant)
+#   <dark> <light> set both overrides
+DIR="${XDG_STATE_HOME:-$HOME/.local/state}/theme-switcher"
+OV="$DIR/override"
+case "${1:-}" in
+  --clear) rm -f "$OV"; echo "override cleared (home-manager defaults apply)"; exit 0 ;;
+  "") [ -f "$OV" ] && { echo "override active:"; cat "$OV"; } || echo "no override (HM defaults: dark=base16-kanagawa-dragon light=base16-kanagawa)"; exit 0 ;;
+esac
+mkdir -p "$DIR"
+if [ -n "${2:-}" ]; then
+    printf 'DARK_THEME=%s\nLIGHT_THEME=%s\n' "$1" "$2" > "$OV.tmp"
+    echo "override: dark=$1 light=$2"
+else
+    v=$(tinty current variant 2>/dev/null); s="$1"
+    if [ "$v" = light ]; then
+        { [ -f "$OV" ] && grep DARK_THEME "$OV"; echo "LIGHT_THEME=$s"; } > "$OV.tmp"
+        echo "override: light -> $s"
+    else
+        { echo "DARK_THEME=$s"; [ -f "$OV" ] && grep LIGHT_THEME "$OV"; } > "$OV.tmp"
+        echo "override: dark -> $s"
+    fi
+fi
+mv -f "$OV.tmp" "$OV"

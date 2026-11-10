@@ -1,0 +1,35 @@
+# tinty config — one `tinty apply <scheme>` themes kitty/nvim/k9s/hyprland.
+# foot is NOT tinty-managed: foot.ini keeps static [colors-dark]/[colors-light]
+# sections; USR1(dark)/USR2(light) sent by darkman hooks (Linux) / theme-sync-macos (macOS) for live switching.
+# Inheriting tools (fzf --color=16, bat auto, yazi ANSI flavors, btop TTY, opencode system)
+# follow kitty's palette automatically.
+shell = "zsh -c '{}'"
+
+[[items]]
+name = "kitty"
+path = "https://github.com/tinted-theming/tinted-terminal"
+themes-dir = "themes/kitty"
+supported-systems = ["base16", "base24"]
+hook = "( [ -n \"$KITTY_PID\" ] && kill -USR1 \"$KITTY_PID\" ) || pkill -USR1 kitty 2>/dev/null || true"
+
+[[items]]
+name = "nvim"
+path = "https://github.com/tinted-theming/tinted-nvim"
+themes-dir = "colors"
+supported-systems = ["base16", "base24"]
+hook = "true"  # tinted-nvim plugin watches current_scheme file (selector mode=file, watch=true) and reloads live
+
+# host setup: git clone --depth 1 https://github.com/derailed/k9s ~/git/k9s && cd ~/git/k9s/skins && for pairs (kanagawa→base16-kanagawa, kanagawa→base16-kanagawa-dragon, everforest-dark→base16-everforest-dark, everforest-light→base16-everforest-light) ln -sf
+[[items]]
+name = "k9s"
+path = "~/git/k9s"            # local clone of github.com/derailed/k9s; skins/ contains base16-*/base24-* <slug>.yaml symlinks
+themes-dir = "skins"
+supported-systems = ["base16"]
+hook = "cp -f \"$TINTY_THEME_FILE_PATH\" \"$HOME/.config/k9s/skins/tinty.yaml\""
+
+[[items]]
+name = "hyprland"
+path = "https://github.com/alezunino/tinted-hyprland"
+themes-dir = "themes"
+supported-systems = ["base16", "base24"]
+hook = "mkdir -p \"$HOME/.cache/theme-switcher\" && cp -f \"$TINTY_THEME_FILE_PATH\" \"$HOME/.cache/theme-switcher/hypr-colors.conf\" && (hyprctl reload 2>/dev/null || true)"

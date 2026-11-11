@@ -28,7 +28,7 @@ Keep test-only helpers inside test modules. Do not make an item `pub` solely so 
 
 ## Test-list convention
 
-Represent future examples as `#[test]` functions marked `#[ignore]`. Activate exactly one behavior per cycle by removing that attribute from the test.
+Represent future examples as `#[test]` functions marked `#[ignore]`. Activate exactly one behavior per cycle by removing that attribute from the test and adding its first assertion in the same edit. A test whose body has no assertion passes vacuously — that is a silent pass, not a behavioral RED, so never activate by removing `#[ignore]` alone.
 
 For the up-front Test List phase, create the complete test module with inactive entries only:
 
@@ -40,13 +40,13 @@ mod tests {
     #[test]
     #[ignore = "TODO: expected result from the specification"]
     fn handles_the_first_behaviour() {
-        // Add the observation when this behavior enters Red.
+        // Red entry: remove #[ignore] and add the assertion here in the same edit.
     }
 
     #[test]
     #[ignore = "TODO: next expected result from the specification"]
     fn handles_the_next_behaviour() {
-        // Add the observation when this behavior enters Red.
+        // Red entry: remove #[ignore] and add the assertion here in the same edit.
     }
 }
 ```
@@ -66,7 +66,7 @@ mod tests {
         #[test]
         #[ignore = "TODO: combination result from the specification"]
         fn handles_the_combination() {
-            // Add the observation when this test is activated.
+            // Activation: remove #[ignore] and add the assertion in the same edit.
         }
     }
 }
@@ -129,6 +129,8 @@ Before every deterministic check, state a falsifiable expectation and run the ch
 ```bash
 cargo test
 ```
+
+Cargo re-runs every test on each invocation — it caches compilation, not test results — so the complete suite is already deterministic and needs no cache-bypass flag.
 
 - **RED:** continue only when the active behavior fails for the predicted reason; investigate a mismatch rather than changing production behavior.
 - **GREEN:** retain the change only when the complete suite passes.

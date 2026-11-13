@@ -14,28 +14,5 @@ local conjure_prefix = ','
 vim.g['conjure#mapping#prefix'] = conjure_prefix
 vim.g['conjure#mapping#doc_word'] = { '<M-k>' } -- avoid conflict with LSP mapping
 
--- add custom prefix labels for which-key
-vim.api.nvim_create_autocmd('FileType', {
-  pattern = my.lisps,
-  callback = function(opts)
-    if vim.api.nvim_buf_is_loaded(opts.buf) then
-      require('which-key').add({
-        name = 'Conjure',
-        { 'c', desc = 'Connect' },
-        { 'e', desc = 'Evaluate' },
-        { 'ec', desc = 'Comment' },
-        { 'g', desc = 'Get' },
-        { 'l', desc = 'Logs' },
-        { 'r', desc = 'Refresh' },
-        { 's', desc = 'Session' },
-        { 't', desc = 'Tests' },
-        { 'v', desc = 'View' },
-      }, {
-        prefix = vim.g['conjure#mapping#prefix'],
-        buffer = opts.buf,
-      })
-
-      vim.keymap.set('n', conjure_prefix .. 'cc', ':ConjureConnect ', { buffer = opts.buf, desc = 'Connect to port' })
-    end
-  end,
-})
+-- The conjure which-key buffer group and the `<prefix>cc` ConjureConnect map
+-- moved to lua/user/keymaps.lua (section "Conjure")

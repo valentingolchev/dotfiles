@@ -3,25 +3,8 @@ return {
   'folke/which-key.nvim',
   event = 'VimEnter', -- Sets the loading event to 'VimEnter'
   config = function()
-    local wk = require 'which-key'
-
-    -- Document existing key chains
-    wk.add {
-      { '<leader>c', desc = '[C]ode' },
-      { '<leader>d', desc = '[D]ocument' },
-      { '<leader>g', desc = '[G]it' },
-      { '<leader>h', desc = 'Git [H]unk' },
-      { '<leader>r', desc = '[R]ename' },
-      { '<leader>s', desc = '[S]earch' },
-      { '<leader>w', desc = '[W]orkspace' },
-      { '<leader>t', desc = '[T]oggle' },
-      {
-        mode = { 'v' },
-        { '<leader>h', desc = 'Git [H]unk' },
-      },
-    }
-
-    -- visual mode
-    wk.add({}, { mode = 'v' })
+    require 'which-key'
+    -- Group registrations moved to lua/user/keymaps.lua (section "Which-key
+    -- groups", registered on the LazyLoad User event for this plugin)
   end,
 }

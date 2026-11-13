@@ -29,22 +29,7 @@ return {
         end,
       }
 
-      vim.keymap.set('n', '<leader>db', dap.toggle_breakpoint)
-      vim.keymap.set('n', '<leader>dr', dap.restart)
-      vim.keymap.set('n', '<leader>gb', dap.run_to_cursor)
-      vim.keymap.set('n', '<leader>dc', dap.continue)
-
-      -- Eval var under cursor
-      vim.keymap.set('n', '<space>?', function()
-        ui.eval(nil, { enter = true })
-      end)
-
-      vim.keymap.set('n', '<leader>1', dap.continue)
-      vim.keymap.set('n', '<leader>2', dap.step_into)
-      vim.keymap.set('n', '<leader>3', dap.step_over)
-      vim.keymap.set('n', '<leader>4', dap.step_out)
-      vim.keymap.set('n', '<leader>5', dap.step_back)
-      vim.keymap.set('n', '<F13>', dap.restart)
+      -- Keymaps moved to lua/user/keymaps.lua (section "DAP")
 
       dap.listeners.before.attach.dapui_config = function()
         ui.open()

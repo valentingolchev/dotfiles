@@ -4,6 +4,8 @@ return {
     'nvim-lua/plenary.nvim', -- Required for git operations
   },
   config = function()
+    -- Keymap STRINGS live in lua/user/keymaps.lua (M.claude_keymaps)
+    local ck = require('user.keymaps').claude_keymaps
     require('claude-code').setup {
       -- Terminal window settings
       window = {
@@ -54,11 +56,11 @@ return {
       -- Keymaps
       keymaps = {
         toggle = {
-          normal = '<C-,>', -- Normal mode keymap for toggling Claude Code, false to disable
-          terminal = '<C-,>', -- Terminal mode keymap for toggling Claude Code, false to disable
+          normal = ck.normal, -- Normal mode keymap for toggling Claude Code, false to disable
+          terminal = ck.terminal, -- Terminal mode keymap for toggling Claude Code, false to disable
           variants = {
-            continue = '<leader>cC', -- Normal mode keymap for Claude Code with continue flag
-            verbose = '<leader>cV', -- Normal mode keymap for Claude Code with verbose flag
+            continue = ck.continue, -- Normal mode keymap for Claude Code with continue flag
+            verbose = ck.verbose, -- Normal mode keymap for Claude Code with verbose flag
           },
         },
         window_navigation = true, -- Enable window navigation keymaps (<C-h/j/k/l>)

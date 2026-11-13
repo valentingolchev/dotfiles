@@ -9,14 +9,8 @@ return {
       vim.g.parinfer_filetypes = my.lisps
 
       -- https://github.com/gpanders/nvim-parinfer/issues/12
-      vim.api.nvim_create_autocmd('FileType', {
-        group = vim.api.nvim_create_augroup('FixShiftJForParinfer', {}),
-        pattern = my.lisps,
-        callback = function()
-          vim.keymap.set('n', 'J', 'A<Space><Esc>J', { desc = 'fix J for parinfer' })
-          vim.keymap.set('n', 'gJ', 'A<Space><Esc>gJ', { desc = 'fix gJ for parinfer' })
-        end,
-      })
+      -- The 'J'/'gJ' keymaps from this autocmd moved to lua/user/keymaps.lua
+      -- (section "Parinfer J fix")
     end,
   },
   {

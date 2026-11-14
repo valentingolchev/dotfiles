@@ -1,5 +1,7 @@
 -- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
--- This file has to be loaded BEFORE the conjure plugin NOT afterwards
+-- Pre-load section: this part has to be loaded BEFORE the conjure
+-- plugin NOT afterwards (required from `init` in plugins/clojure.lua).
+-- The post-load section at the bottom is invoked from `config`.
 -- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 vim.g['conjure#filetypes'] = my.lisps
@@ -16,3 +18,13 @@ vim.g['conjure#mapping#doc_word'] = { '<M-k>' } -- avoid conflict with LSP mappi
 
 -- The conjure which-key buffer group and the `<prefix>cc` ConjureConnect map
 -- moved to lua/user/keymaps.lua (section "Conjure")
+
+local M = {}
+
+-- Post-load setup for conjure (required from `config` in plugins/clojure.lua)
+function M.setup()
+  require('conjure.main').main()
+  require('conjure.mapping')['on-filetype']()
+end
+
+return M

@@ -7,12 +7,12 @@ return {
       'williamboman/mason-lspconfig.nvim',
 
       -- Useful status updates for LSP.
-      -- NOTE: `opts = {}` is the same as calling `require('fidget').setup({})`
-      { 'j-hui/fidget.nvim', opts = {} },
+      -- NOTE: `config = true` is the same as calling `require('fidget').setup({})`
+      { 'j-hui/fidget.nvim', config = true },
 
     },
     config = function()
-      require 'user.plugins.config.lspconfig'
+      require 'user.plugins.config.nvim-lspconfig'
     end,
   },
   -- `lazydev` configures Lua LSP for your Neovim config, runtime and plugins
@@ -21,10 +21,6 @@ return {
   {
     'folke/lazydev.nvim',
     ft = 'lua',
-    opts = {
-      library = {
-        { path = '${3rd}/luv/library', words = { 'vim%.uv' } },
-      },
-    },
+    config = function() require('user.plugins.config.lazydev') end,
   },
 }

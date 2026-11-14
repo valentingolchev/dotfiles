@@ -18,9 +18,13 @@
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    neovim-nightly = {
+      url = "github:nix-community/neovim-nightly-overlay";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
-  outputs = { nixpkgs, home-manager, ... }:
+  outputs = { nixpkgs, home-manager, neovim-nightly, ... }:
     let
       # Detect current system (requires --impure flag)
       system = builtins.currentSystem;
@@ -31,6 +35,7 @@
         config = {
           allowUnfree = true;
         };
+        overlays = [ neovim-nightly.overlays.default ];
       };
 
       # Get current username (requires --impure flag)

@@ -8,6 +8,7 @@ local opt = vim.opt
 -- Make line numbers default
 opt.number = true
 opt.relativenumber = true
+opt.cmdheight = 0
 
 -- Enable mouse mode, can be useful for resizing splits for example!
 opt.mouse = 'a'

@@ -65,7 +65,7 @@
     zsh
     direnv
 
-    # Editor
+    # Editor — nightly build via neovim-nightly-overlay (flake.nix)
     neovim
     tree-sitter # CLI required by nvim-treesitter to build parsers (erlang/elixir/zsh)
 

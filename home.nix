@@ -11,7 +11,7 @@
   # Let Home Manager install and manage itself
   programs.home-manager.enable = true;
 
-  # Nix configuration (managed by home-manager, no home.file needed)
+  # Nix configuration (managed by home-manager via nix.* options)
   nix = {
     enable = true;
     package = pkgs.nix;
@@ -136,7 +136,18 @@
   # geoclue needed for sunrise/sunset: NixOS system config
   # services.geoclue2.enable = true; other distros: distro geoclue2 package.
   # Fallback: usegeoclue = false + lat/lng. Manual toggle: darkmanctl toggle.
-  xdg.configFile = lib.mkIf pkgs.stdenv.hostPlatform.isLinux {
+  xdg.configFile = {
+    "bat/config".source = ./bat/.config/bat/config;
+    "btop/btop.conf".source = ./btop/.config/btop/btop.conf;
+    "eza/theme.yaml".source = ./eza/.config/eza/theme.yaml;
+    "fastfetch/config.jsonc".source = ./fastfetch/.config/fastfetch/config.jsonc;
+    "k9s/config.yml".source = ./k9s/.config/k9s/config.yml;
+    "yazi/theme.toml".source = ./yazi/.config/yazi/theme.toml;
+    "yazi/flavors/everforest-light/theme.toml".source = ./yazi/.config/yazi/flavors/everforest-light/theme.toml;
+    "yazi/flavors/everforest-dark/theme.toml".source = ./yazi/.config/yazi/flavors/everforest-dark/theme.toml;
+    "tinted-theming/tinty/config.toml".source = ./tinty/.config/tinted-theming/tinty/config.toml;
+    ".fzf.zsh".source = ./fzf/.config/.fzf.zsh;
+  } // lib.mkIf pkgs.stdenv.hostPlatform.isLinux {
     "darkman/config.ini".text = ''
       [General]
       usegeoclue = true
@@ -209,9 +220,11 @@
     "$HOME/go/bin"
   ];
 
-  # Note: Program configs (bat, fzf, zoxide, eza, direnv) are managed by stow
-  # in their respective dotfile directories. Do NOT add programs.* configs
-  # here that would conflict with stow-managed files.
+  # Program configs (migrated from stow to home-manager)
+  # bat/btop/eza/fastfetch/idea/k9s/ripgrep/fzf/yazi/tinty managed here via nix.
+  # zsh/nvim/kitty/foot/hypr/claude/bin/fonts/opencode still stow-managed.
+  home.file.".ideavimrc".source = ./idea/.ideavimrc;
+  home.file.".rgignore".source = ./ripgrep/.rgignore;
 
   # Home Manager state version (update when upgrading home-manager)
   home.stateVersion = "25.05";

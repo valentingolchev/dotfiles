@@ -145,20 +145,12 @@ step4_stow_dotfiles() {
   }
 
   # Package → dotfile directory mappings
+  # bat btop eza fastfetch idea k9s ripgrep fzf yazi tinty managed via home.nix
   check_pkg "nvim" "nvim"
   check_pkg "kitty" "kitty"
   check_pkg "foot" "foot"
   check_pkg "zsh" "zsh"
-  check_pkg "bat" "bat"
-  check_pkg "fzf" "fzf"
-  check_pkg "rg" "ripgrep"        # ripgrep command is 'rg'
-  check_pkg "fastfetch" "fastfetch"
   check_pkg "hyprland" "hypr"  # dir is 'hypr', cmd is 'hyprland'
-  check_pkg "tinty" "tinty"
-  check_pkg "yazi" "yazi"
-  check_pkg "btop" "btop"
-  check_pkg "k9s" "k9s"
-  check_pkg "eza" "eza"
 
   # Fonts (check for fontconfig)
   if command -v fc-list >/dev/null 2>&1 && [ -d "fonts" ]; then
@@ -169,7 +161,7 @@ step4_stow_dotfiles() {
   fi
 
   # Always stow (no package check needed)
-  for dir in claude opencode bin idea; do
+  for dir in claude opencode bin; do
     if [ -d "$dir" ]; then
       stow_dirs+=("$dir")
       echo -e "  ${GREEN}✓${NC} $dir"

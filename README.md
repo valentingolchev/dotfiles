@@ -31,7 +31,7 @@ If this is the first run and Nix was just installed, start a new shell and run `
 Each top-level directory is a Stow package: `claude`, `nvim`, `opencode`; fonts come from `nerd-fonts.*` packages in `home.nix` (`home.packages`). The `bat`, `btop`, `eza`, `fastfetch`, `fzf`, `idea`, `k9s`, `ripgrep`, `tinty`, `yazi` configs plus `bin`, `hypr`, `foot`, `kitty`, `zsh` are not stowed — they live in `files/` (which mirrors `$HOME`: `files/.config/...` -> `~/.config/...`) and are symlinked by home-manager via `home.nix` (`xdg.configFile`/`home.file`).
 
 - `files/` — tree mirroring `$HOME`, symlinked into place by home-manager (`home.file`/`xdg.configFile` in `home.nix`)
-- `bin/`, `hypr/`, `foot/`, `kitty/`, `zsh/` are kept only as stow-package copies for manual unstow; `claude/` is a live stow package. Edit `files/` for nix-managed configs (home.nix reads `files/`).
+- Only `claude/`, `nvim/`, `opencode/` remain as stow packages. Everything else nix-managed lives in `files/`; on another machine run `./unstow-all.sh` before pulling (it sweeps stow links even if package dirs are gone).
 
 `setup.sh` stows a package only when its command is installed (`nvim`), and always stows `claude`, `opencode` when present.
 

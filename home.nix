@@ -20,7 +20,11 @@
   # Let Home Manager install and manage itself
   programs.home-manager.enable = true;
 
-  # Nix configuration (managed by home-manager via nix.* options)
+  # Nix configuration — home-manager writes ~/.config/nix/nix.conf from these.
+  # NOTE: substituters / trusted-public-keys / auto-optimise-store are restricted
+  # settings: for untrusted users nix ignores them with a warning. To make them
+  # effective, add the user to trusted-users in the SYSTEM /etc/nix/nix.conf
+  # (NixOS: nix.settings.trusted-users = [ "@wheel" ] or your user).
   nix = {
     enable = true;
     package = pkgs.nix;
@@ -29,6 +33,14 @@
       auto-optimise-store = true;
       warn-dirty = false;
       flake-registry = "${pkgs.nix}/share/nix/flake-registry.json";
+      substituters = [
+        "https://nix-community.cachix.org"
+        "https://cache.nixos.org"
+      ];
+      trusted-public-keys = [
+        "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
+        "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
+      ];
     };
     gc = {
       automatic = false;  # Disabled to avoid conflicts with manual/system GC

@@ -174,7 +174,7 @@ step4_stow_dotfiles() {
   for dir in "${stow_dirs[@]}"; do
     local conflicts
     # Match stow's conflict format: "  * existing target is not owned by stow: <path>"
-    conflicts=$(stow --no-folding -n -t "$HOME" "$dir" 2>&1 | awk '/existing target is not owned by stow:/ { print $NF }' || true)
+    conflicts=$(stow --no-folding -n -d "$STOW_DIR" -t "$HOME" "$dir" 2>&1 | awk '/existing target is not owned by stow:/ { print $NF }' || true)
     if [ -n "$conflicts" ]; then
       has_conflicts=true
       while IFS= read -r target; do

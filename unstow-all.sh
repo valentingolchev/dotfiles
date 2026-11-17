@@ -9,7 +9,8 @@
 # Usage: ./unstow-all.sh
 set -u
 
-STOW_DIR="$(cd "$(dirname "$0")" && pwd)"
+REPO_DIR="$(cd "$(dirname "$0")" && pwd)"
+STOW_DIR="$REPO_DIR/stow"
 
 # packages migrated to home.nix (must match symlink_all.sh comment)
 PACKAGES="bat btop eza fastfetch idea k9s ripgrep fzf yazi tinty fonts bin hypr foot kitty zsh"
@@ -26,8 +27,9 @@ for pkg in $PACKAGES; do
   fi
 done
 
-# Fallback: delete any symlinks under $HOME that point into this repo.
-echo "--- sweeping leftover symlinks pointing into $STOW_DIR"
-find "$HOME" -maxdepth 6 -type l -lname "$STOW_DIR/*" -print -delete 2>/dev/null
+# Fallback: delete any symlinks under $HOME that point into this repo
+# (covers links into both the old root and the new stow/ dir).
+echo "--- sweeping leftover symlinks pointing into $REPO_DIR"
+find "$HOME" -maxdepth 6 -type l -lname "$REPO_DIR/*" -print -delete 2>/dev/null
 
 echo "done. Now run: home-manager switch --impure --flake .#default"

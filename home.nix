@@ -158,6 +158,10 @@
       source = ./files/.config/kitty/kittens/url_select.py;
       executable = true;
     };
+    # per-OS kitty listen socket (replaces scripts/setup_kitty.sh; listen-channel.conf wins over kitty.conf)
+    "kitty/listen-channel.conf".text =
+      if pkgs.stdenv.hostPlatform.isDarwin then "listen_on unix:/tmp/mykitty\n"
+      else "listen_on unix:@mykitty\n";
     # zsh config (plugins come from nixpkgs, see below)
     "zsh/aliases.zsh".source = ./files/.config/zsh/aliases.zsh;
     "zsh/helper_fns.sh".source = ./files/.config/zsh/helper_fns.sh;

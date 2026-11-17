@@ -71,7 +71,6 @@ Useful commands:
 ```bash
 home-manager generations
 home-manager switch --rollback
-./scripts/check-package-conflicts.sh   # Nix vs system/brew/manual conflicts
 ```
 
 Linux/macOS differences are handled with `lib.optionals pkgs.stdenv.hostPlatform.isLinux/isDarwin` in `home.nix`. The flake exposes a single `default` home configuration that uses `--impure` and reads `$USER`/current system, so the same repo works per machine; add named `homeConfigurations` in `flake.nix` if you want pinned hosts.

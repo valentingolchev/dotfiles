@@ -18,20 +18,21 @@ cd ~/dotfiles
 
 If this is the first run and Nix was just installed, start a new shell and run `./setup.sh` again. The script is idempotent.
 
-`./setup.sh` runs five checks/steps:
+`./setup.sh` runs six checks/steps:
 
-1. Install Nix with flakes if missing.
-2. Check for `home-manager` (it is bootstrapped in step 3 if needed).
-3. Apply packages from `home.nix` via home-manager.
-4. On Linux, point `/usr/bin/zsh` at the Nix zsh if needed.
-5. Stow dotfile directories whose tools are installed.
+1. Install Nix if missing.
+2. Write `/etc/nix/nix.conf`: `experimental-features = nix-command flakes` and add you to `trusted-users` (sudo; restricted settings are only honored from the system config).
+3. Check for `home-manager` (it is bootstrapped in step 4 if needed).
+4. Apply packages from `home.nix` via home-manager.
+5. On Linux, point `/usr/bin/zsh` at the Nix zsh if needed.
+6. Stow dotfile directories whose tools are installed.
 
 ## Layout
 
 Each Stow package lives under `stow/`: `stow/claude`, `stow/nvim`, `stow/opencode` (stow dir: `<repo>/stow`); fonts come from `nerd-fonts.*` packages in `home.nix` (`home.packages`). The `bat`, `btop`, `eza`, `fastfetch`, `fzf`, `idea`, `k9s`, `ripgrep`, `tinty`, `yazi` configs plus `bin`, `hypr`, `foot`, `kitty`, `zsh` are not stowed — they live in `files/` (which mirrors `$HOME`: `files/.config/...` -> `~/.config/...`) and are symlinked by home-manager via `home.nix` (`xdg.configFile`/`home.file`).
 
 - `files/` — tree mirroring `$HOME`, symlinked into place by home-manager (`home.file`/`xdg.configFile` in `home.nix`)
-- `modules/` — home-manager modules split out of `home.nix` (e.g. `modules/hyprland.nix` — only when hyprland installed, `modules/kitty.nix`); config sources stay in `files/` (`../files/...`)
+- `modules/` — per-app home-manager modules (`hyprland.nix` — only when hyprland installed, `kitty.nix`, `foot.nix` — Linux only, `theming.nix`, `darkman.nix` — Linux only, `zsh.nix`); config sources stay in `files/` (`../files/...`). Rule: one definition style per file — dotted attrs (`xdg.configFile."x".source = …`) or a single attrset literal, never both in one file
 - Only `stow/claude/`, `stow/nvim/`, `stow/opencode/` remain as stow packages. Everything else nix-managed lives in `files/`; on another machine run `./unstow-all.sh` before pulling (it sweeps stow links even if package dirs are gone). After pulling the move, re-run `./symlink_all.sh` (uses `--restow`) to re-point links that dangle at the old root.
 
 `setup.sh` stows a package only when its command is installed (`nvim`), and always stows `claude`, `opencode` when present.

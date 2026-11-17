@@ -21,4 +21,10 @@
       then "listen_on unix:/tmp/mykitty\n"
       else "listen_on unix:@mykitty\n";
   };
+
+  # desktop entries: main terminal app + NoDisplay URL/mime launcher
+  xdg.dataFile = {
+    "applications/kitty.desktop".source = ../files/.local/share/applications/kitty.desktop;
+    "applications/kitty-open.desktop".source = ../files/.local/share/applications/kitty-open.desktop;
+  };
 }

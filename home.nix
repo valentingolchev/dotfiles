@@ -1,7 +1,14 @@
 { config, pkgs, lib, username, ... }:
 
 {
-  imports = [ ./modules/hyprland.nix ./modules/kitty.nix ];
+  imports = [
+    ./modules/hyprland.nix
+    ./modules/kitty.nix
+    ./modules/foot.nix
+    ./modules/theming.nix
+    ./modules/darkman.nix
+    ./modules/zsh.nix
+  ];
 
   # Home Manager needs a username and home directory
   home.username = username;
@@ -63,16 +70,9 @@
     zoxide
     fastfetch
 
-    # Shell
-    zsh
-    direnv
-
     # Editor — nightly build via neovim-nightly-overlay (flake.nix)
     neovim
     tree-sitter # CLI required by nvim-treesitter to build parsers (erlang/elixir/zsh)
-
-    # Theming
-    tinty
 
     # Version manager
     mise
@@ -95,10 +95,8 @@
   ]
   # Linux-specific packages
   ++ lib.optionals pkgs.stdenv.hostPlatform.isLinux [
-    darkman
     # Wayland tools
     wl-clipboard
-    foot
 
     # System monitoring
     btop
@@ -123,96 +121,16 @@
   # Fontconfig picks up ~/.nix-profile fonts on Linux
   fonts.fontconfig.enable = pkgs.stdenv.hostPlatform.isLinux;
 
-  # Darkman: dark/light scheduler on Linux only (drives tinty directly via
-  # dark-mode.d/light-mode.d/50-theme hooks + GTK/Qt via XDG portal).
-  # macOS: launchd agent theme-sync-macos polls appearance -> tinty + foot signal.
-  # geoclue needed for sunrise/sunset: NixOS system config
-  # services.geoclue2.enable = true; other distros: distro geoclue2 package.
-  # Fallback: usegeoclue = false + lat/lng. Manual toggle: darkmanctl toggle.
-  xdg.configFile = {
-    "bat/config".source = ./files/.config/bat/config;
-    "btop/btop.conf".source = ./files/.config/btop/btop.conf;
-    "eza/theme.yaml".source = ./files/.config/eza/theme.yaml;
-    "fastfetch/config.jsonc".source = ./files/.config/fastfetch/config.jsonc;
-    "k9s/config.yml".source = ./files/.config/k9s/config.yml;
-    "yazi/theme.toml".source = ./files/.config/yazi/theme.toml;
-    "yazi/flavors/everforest-light/theme.toml".source = ./files/.config/yazi/flavors/everforest-light/theme.toml;
-    "yazi/flavors/everforest-dark/theme.toml".source = ./files/.config/yazi/flavors/everforest-dark/theme.toml;
-    "tinted-theming/tinty/config.toml".source = ./files/.config/tinted-theming/tinty/config.toml;
-    ".fzf.zsh".source = ./files/.config/.fzf.zsh;
-    "foot/foot.ini".source = ./files/.config/foot/foot.ini;
-    # zsh config (plugins come from nixpkgs, see below)
-    "zsh/aliases.zsh".source = ./files/.config/zsh/aliases.zsh;
-    "zsh/helper_fns.sh".source = ./files/.config/zsh/helper_fns.sh;
-    "zsh/prompt.zsh".source = ./files/.config/zsh/prompt.zsh;
-    "zsh/linux/.zshenv".source = ./files/.config/zsh/linux/.zshenv;
-    "zsh/macos/.zshenv".source = ./files/.config/zsh/macos/.zshenv;
-    "zsh/macos/.zshrc".source = ./files/.config/zsh/macos/.zshrc;
-    "zsh/macos/reset_macos_dock.sh" = {
-      source = ./files/.config/zsh/macos/reset_macos_dock.sh;
-      executable = true;
-    };
-    # zsh plugins from nixpkgs (not vendored)
-    "zsh/plugins/zsh-autosuggestions".source = pkgs.zsh-autosuggestions;
-    "zsh/plugins/zsh-syntax-highlighting".source = pkgs.zsh-syntax-highlighting;
-  } // lib.mkIf pkgs.stdenv.hostPlatform.isLinux {
-    "darkman/config.ini".text = ''
-      [General]
-      usegeoclue = true
-      portal = true
-      dbusserver = true
-    '';
-  };
-
-  xdg.dataFile = {
-    "applications/foot.desktop".source = ./files/.local/share/applications/foot.desktop;
-  } // lib.mkIf pkgs.stdenv.hostPlatform.isLinux {
-    "dark-mode.d/50-theme" = {
-      text = ''
-        #!/bin/sh
-        # dark default: base16-kanagawa-dragon (override via theme-defaults wins at runtime)
-        exec "$HOME/.local/bin/theme-hook" dark base16-kanagawa-dragon
-      '';
-      executable = true;
-    };
-    "light-mode.d/50-theme" = {
-      text = ''
-        #!/bin/sh
-        # light default: base16-kanagawa (override via theme-defaults wins at runtime)
-        exec "$HOME/.local/bin/theme-hook" light base16-kanagawa
-      '';
-      executable = true;
-    };
-  };
-
-  launchd.agents = lib.mkIf pkgs.stdenv.hostPlatform.isDarwin {
-    theme-sync = {
-      enable = true;
-      config = {
-        Label = "com.valgo.theme-sync";
-        ProgramArguments = [ "/bin/sh" "-c" "$HOME/.local/bin/theme-sync-macos" ];
-        EnvironmentVariables = {
-          PATH = ''$HOME/.nix-profile/bin:$HOME/.local/bin:/usr/bin:/bin:/usr/sbin:/sbin'';
-        };
-        StartInterval = 60;
-        RunAtLoad = true;
-      };
-    };
-  };
-
-  systemd.user.services.darkman = lib.mkIf pkgs.stdenv.hostPlatform.isLinux {
-    Unit = {
-      Description = "Darkman dark/light scheduler";
-    };
-    Service = {
-      ExecStart = "${pkgs.darkman}/bin/darkman run";
-      Environment = "PATH=%h/.nix-profile/bin:%h/.local/bin:/usr/bin:/bin";
-      Restart = "on-failure";
-    };
-    Install = {
-      WantedBy = [ "default.target" ];
-    };
-  };
+  # dotted-attr form (attrset-literal + // mkIf gets dropped by the module merge)
+  xdg.configFile."bat/config".source = ./files/.config/bat/config;
+  xdg.configFile."btop/btop.conf".source = ./files/.config/btop/btop.conf;
+  xdg.configFile."eza/theme.yaml".source = ./files/.config/eza/theme.yaml;
+  xdg.configFile."fastfetch/config.jsonc".source = ./files/.config/fastfetch/config.jsonc;
+  xdg.configFile."k9s/config.yml".source = ./files/.config/k9s/config.yml;
+  xdg.configFile."yazi/theme.toml".source = ./files/.config/yazi/theme.toml;
+  xdg.configFile."yazi/flavors/everforest-light/theme.toml".source = ./files/.config/yazi/flavors/everforest-light/theme.toml;
+  xdg.configFile."yazi/flavors/everforest-dark/theme.toml".source = ./files/.config/yazi/flavors/everforest-dark/theme.toml;
+  xdg.configFile.".fzf.zsh".source = ./files/.config/.fzf.zsh;
 
   # Session variables
   home.sessionVariables = {
@@ -239,22 +157,6 @@
     source = ./files/pdf-to-text.sh;
     executable = true;
   };
-  home.file.".local/bin/theme-defaults" = {
-    source = ./files/.local/bin/theme-defaults;
-    executable = true;
-  };
-  home.file.".local/bin/theme-hook" = {
-    source = ./files/.local/bin/theme-hook;
-    executable = true;
-  };
-  home.file.".local/bin/theme-sync-macos" = {
-    source = ./files/.local/bin/theme-sync-macos;
-    executable = true;
-  };
-  home.file.".zshrc".source = ./files/.zshrc;
-  home.file.".zshenv".source = ./files/.zshenv;
-  home.file.".zprofile".source = ./files/.zprofile;
-
   # Home Manager state version (update when upgrading home-manager)
   home.stateVersion = "25.05";
 }

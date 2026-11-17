@@ -158,6 +158,20 @@
       source = ./files/.config/kitty/kittens/url_select.py;
       executable = true;
     };
+    # zsh config (plugins come from nixpkgs, see below)
+    "zsh/aliases.zsh".source = ./files/.config/zsh/aliases.zsh;
+    "zsh/helper_fns.sh".source = ./files/.config/zsh/helper_fns.sh;
+    "zsh/prompt.zsh".source = ./files/.config/zsh/prompt.zsh;
+    "zsh/linux/.zshenv".source = ./files/.config/zsh/linux/.zshenv;
+    "zsh/macos/.zshenv".source = ./files/.config/zsh/macos/.zshenv;
+    "zsh/macos/.zshrc".source = ./files/.config/zsh/macos/.zshrc;
+    "zsh/macos/reset_macos_dock.sh" = {
+      source = ./files/.config/zsh/macos/reset_macos_dock.sh;
+      executable = true;
+    };
+    # zsh plugins from nixpkgs (not vendored)
+    "zsh/plugins/zsh-autosuggestions".source = pkgs.zsh-autosuggestions;
+    "zsh/plugins/zsh-syntax-highlighting".source = pkgs.zsh-syntax-highlighting;
   } // lib.mkIf pkgs.stdenv.hostPlatform.isLinux {
     "darkman/config.ini".text = ''
       [General]
@@ -235,7 +249,7 @@
 
   # Program configs (migrated from stow to home-manager)
   # Sources live in files/ which mirrors $HOME (files/.config/... -> ~/.config/...).
-  # zsh/nvim/claude/opencode still stow-managed.
+  # nvim/claude/opencode still stow-managed.
   home.file.".ideavimrc".source = ./files/.ideavimrc;
   home.file.".rgignore".source = ./files/.rgignore;
   home.file."pdf-to-text.sh" = {
@@ -254,6 +268,9 @@
     source = ./files/.local/bin/theme-sync-macos;
     executable = true;
   };
+  home.file.".zshrc".source = ./files/.zshrc;
+  home.file.".zshenv".source = ./files/.zshenv;
+  home.file.".zprofile".source = ./files/.zprofile;
 
   # Home Manager state version (update when upgrading home-manager)
   home.stateVersion = "25.05";

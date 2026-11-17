@@ -28,19 +28,19 @@ If this is the first run and Nix was just installed, start a new shell and run `
 
 ## Layout
 
-Each top-level directory is a Stow package: `claude`, `nvim`, `opencode`, `zsh`; fonts come from `nerd-fonts.*` packages in `home.nix` (`home.packages`). The `bat`, `btop`, `eza`, `fastfetch`, `fzf`, `idea`, `k9s`, `ripgrep`, `tinty`, `yazi` configs plus `bin`, `hypr`, `foot`, `kitty` are not stowed — they live in `files/` (which mirrors `$HOME`: `files/.config/...` -> `~/.config/...`) and are symlinked by home-manager via `home.nix` (`xdg.configFile`/`home.file`).
+Each top-level directory is a Stow package: `claude`, `nvim`, `opencode`; fonts come from `nerd-fonts.*` packages in `home.nix` (`home.packages`). The `bat`, `btop`, `eza`, `fastfetch`, `fzf`, `idea`, `k9s`, `ripgrep`, `tinty`, `yazi` configs plus `bin`, `hypr`, `foot`, `kitty`, `zsh` are not stowed — they live in `files/` (which mirrors `$HOME`: `files/.config/...` -> `~/.config/...`) and are symlinked by home-manager via `home.nix` (`xdg.configFile`/`home.file`).
 
 - `files/` — tree mirroring `$HOME`, symlinked into place by home-manager (`home.file`/`xdg.configFile` in `home.nix`)
-- `bin/`, `hypr/`, `foot/`, `kitty/` are kept only as stow-package copies so manual `stow -D -t "$HOME" bin claude hypr` works after migration; do NOT edit them — edit `files/` instead (home.nix reads `files/`).
+- `bin/`, `hypr/`, `foot/`, `kitty/`, `zsh/` are kept only as stow-package copies for manual unstow; `claude/` is a live stow package. Edit `files/` for nix-managed configs (home.nix reads `files/`).
 
-`setup.sh` stows a package only when its command is installed (`nvim`, `zsh`), and always stows `claude`, `opencode` when present.
+`setup.sh` stows a package only when its command is installed (`nvim`), and always stows `claude`, `opencode` when present.
 
 ## Managing dotfiles
 
 ```bash
 ./symlink_all.sh --dry-run                 # preview
 ./symlink_all.sh                           # stow all existing default dirs
-./symlink_all.sh --dirs "nvim zsh kitty"   # stow a subset
+./symlink_all.sh --dirs "nvim claude"       # stow a subset
 ./unstow-all.sh                     # remove stow links for all nix-managed pkgs (run BEFORE pulling updates that delete old package dirs)
 ```
 

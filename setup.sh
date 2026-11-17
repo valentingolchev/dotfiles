@@ -145,9 +145,8 @@ step4_stow_dotfiles() {
   }
 
   # Package → dotfile directory mappings
-  # bat btop eza fastfetch idea k9s ripgrep fzf yazi tinty bin hypr foot kitty managed via home.nix
+  # bat btop eza fastfetch idea k9s ripgrep fzf yazi tinty bin hypr foot kitty zsh managed via home.nix
   check_pkg "nvim" "nvim"
-  check_pkg "zsh" "zsh"
 
   # fonts: not stowed — Hack Nerd Font installed via nerd-fonts.hack in home.nix (home.packages)
 

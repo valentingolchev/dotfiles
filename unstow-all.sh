@@ -12,7 +12,7 @@ set -u
 STOW_DIR="$(cd "$(dirname "$0")" && pwd)"
 
 # packages migrated to home.nix (must match symlink_all.sh comment)
-PACKAGES="bat btop eza fastfetch idea k9s ripgrep fzf yazi tinty fonts bin hypr foot kitty"
+PACKAGES="bat btop eza fastfetch idea k9s ripgrep fzf yazi tinty fonts bin hypr foot kitty zsh"
 
 for pkg in $PACKAGES; do
   if command -v stow >/dev/null 2>&1 && [ -d "$STOW_DIR/$pkg" ]; then

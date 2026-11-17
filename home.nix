@@ -1,6 +1,8 @@
 { config, pkgs, lib, username, ... }:
 
 {
+  imports = [ ./modules/hyprland.nix ];
+
   # Home Manager needs a username and home directory
   home.username = username;
   home.homeDirectory = if pkgs.stdenv.hostPlatform.isDarwin then "/Users/${username}" else "/home/${username}";
@@ -112,12 +114,6 @@
     # Documentation
     tldr
     whois
-
-    # Hyprland (if needed, uncomment)
-    # hyprland
-    # waybar
-    # wofi
-    # mako
   ]
 
   ++ lib.optionals pkgs.stdenv.hostPlatform.isDarwin [
@@ -147,7 +143,6 @@
     "yazi/flavors/everforest-dark/theme.toml".source = ./files/.config/yazi/flavors/everforest-dark/theme.toml;
     "tinted-theming/tinty/config.toml".source = ./files/.config/tinted-theming/tinty/config.toml;
     ".fzf.zsh".source = ./files/.config/.fzf.zsh;
-    "hypr/hyprland.conf".source = ./files/.config/hypr/hyprland.conf;
     "foot/foot.ini".source = ./files/.config/foot/foot.ini;
     "kitty/kitty.conf".source = ./files/.config/kitty/kitty.conf;
     "kitty/keybinds.conf".source = ./files/.config/kitty/keybinds.conf;

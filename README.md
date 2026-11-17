@@ -44,6 +44,7 @@ Each Stow package lives under `stow/`: `stow/claude`, `stow/nvim`, `stow/opencod
 ./symlink_all.sh                           # stow all existing default dirs
 ./symlink_all.sh --dirs "nvim claude"       # stow a subset
 ./unstow-all.sh                     # remove stow links for all nix-managed pkgs (run BEFORE pulling updates that delete old package dirs)
+./update.sh                         # nix flake update + home-manager switch (update nixpkgs/home-manager and re-apply)
 ```
 
 Conflicts are backed up automatically: `setup.sh` uses a `.backup-YYYYMMDD` suffix, `symlink_all.sh` moves files to `~/.dotfiles-backup/<timestamp>`.

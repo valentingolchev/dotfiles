@@ -1,0 +1,11 @@
+{
+	"at_prompt": false,
+	"id": 15,
+	"in_alternate_screen": false,
+	"is_active": true,
+	"is_focused": true,
+	"is_self": true,
+	"last_cmd_exit_status": 0,
+	"last_reported_cmdline": "",
+	"title": "kitty"
+}

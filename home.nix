@@ -78,6 +78,11 @@
     # Version manager
     mise
 
+    # Nerd Fonts (Linux + macOS)
+    nerd-fonts.hack
+    nerd-fonts.fira-mono
+    nerd-fonts.jetbrains-mono
+
     # Kubernetes
     k9s
 
@@ -116,16 +121,14 @@
   ]
 
   ++ lib.optionals pkgs.stdenv.hostPlatform.isDarwin [
-    # Nerd Fonts
-    nerd-fonts.hack
-    nerd-fonts.fira-mono
-    nerd-fonts.jetbrains-mono
-
     # macOS tools
     ruby
 
     #containers
   ];
+
+  # Fontconfig picks up ~/.nix-profile fonts on Linux
+  fonts.fontconfig.enable = pkgs.stdenv.hostPlatform.isLinux;
 
   # Darkman: dark/light scheduler on Linux only (drives tinty directly via
   # dark-mode.d/light-mode.d/50-theme hooks + GTK/Qt via XDG portal).

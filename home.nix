@@ -148,6 +148,16 @@
     "tinted-theming/tinty/config.toml".source = ./files/.config/tinted-theming/tinty/config.toml;
     ".fzf.zsh".source = ./files/.config/.fzf.zsh;
     "hypr/hyprland.conf".source = ./files/.config/hypr/hyprland.conf;
+    "foot/foot.ini".source = ./files/.config/foot/foot.ini;
+    "kitty/kitty.conf".source = ./files/.config/kitty/kitty.conf;
+    "kitty/keybinds.conf".source = ./files/.config/kitty/keybinds.conf;
+    "kitty/kittens/get_layout.py".source = ./files/.config/kitty/kittens/get_layout.py;
+    "kitty/kittens/pass_keys.py".source = ./files/.config/kitty/kittens/pass_keys.py;
+    "kitty/kittens/test.json".source = ./files/.config/kitty/kittens/test.json;
+    "kitty/kittens/url_select.py" = {
+      source = ./files/.config/kitty/kittens/url_select.py;
+      executable = true;
+    };
   } // lib.mkIf pkgs.stdenv.hostPlatform.isLinux {
     "darkman/config.ini".text = ''
       [General]
@@ -157,7 +167,9 @@
     '';
   };
 
-  xdg.dataFile = lib.mkIf pkgs.stdenv.hostPlatform.isLinux {
+  xdg.dataFile = {
+    "applications/foot.desktop".source = ./files/.local/share/applications/foot.desktop;
+  } // lib.mkIf pkgs.stdenv.hostPlatform.isLinux {
     "dark-mode.d/50-theme" = {
       text = ''
         #!/bin/sh
@@ -223,12 +235,9 @@
 
   # Program configs (migrated from stow to home-manager)
   # Sources live in files/ which mirrors $HOME (files/.config/... -> ~/.config/...).
-  # zsh/nvim/kitty/foot/opencode still stow-managed.
+  # zsh/nvim/claude/opencode still stow-managed.
   home.file.".ideavimrc".source = ./files/.ideavimrc;
   home.file.".rgignore".source = ./files/.rgignore;
-  home.file.".claude/VERSION".source = ./files/.claude/VERSION;
-  home.file.".claude/agents/refactor.md".source = ./files/.claude/agents/refactor.md;
-  home.file.".claude/skills/caveman/SKILL.md".source = ./files/.claude/skills/caveman/SKILL.md;
   home.file."pdf-to-text.sh" = {
     source = ./files/pdf-to-text.sh;
     executable = true;

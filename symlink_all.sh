@@ -3,7 +3,8 @@ set -e
 
 SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
 # bat btop eza fastfetch idea k9s ripgrep fzf yazi tinty -> managed by home.nix (home.nix xdg.configFile/home.file)
-DEFAULT_DIRS=(bin claude fonts foot hypr kitty llm_sandbox nvim opencode zsh)
+# fonts -> nerd-fonts.hack package in home.nix home.packages
+DEFAULT_DIRS=(bin claude foot hypr kitty llm_sandbox nvim opencode zsh)
 DRY_RUN=false
 VERBOSE=false
 DIRS=()

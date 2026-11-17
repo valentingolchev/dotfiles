@@ -152,13 +152,7 @@ step4_stow_dotfiles() {
   check_pkg "zsh" "zsh"
   check_pkg "hyprland" "hypr"  # dir is 'hypr', cmd is 'hyprland'
 
-  # Fonts (check for fontconfig)
-  if command -v fc-list >/dev/null 2>&1 && [ -d "fonts" ]; then
-    stow_dirs+=("fonts")
-    echo -e "  ${GREEN}✓${NC} fonts (found: fontconfig)"
-  else
-    echo -e "  ${YELLOW}·${NC} fonts (skipped: fontconfig not found)"
-  fi
+  # fonts: not stowed — Hack Nerd Font installed via nerd-fonts.hack in home.nix (home.packages)
 
   # Always stow (no package check needed)
   for dir in claude opencode bin; do

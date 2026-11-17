@@ -28,11 +28,11 @@ If this is the first run and Nix was just installed, start a new shell and run `
 
 ## Layout
 
-Each top-level directory is a Stow package: `bin`, `claude`, `fonts`, `foot`, `hypr`, `kitty`, `nvim`, `opencode`, `zsh`. The `bat`, `btop`, `eza`, `fastfetch`, `fzf`, `idea`, `k9s`, `ripgrep`, `tinty`, `yazi` configs are not stowed — they live in `files/` (which mirrors `$HOME`: `files/.config/...` -> `~/.config/...`) and are symlinked by home-manager via `home.nix` (`xdg.configFile`/`home.file`).
+Each top-level directory is a Stow package: `bin`, `claude`, `foot`, `hypr`, `kitty`, `nvim`, `opencode`, `zsh`; fonts come from `nerd-fonts.*` packages in `home.nix` (`home.packages`). The `bat`, `btop`, `eza`, `fastfetch`, `fzf`, `idea`, `k9s`, `ripgrep`, `tinty`, `yazi` configs are not stowed — they live in `files/` (which mirrors `$HOME`: `files/.config/...` -> `~/.config/...`) and are symlinked by home-manager via `home.nix` (`xdg.configFile`/`home.file`).
 
 - `files/` — tree mirroring `$HOME`, symlinked into place by home-manager (`home.file`/`xdg.configFile` in `home.nix`)
 
-`setup.sh` stows a package only when its command is installed (`nvim`, `kitty`, `foot`, `zsh`, `hyprland`), plus `fonts` when `fc-list` exists, and always stows `claude`, `opencode`, `bin` when present.
+`setup.sh` stows a package only when its command is installed (`nvim`, `kitty`, `foot`, `zsh`, `hyprland`), and always stows `claude`, `opencode`, `bin` when present.
 
 ## Managing dotfiles
 

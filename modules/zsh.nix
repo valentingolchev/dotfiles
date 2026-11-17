@@ -20,7 +20,8 @@
   # plugins from nixpkgs (not vendored); nixpkgs puts them under
   # $out/share/zsh/plugins/<name>/, so link that subdir as the plugin dir
   xdg.configFile."zsh/plugins/zsh-autosuggestions".source = "${pkgs.zsh-autosuggestions}/share/zsh/plugins/zsh-autosuggestions";
-  xdg.configFile."zsh/plugins/zsh-syntax-highlighting".source = "${pkgs.zsh-syntax-highlighting}/share/zsh/plugins/zsh-syntax-highlighting";
+  # zsh-syntax-highlighting installs to $out/share/zsh-syntax-highlighting (not share/zsh/plugins/...)
+  xdg.configFile."zsh/plugins/zsh-syntax-highlighting".source = "${pkgs.zsh-syntax-highlighting}/share/zsh-syntax-highlighting";
 
   home.file.".zshrc".source = ../files/.zshrc;
   home.file.".zshenv".source = ../files/.zshenv;

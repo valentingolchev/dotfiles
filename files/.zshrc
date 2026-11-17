@@ -18,9 +18,9 @@ if command -v zsh >/dev/null 2>&1; then
   autoload -Uz compinit && compinit 2>/dev/null || true
 fi
 
-# Setup ZSH plugins
-source $ZSH_PLUGINS_PATH/zsh-autosuggestions/zsh-autosuggestions.zsh
-source $ZSH_PLUGINS_PATH/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+# Setup ZSH plugins (linked from nixpkgs into $ZSH_PLUGINS_PATH by home-manager)
+[[ -s "$ZSH_PLUGINS_PATH/zsh-autosuggestions/zsh-autosuggestions.zsh" ]] && source "$ZSH_PLUGINS_PATH/zsh-autosuggestions/zsh-autosuggestions.zsh"
+[[ -s "$ZSH_PLUGINS_PATH/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh" ]] && source "$ZSH_PLUGINS_PATH/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
 
 # setup NVM
 export NVM_DIR="$HOME/.nvm"

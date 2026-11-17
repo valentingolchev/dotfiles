@@ -2,6 +2,7 @@
 set -e
 
 SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
+STOW_DIR="$SCRIPT_DIR/stow"
 # bat btop eza fastfetch idea k9s ripgrep fzf yazi tinty bin hypr foot kitty zsh -> managed by home.nix via files/
 # fonts -> nerd-fonts.hack package in home.nix home.packages
 DEFAULT_DIRS=(claude nvim opencode)
@@ -44,7 +45,7 @@ backup_conflicts() {
   local dir="$1"
   local conflicts
 
-  conflicts=$(stow -n --no-folding -t "$HOME" "$dir" 2>&1 | awk '/^\s*existing target/ { print $NF }')
+  conflicts=$(stow -n --no-folding -d "$STOW_DIR" -t "$HOME" "$dir" 2>&1 | awk '/^\s*existing target/ { print $NF }')
   if [ -z "$conflicts" ]; then
     return 0
   fi
@@ -92,9 +93,9 @@ if [ ${#DIRS[@]} -eq 0 ]; then
   DIRS=("${DEFAULT_DIRS[@]}")
 fi
 
-stow_args=("--no-folding" "-t" "$HOME")
+stow_args=("--restow" "--no-folding" "-d" "$STOW_DIR" "-t" "$HOME")
 if $DRY_RUN; then
-  stow_args=("-n" "--no-folding" "-t" "$HOME")
+  stow_args=("-n" "--no-folding" "-d" "$STOW_DIR" "-t" "$HOME")
 fi
 
 log "Stowing dirs: ${DIRS[*]}"
@@ -102,9 +103,8 @@ if $DRY_RUN; then
   log "Dry run enabled"
 fi
 
-cd "$SCRIPT_DIR"
 for dir in "${DIRS[@]}"; do
-  if [ -d "$dir" ]; then
+  if [ -d "$STOW_DIR/$dir" ]; then
     if ! $DRY_RUN; then
       backup_conflicts "$dir"
     fi

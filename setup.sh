@@ -4,6 +4,7 @@
 set -euo pipefail
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+STOW_DIR="$SCRIPT_DIR/stow"
 cd "$SCRIPT_DIR"
 
 # Colors
@@ -135,7 +136,7 @@ step4_stow_dotfiles() {
     local pkg="$1"
     local dir="$2"
     if command -v "$pkg" >/dev/null 2>&1; then
-      if [ -d "$dir" ]; then
+      if [ -d "$STOW_DIR/$dir" ]; then
         stow_dirs+=("$dir")
         echo -e "  ${GREEN}✓${NC} $dir (found: $pkg)"
       fi
@@ -152,7 +153,7 @@ step4_stow_dotfiles() {
 
   # Always stow (no package check needed)
   for dir in claude opencode; do
-    if [ -d "$dir" ]; then
+    if [ -d "$STOW_DIR/$dir" ]; then
       stow_dirs+=("$dir")
       echo -e "  ${GREEN}✓${NC} $dir"
     fi
@@ -188,7 +189,7 @@ step4_stow_dotfiles() {
           # It's a directory - only back up clashing files inside, not the entire folder
           # Find corresponding dotfiles directory
           local rel_path="${target#"$HOME"/}"
-          local dotfiles_dir="$SCRIPT_DIR/$dir/$rel_path"
+          local dotfiles_dir="$STOW_DIR/$dir/$rel_path"
           if [ -d "$dotfiles_dir" ]; then
             # Check each file in dotfiles dir for conflicts in target
             while IFS= read -r -d '' dotfile; do
@@ -214,7 +215,7 @@ step4_stow_dotfiles() {
   fi
 
   # Stow all directories (--no-folding: only symlink files, not directories)
-  if ! stow --no-folding -t "$HOME" "${stow_dirs[@]}"; then
+  if ! stow --no-folding -d "$STOW_DIR" -t "$HOME" "${stow_dirs[@]}"; then
     log_err "Stow failed"
     return 1
   fi

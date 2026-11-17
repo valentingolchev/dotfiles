@@ -1,7 +1,7 @@
 { config, pkgs, lib, username, ... }:
 
 {
-  imports = [ ./modules/hyprland.nix ];
+  imports = [ ./modules/hyprland.nix ./modules/kitty.nix ];
 
   # Home Manager needs a username and home directory
   home.username = username;
@@ -70,9 +70,6 @@
     # Editor — nightly build via neovim-nightly-overlay (flake.nix)
     neovim
     tree-sitter # CLI required by nvim-treesitter to build parsers (erlang/elixir/zsh)
-
-    # Terminal
-    kitty
 
     # Theming
     tinty
@@ -144,19 +141,6 @@
     "tinted-theming/tinty/config.toml".source = ./files/.config/tinted-theming/tinty/config.toml;
     ".fzf.zsh".source = ./files/.config/.fzf.zsh;
     "foot/foot.ini".source = ./files/.config/foot/foot.ini;
-    "kitty/kitty.conf".source = ./files/.config/kitty/kitty.conf;
-    "kitty/keybinds.conf".source = ./files/.config/kitty/keybinds.conf;
-    "kitty/kittens/get_layout.py".source = ./files/.config/kitty/kittens/get_layout.py;
-    "kitty/kittens/pass_keys.py".source = ./files/.config/kitty/kittens/pass_keys.py;
-    "kitty/kittens/test.json".source = ./files/.config/kitty/kittens/test.json;
-    "kitty/kittens/url_select.py" = {
-      source = ./files/.config/kitty/kittens/url_select.py;
-      executable = true;
-    };
-    # per-OS kitty listen socket (replaces scripts/setup_kitty.sh; listen-channel.conf wins over kitty.conf)
-    "kitty/listen-channel.conf".text =
-      if pkgs.stdenv.hostPlatform.isDarwin then "listen_on unix:/tmp/mykitty\n"
-      else "listen_on unix:@mykitty\n";
     # zsh config (plugins come from nixpkgs, see below)
     "zsh/aliases.zsh".source = ./files/.config/zsh/aliases.zsh;
     "zsh/helper_fns.sh".source = ./files/.config/zsh/helper_fns.sh;

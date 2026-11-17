@@ -31,7 +31,7 @@ If this is the first run and Nix was just installed, start a new shell and run `
 Each Stow package lives under `stow/`: `stow/claude`, `stow/nvim`, `stow/opencode` (stow dir: `<repo>/stow`); fonts come from `nerd-fonts.*` packages in `home.nix` (`home.packages`). The `bat`, `btop`, `eza`, `fastfetch`, `fzf`, `idea`, `k9s`, `ripgrep`, `tinty`, `yazi` configs plus `bin`, `hypr`, `foot`, `kitty`, `zsh` are not stowed — they live in `files/` (which mirrors `$HOME`: `files/.config/...` -> `~/.config/...`) and are symlinked by home-manager via `home.nix` (`xdg.configFile`/`home.file`).
 
 - `files/` — tree mirroring `$HOME`, symlinked into place by home-manager (`home.file`/`xdg.configFile` in `home.nix`)
-- `modules/` — home-manager modules split out of `home.nix` (e.g. `modules/hyprland.nix`, applied only when hyprland is installed on the machine)
+- `modules/` — home-manager modules split out of `home.nix` (e.g. `modules/hyprland.nix` — only when hyprland installed, `modules/kitty.nix`)
 - Only `stow/claude/`, `stow/nvim/`, `stow/opencode/` remain as stow packages. Everything else nix-managed lives in `files/`; on another machine run `./unstow-all.sh` before pulling (it sweeps stow links even if package dirs are gone). After pulling the move, re-run `./symlink_all.sh` (uses `--restow`) to re-point links that dangle at the old root.
 
 `setup.sh` stows a package only when its command is installed (`nvim`), and always stows `claude`, `opencode` when present.

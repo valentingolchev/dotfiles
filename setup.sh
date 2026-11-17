@@ -48,6 +48,43 @@ step1_install_nix() {
 }
 
 # ============================================================================
+# Step 1b: System nix.conf — flakes + trusted-users (restricted settings are
+# only honored from /etc/nix/nix.conf, so ~/.config/nix/nix.conf alone is not
+# enough for substituters/auto-optimise-store)
+# ============================================================================
+step1b_system_nix_conf() {
+  log_info "Step 1b/6: /etc/nix/nix.conf (flakes, trusted-users)"
+
+  local conf=/etc/nix/nix.conf
+  sudo mkdir -p /etc/nix
+  sudo touch "$conf"
+
+  if ! sudo grep -qE '^\s*experimental-features' "$conf"; then
+    echo 'experimental-features = nix-command flakes' | sudo tee -a "$conf" >/dev/null
+    log_ok "added experimental-features = nix-command flakes"
+  else
+    log_ok "experimental-features already set"
+  fi
+
+  local cur
+  cur=$(sudo grep -E '^\s*trusted-users' "$conf" | head -1 | sed -E 's/^\s*trusted-users\s*=\s*//; s/[][]//g' || true)
+  if echo " $cur " | grep -qw "$USER"; then
+    log_ok "$USER already trusted"
+  elif [ -n "$cur" ]; then
+    sudo sed -i -E "s/^\s*trusted-users\s*=.*/trusted-users = $cur $USER/" "$conf"
+    log_ok "added $USER to trusted-users"
+  else
+    echo "trusted-users = root $USER" | sudo tee -a "$conf" >/dev/null
+    log_ok "set trusted-users = root $USER"
+  fi
+
+  if systemctl is-active --quiet nix-daemon 2>/dev/null; then
+    sudo systemctl restart nix-daemon
+    log_ok "restarted nix-daemon"
+  fi
+}
+
+# ============================================================================
 # Step 2: Install home-manager
 # ============================================================================
 step2_install_home_manager() {
@@ -233,6 +270,9 @@ main() {
   step1_install_nix
   echo ""
 
+  step1b_system_nix_conf
+  echo ""
+
   step2_install_home_manager
   echo ""
 
@@ -253,8 +293,9 @@ if [ "${1:-}" = "--help" ] || [ "${1:-}" = "-h" ]; then
   cat <<'EOF'
 Usage: ./setup.sh
 
-Sets up dotfiles in 5 steps (each step checks if needed):
+Sets up dotfiles in 6 steps (each step checks if needed):
   1. Install Nix (if not installed)
+  1b. /etc/nix/nix.conf: experimental-features flakes + trusted-users (sudo)
   2. Check home-manager (bootstrapped in step 3 if needed)
   3. Install packages via home-manager (home.nix)
   4. Fix shell symlink (Nix zsh → /usr/bin/zsh)

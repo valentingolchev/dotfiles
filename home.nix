@@ -147,6 +147,7 @@
     "yazi/flavors/everforest-dark/theme.toml".source = ./files/.config/yazi/flavors/everforest-dark/theme.toml;
     "tinted-theming/tinty/config.toml".source = ./files/.config/tinted-theming/tinty/config.toml;
     ".fzf.zsh".source = ./files/.config/.fzf.zsh;
+    "hypr/hyprland.conf".source = ./files/.config/hypr/hyprland.conf;
   } // lib.mkIf pkgs.stdenv.hostPlatform.isLinux {
     "darkman/config.ini".text = ''
       [General]
@@ -222,9 +223,28 @@
 
   # Program configs (migrated from stow to home-manager)
   # Sources live in files/ which mirrors $HOME (files/.config/... -> ~/.config/...).
-  # zsh/nvim/kitty/foot/hypr/claude/bin/opencode still stow-managed.
+  # zsh/nvim/kitty/foot/opencode still stow-managed.
   home.file.".ideavimrc".source = ./files/.ideavimrc;
   home.file.".rgignore".source = ./files/.rgignore;
+  home.file.".claude/VERSION".source = ./files/.claude/VERSION;
+  home.file.".claude/agents/refactor.md".source = ./files/.claude/agents/refactor.md;
+  home.file.".claude/skills/caveman/SKILL.md".source = ./files/.claude/skills/caveman/SKILL.md;
+  home.file."pdf-to-text.sh" = {
+    source = ./files/pdf-to-text.sh;
+    executable = true;
+  };
+  home.file.".local/bin/theme-defaults" = {
+    source = ./files/.local/bin/theme-defaults;
+    executable = true;
+  };
+  home.file.".local/bin/theme-hook" = {
+    source = ./files/.local/bin/theme-hook;
+    executable = true;
+  };
+  home.file.".local/bin/theme-sync-macos" = {
+    source = ./files/.local/bin/theme-sync-macos;
+    executable = true;
+  };
 
   # Home Manager state version (update when upgrading home-manager)
   home.stateVersion = "25.05";

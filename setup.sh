@@ -145,17 +145,16 @@ step4_stow_dotfiles() {
   }
 
   # Package → dotfile directory mappings
-  # bat btop eza fastfetch idea k9s ripgrep fzf yazi tinty managed via home.nix
+  # bat btop eza fastfetch idea k9s ripgrep fzf yazi tinty bin claude hypr managed via home.nix
   check_pkg "nvim" "nvim"
   check_pkg "kitty" "kitty"
   check_pkg "foot" "foot"
   check_pkg "zsh" "zsh"
-  check_pkg "hyprland" "hypr"  # dir is 'hypr', cmd is 'hyprland'
 
   # fonts: not stowed — Hack Nerd Font installed via nerd-fonts.hack in home.nix (home.packages)
 
   # Always stow (no package check needed)
-  for dir in claude opencode bin; do
+  for dir in opencode; do
     if [ -d "$dir" ]; then
       stow_dirs+=("$dir")
       echo -e "  ${GREEN}✓${NC} $dir"

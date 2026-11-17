@@ -222,7 +222,7 @@
 
   # Program configs (migrated from stow to home-manager)
   # Sources live in files/ which mirrors $HOME (files/.config/... -> ~/.config/...).
-  # zsh/nvim/kitty/foot/hypr/claude/bin/fonts/opencode still stow-managed.
+  # zsh/nvim/kitty/foot/hypr/claude/bin/opencode still stow-managed.
   home.file.".ideavimrc".source = ./files/.ideavimrc;
   home.file.".rgignore".source = ./files/.rgignore;
 

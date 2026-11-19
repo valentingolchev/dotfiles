@@ -2,12 +2,12 @@
 
 {
   imports = [
-    ./modules/hyprland.nix
-    ./modules/kitty.nix
-    ./modules/foot.nix
-    ./modules/theming.nix
-    ./modules/darkman.nix
-    ./modules/zsh.nix
+    ./modules/hyprland
+    ./modules/kitty
+    ./modules/foot
+    ./modules/theming
+    ./modules/darkman
+    ./modules/zsh
   ];
 
   # Home Manager needs a username and home directory
@@ -32,7 +32,9 @@
       experimental-features = [ "nix-command" "flakes" ];
       auto-optimise-store = true;
       warn-dirty = false;
-      flake-registry = "${pkgs.nix}/share/nix/flake-registry.json";
+      # default registry (github:NixOS/flake-registry) — the nix-bundled
+      # flake-registry.json has no 'nixpkgs' entry
+      flake-registry = "https://github.com/NixOS/flake-registry/raw/master/flake-registry.json";
       substituters = [
         "https://nix-community.cachix.org"
         "https://cache.nixos.org"
@@ -71,6 +73,7 @@
     # Base tools (always needed)
     git
     stow
+    nix-ld
 
     # Core CLI tools
     bat
@@ -134,20 +137,23 @@
   fonts.fontconfig.enable = pkgs.stdenv.hostPlatform.isLinux;
 
   # dotted-attr form (attrset-literal + // mkIf gets dropped by the module merge)
-  xdg.configFile."bat/config".source = ./files/.config/bat/config;
-  xdg.configFile."btop/btop.conf".source = ./files/.config/btop/btop.conf;
-  xdg.configFile."eza/theme.yaml".source = ./files/.config/eza/theme.yaml;
-  xdg.configFile."fastfetch/config.jsonc".source = ./files/.config/fastfetch/config.jsonc;
-  xdg.configFile."k9s/config.yml".source = ./files/.config/k9s/config.yml;
-  xdg.configFile."yazi/theme.toml".source = ./files/.config/yazi/theme.toml;
-  xdg.configFile."yazi/flavors/everforest-light/theme.toml".source = ./files/.config/yazi/flavors/everforest-light/theme.toml;
-  xdg.configFile."yazi/flavors/everforest-dark/theme.toml".source = ./files/.config/yazi/flavors/everforest-dark/theme.toml;
-  xdg.configFile.".fzf.zsh".source = ./files/.config/.fzf.zsh;
+  xdg.configFile."bat/config".source = ./files/config/bat/config;
+  xdg.configFile."btop/btop.conf".source = ./files/config/btop/btop.conf;
+  xdg.configFile."eza/theme.yaml".source = ./files/config/eza/theme.yaml;
+  xdg.configFile."fastfetch/config.jsonc".source = ./files/config/fastfetch/config.jsonc;
+  xdg.configFile."k9s/config.yml".source = ./files/config/k9s/config.yml;
+  xdg.configFile."yazi/theme.toml".source = ./files/config/yazi/theme.toml;
+  xdg.configFile."yazi/flavors/everforest-light/theme.toml".source = ./files/config/yazi/flavors/everforest-light/theme.toml;
+  xdg.configFile."yazi/flavors/everforest-dark/theme.toml".source = ./files/config/yazi/flavors/everforest-dark/theme.toml;
+  xdg.configFile.".fzf.zsh".source = ./files/config/.fzf.zsh;
 
   # Session variables
   home.sessionVariables = {
     EDITOR = "nvim";
     VISUAL = "nvim";
+    # nix-ld: let nix-built binaries (kitty) dlopen system libs (/lib64) on non-NixOS
+    NIX_LD = if builtins.pathExists "${pkgs.nix-ld}/libexec/nix-ld" then "${pkgs.nix-ld}/libexec/nix-ld" else "${pkgs.nix-ld}/bin/nix-ld";
+    NIX_LD_LIBRARY_PATH = "/lib64:/usr/lib64";
     # mmdc/mermaid rendering: puppeteer resolves this per device (no hardcoded path in dotfiles)
     PUPPETEER_EXECUTABLE_PATH = "${pkgs.chromium}/bin/chromium";
   };
@@ -160,8 +166,23 @@
     "$HOME/go/bin"
   ];
 
+  # GNOME/systemd graphical session does not source shell profiles, so
+  # home.sessionPath alone never reaches it (session PATH was just
+  # /usr/local/bin:/usr/bin). Set PATH via systemd environment.d instead.
+  systemd.user.sessionVariables.PATH =
+    "${config.home.homeDirectory}/.nix-profile/bin:${config.home.homeDirectory}/.local/bin:${config.home.homeDirectory}/.cargo/bin:${config.home.homeDirectory}/go/bin:/usr/local/bin:/usr/bin";
+
+  # nix profile also carries icons (kitty/foot) + desktop files — make GNOME
+  # icon/desktop lookup see them
+  systemd.user.sessionVariables.XDG_DATA_DIRS =
+    "${config.home.homeDirectory}/.nix-profile/share:/usr/local/share:/usr/share";
+
+  # nix-ld must also be visible in the graphical (systemd) session
+  systemd.user.sessionVariables.NIX_LD = if builtins.pathExists "${pkgs.nix-ld}/libexec/nix-ld" then "${pkgs.nix-ld}/libexec/nix-ld" else "${pkgs.nix-ld}/bin/nix-ld";
+  systemd.user.sessionVariables.NIX_LD_LIBRARY_PATH = "/lib64:/usr/lib64";
+
   # Program configs (migrated from stow to home-manager)
-  # Sources live in files/ which mirrors $HOME (files/.config/... -> ~/.config/...).
+  # Sources live in files/ which mirrors $HOME (files/config/... -> ~/.config/...).
   # nvim/claude/opencode still stow-managed.
   home.file.".ideavimrc".source = ./files/.ideavimrc;
   home.file.".rgignore".source = ./files/.rgignore;

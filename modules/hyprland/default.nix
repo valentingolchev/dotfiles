@@ -18,5 +18,5 @@ lib.mkIf hyprlandInstalled {
     mako
   ];
 
-  xdg.configFile."hypr/hyprland.conf".source = ../files/.config/hypr/hyprland.conf;
+  xdg.configFile."hypr/hyprland.conf".source = ./config/hypr/hyprland.conf;
 }

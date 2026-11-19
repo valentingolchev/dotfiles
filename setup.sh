@@ -124,6 +124,9 @@ step3_install_packages() {
     fi
   fi
 
+  # drop cached binary paths so later steps resolve the new profile
+  hash -r 2>/dev/null || true
+
   log_ok "Packages installed"
 }
 

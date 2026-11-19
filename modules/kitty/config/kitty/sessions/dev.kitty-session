@@ -1,0 +1,8 @@
+# dev session: tall layout, big window (70%) left, two half-height windows (30%) right
+new_tab dev
+enabled_layouts tall,stack
+layout tall:bias=70
+launch --title=nvim nvim
+launch --title=term
+launch --title=llm agent-sandbox
+focus_matching_window title:nvim
